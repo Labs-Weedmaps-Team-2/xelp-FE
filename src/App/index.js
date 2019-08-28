@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Route, Switch } from 'react-router-dom'
 import CSSReset from 'styles/cssReset'
 import { black, bg } from 'styles'
+import Navbar from 'components/Navbar'
 const Home = lazy(() => import('pages/Home'))
 const Profile = lazy(() => import('pages/Profile'))
 
@@ -10,7 +11,7 @@ const App = () => {
   return (
     <Container>
       <CSSReset />
-      <nav>NavBar</nav>
+      <Navbar />
       <Suspense fallback={null}>
         <Switch>
           <Route exact path='/' component={Home} />

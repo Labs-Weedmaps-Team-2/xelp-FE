@@ -12,26 +12,28 @@ const Profile = props => {
     const { name, value } = e.target
     setProfile({ ...profile, [name]: value })
   }
+
   return (
     <Container>
-      <div className='user-details'>
-        <div className='user-avatar'>
+      <div className='profile-details'>
+        <div className='details-left'>
           <img
-            className='user-image'
+            className='profile-image'
             src='https://robohash.org/nesciunteaiusto.png?size=300x300&set=set1'
             alt='avatar'
           />
         </div>
-        <div className='username-wrapper'>
+        <div className='details-right'>
           <p className='username'>Cesar</p>
-          <a className='edit-photo' href='#'>
-            Change Profile Photo
-          </a>
+          <label htmlFor='edit-photo'>Change Profile Photo</label>
+          <input id='edit-photo' type='file' />
         </div>
       </div>
-      <form onSubmit={() => {}}>
-        <div>
-          <label htmlFor='username'>Username</label>
+      <form className='profile-form' onSubmit={() => {}}>
+        <div className='input-wrapper'>
+          <label className='input-label' htmlFor='username'>
+            Username
+          </label>
           <input
             id='username'
             type='text'
@@ -40,8 +42,10 @@ const Profile = props => {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor='email'>Email</label>
+        <div className='input-wrapper'>
+          <label className='input-label' htmlFor='email'>
+            Email
+          </label>
           <input
             id='email'
             type='email'
@@ -50,7 +54,9 @@ const Profile = props => {
             onChange={handleChange}
           />
         </div>
-        <buttom type='submit'>Submit</buttom>
+        <button className='btn-submit' type='submit'>
+          Submit
+        </button>
       </form>
     </Container>
   )
@@ -61,28 +67,37 @@ Profile.propTypes = {}
 export default Profile
 
 const Container = styled.div`
+  border: 1px solid red;
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
   padding: 20px;
-  .user-details {
+  .profile-details {
+    border: 1px solid blue;
     display: flex;
   }
-  .user-avatar {
+
+  .details-left {
+    border: 1px solid green;
     width: 50px;
     height: 50px;
+
+    .profile-image {
+      width: 100%;
+      border-radius: 50%;
+      border: 1px solid red;
+    }
   }
-  .user-image {
-    width: 100%;
-    border-radius: 50%;
-    border: 1px solid red;
-  }
-  .username-wrapper {
+
+  .details-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-left: 20px;
     .username {
       margin-bottom: 5px;
     }
-    .edit-photo {
+    #edit-photo {
+      display: none;
     }
   }
 `
