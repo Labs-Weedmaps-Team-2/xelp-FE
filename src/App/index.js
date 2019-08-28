@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import CSSReset from 'styles/cssReset'
 import { black, bg } from 'styles'
 import Navbar from 'components/Navbar'
+import Footer from 'components/Footer'
 const Home = lazy(() => import('pages/Home'))
 const Profile = lazy(() => import('pages/Profile'))
 
@@ -18,6 +19,7 @@ const App = () => {
           <Route path='/profile' component={Profile} />
         </Switch>
       </Suspense>
+      <Footer />
     </Container>
   )
 }

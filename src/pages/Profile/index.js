@@ -25,7 +25,9 @@ const Profile = props => {
         </div>
         <div className='details-right'>
           <p className='username'>Cesar</p>
-          <label htmlFor='edit-photo'>Change Profile Photo</label>
+          <label className='edit-photo-label' htmlFor='edit-photo'>
+            Change Profile Photo
+          </label>
           <input id='edit-photo' type='file' />
         </div>
       </div>
@@ -70,10 +72,11 @@ const Container = styled.div`
   border: 1px solid red;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
   .profile-details {
     border: 1px solid blue;
     display: flex;
+    margin-bottom: 10px;
   }
 
   .details-left {
@@ -92,9 +95,16 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 20px;
+    padding-left: 10px;
+
     .username {
       margin-bottom: 5px;
+    }
+
+    .edit-photo-label {
+      font-size: 1.4rem;
+      color: #3897f0;
+      font-weight: bold;
     }
     #edit-photo {
       display: none;
