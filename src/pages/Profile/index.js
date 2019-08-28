@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
+import { btnBg } from 'styles'
 import PropTypes from 'prop-types'
+
+const url = 'http://localhost:3000/api/v1/users/1'
 
 const Profile = props => {
   const [profile, setProfile] = useState({
     username: 'cesar',
     email: 'cmejia@gmail.com',
   })
+
+  useEffect(() => {
+    axios.get(url).then(res => {
+      console.log(res.data)
+    })
+  }, [])
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -33,9 +43,7 @@ const Profile = props => {
       </div>
       <form className='profile-form' onSubmit={() => {}}>
         <div className='input-wrapper'>
-          <label className='input-label' htmlFor='username'>
-            Username
-          </label>
+          <label htmlFor='username'>Username</label>
           <input
             id='username'
             type='text'
@@ -45,9 +53,7 @@ const Profile = props => {
           />
         </div>
         <div className='input-wrapper'>
-          <label className='input-label' htmlFor='email'>
-            Email
-          </label>
+          <label htmlFor='email'>Email</label>
           <input
             id='email'
             type='email'
@@ -56,9 +62,7 @@ const Profile = props => {
             onChange={handleChange}
           />
         </div>
-        <button className='btn-submit' type='submit'>
-          Submit
-        </button>
+        <button type='submit'>Submit</button>
       </form>
     </Container>
   )
@@ -69,25 +73,27 @@ Profile.propTypes = {}
 export default Profile
 
 const Container = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 15px;
+
+  /* PROFILE-DETAILS */
   .profile-details {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     display: flex;
-    margin-bottom: 10px;
+    margin: 0px 0px 20px;
   }
 
   .details-left {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     width: 50px;
     height: 50px;
 
     .profile-image {
+      /* border: 1px solid red; */
       width: 100%;
       border-radius: 50%;
-      border: 1px solid red;
     }
   }
 
@@ -98,7 +104,7 @@ const Container = styled.div`
     padding-left: 10px;
 
     .username {
-      margin-bottom: 5px;
+      margin: 0px 0px 5px;
     }
 
     .edit-photo-label {
@@ -106,8 +112,48 @@ const Container = styled.div`
       color: #3897f0;
       font-weight: bold;
     }
+
     #edit-photo {
       display: none;
+    }
+  }
+
+  /* PROFILE-FORM */
+  .profile-form {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      margin: 0px 0px 10px;
+
+      label {
+        margin: 0px 0px 8px;
+        font-size: 1.6rem;
+        font-weight: bold;
+      }
+
+      input {
+        font-size: 1.6rem;
+        padding: 0px 10px;
+        border: 1px solid #efefef;
+        border-radius: 3px;
+        height: 32px;
+      }
+    }
+
+    button {
+      border-radius: 4px;
+      color: #ffffff;
+      background-color: ${btnBg};
+      padding: 5px 9px;
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+      width: 70px;
+      align-self: center;
+      margin: 10px 0px;
     }
   }
 `
