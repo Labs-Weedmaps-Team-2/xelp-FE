@@ -1,68 +1,94 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# RoRX Lab - Xelp
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Overview](#Overview)
+- [Team](#Team)
+- [Setup](#Setup)
+- [Tech](#Tech)
+- [Testing](#Testing)
+- [API](#API)
+- [Planning](#Planning)
+- [Contributing](#Contributing)
 
-### `npm start`
+<br/>
+<br/>
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Overview
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+[PROJECT SUMMARY] <br/><br/>
+<strong>Front-end Deployment: [FRONTEND_URL]<br/>
+Back-end Deployment: [BACKEND_URL] <br/>
+Wireframe: [WIREFRAME_URL] </strong>
 
-### `npm test`
+## Key Features
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Feature 1]
 
-### `npm run build`
+<br/>
+<br/>
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Team
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+|                                      [Alvin Frierson](https://github.com/ajfrierson)                                      |                                        [Holly Giang](https://github.com/holly-g)                                         |                                     [Luis Martinez](https://github.com/luiscmartinez)                                     |                                        [Cesar Mejia](https://github.com/cesarnml)                                         |                                                                   [Brad Mortenson](https://github.com/brad-mortenson)                                                                   |                                      [Tylar Pierson](https://github.com/tylarpierson)                                      |
+| :-----------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars2.githubusercontent.com/u/44757584?s=400&v=4" width = "250" />](https://github.com/ajfrierson)  |  [<img src="https://avatars1.githubusercontent.com/u/26711083?s=400&v=4" width = "250" />](https://github.com/holly-g)   | [<img src="https://avatars3.githubusercontent.com/u/36746854?s=400&v=4" width="250" />](https://github.com/luiscmartinez) |   [<img src="https://avatars0.githubusercontent.com/u/26180499?s=460&v=4" width="250" />](https://github.com/cesarnml)    | [<img src="https://avatars1.githubusercontent.com/u/40773193?s=400&v=4https://avatars1.githubusercontent.com/u/40773193?s=400&v=4" width = "250" />](https://github.com/brad-mortenson) | [<img src="https://avatars1.githubusercontent.com/u/22663533?s=400&v=4" width = "250" />](https://github.com/tylarpierson) |
+|                  [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/ajfrierson)                  |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/holly-g)                   |                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/luiscmartinez)                 |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/cesarnml)                   |                                               [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/brad-mortenson)                                               |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tylarpierson)                  |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cesarnml/) | [<img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cesarnml/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cesarnml/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cesarnml/) |                                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cesarnml/)                                | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cesarnml/)  |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
+<br>
 
-### `npm run eject`
+# Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### For Frontend:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br/>
+<br/>
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### For Backend:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br/>
+<br/>
 
-## Learn More
+# Tech
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Frontend built using:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### React
 
-### Code Splitting
+### React Hooks
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### Redux
 
-### Analyzing the Bundle Size
+### Styled-Components
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Netlify
 
-### Making a Progressive Web App
+### Third Party Packages
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## Backend built using:
 
-### Advanced Configuration
+### Ruby on Rails
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### PostgreSQL
 
-### Deployment
+<br/>
+<br/>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+# Testing
 
-### `npm run build` fails to minify
+<br/>
+<br/>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+# API
+
+<br/>
+<br/>
+
+# Product Vision Document
+
+<br/>
+<br/>
+
+# Contributing
