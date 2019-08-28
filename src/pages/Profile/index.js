@@ -4,7 +4,7 @@ import axios from 'axios'
 import { btnBg } from 'styles'
 import PropTypes from 'prop-types'
 
-const url = 'http://localhost:3000/api/v1/users/1'
+const url = 'http://localhost:3000/api/v1'
 
 const Profile = props => {
   const [profile, setProfile] = useState({
@@ -13,14 +13,22 @@ const Profile = props => {
   })
 
   useEffect(() => {
-    axios.get(url).then(res => {
-      console.log(res.data)
-    })
+    axios
+      .get(`${url}/users/1`)
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => console.log(err))
   }, [])
 
   const handleChange = e => {
     const { name, value } = e.target
     setProfile({ ...profile, [name]: value })
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    axios.post(`${url}`, profile)
   }
 
   return (
@@ -41,7 +49,7 @@ const Profile = props => {
           <input id='edit-photo' type='file' />
         </div>
       </div>
-      <form className='profile-form' onSubmit={() => {}}>
+      <form className='profile-form' onSubmit={handleSubmit}>
         <div className='input-wrapper'>
           <label htmlFor='username'>Username</label>
           <input
