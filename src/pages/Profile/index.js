@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import { btnBg } from 'styles'
-import PropTypes from 'prop-types'
 
 const url = 'http://localhost:3000/api/v1'
 
 const Profile = props => {
   const [profile, setProfile] = useState({
-    username: 'cesar',
-    email: 'cmejia@gmail.com',
+    username: '',
+    email: '',
+    photo: '',
   })
 
   useEffect(() => {
     axios
       .get(`${url}/users/1`)
       .then(res => {
-        console.log(res.data)
+        setProfile(res.data)
       })
       .catch(err => console.log(err))
   }, [])
@@ -28,18 +28,14 @@ const Profile = props => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    axios.post(`${url}`, profile)
+    axios.put(`${url}/1`, profile)
   }
 
   return (
     <Container>
       <div className='profile-details'>
         <div className='details-left'>
-          <img
-            className='profile-image'
-            src='https://robohash.org/nesciunteaiusto.png?size=300x300&set=set1'
-            alt='avatar'
-          />
+          <img className='profile-image' src={profile.photo} alt='avatar' />
         </div>
         <div className='details-right'>
           <p className='username'>Cesar</p>
@@ -75,8 +71,6 @@ const Profile = props => {
     </Container>
   )
 }
-
-Profile.propTypes = {}
 
 export default Profile
 
