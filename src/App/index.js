@@ -4,20 +4,30 @@ import { Route, Switch } from 'react-router-dom'
 
 import CSSReset from '../styles/cssReset'
 const Home = lazy(() => import('../pages/Home'))
+const Profile = lazy(() => import('../pages/Profile'))
 
 const App = () => {
   return (
-    <div>
+    <Container>
       <CSSReset />
-      <nav>App</nav>
+      <nav>NavBar</nav>
       <Suspense fallback={null}>
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/profile' component={Profile} />
         </Switch>
       </Suspense>
-    </div>
+    </Container>
   )
 }
 
 export default App
+
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+  color: #141619;
+  background-color: #e6ecf0;
+  min-height: 100vh;
+  height: 100%;
+`
