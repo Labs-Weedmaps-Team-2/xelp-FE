@@ -1,14 +1,16 @@
 import React from 'react'
 import SearchBar from './SearchBar'
-import Map from './Map'
+import MapComponent from './MapComponent'
 
 const Home = () => {
   return (
     <div>
       <SearchBar />
-      <Map />
+      <MapComponent />
     </div>
   )
 }
 
 export default Home
+
+

@@ -6,6 +6,8 @@ import CSSReset from '../styles/cssReset'
 const Home = lazy(() => import('../pages/Home'))
 const Profile = lazy(() => import('../pages/Profile'))
 
+
+
 const App = () => {
   return (
     <Container>
