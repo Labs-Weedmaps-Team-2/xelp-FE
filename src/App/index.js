@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import CSSReset from '../styles/cssReset'
 const Home = lazy(() => import('../pages/Home'))
 const Profile = lazy(() => import('../pages/Profile'))
+const Business = lazy(() => import('../pages/Business'))
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/profile' component={Profile} />
+          <Route path='/business' component={Business}/>
         </Switch>
       </Suspense>
     </Container>
