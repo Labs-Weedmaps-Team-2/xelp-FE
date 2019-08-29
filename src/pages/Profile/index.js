@@ -7,7 +7,9 @@ const Profile = props => {
   const [profile, setProfile] = useState({
     username: '',
     email: '',
-    photo: '',
+    photo: {
+      url: '',
+    },
   })
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const Profile = props => {
 
   return (
     <Container>
-      <ProfileDetails username={profile.username} photo={profile.photo} />
+      <ProfileDetails username={profile.username} photo={profile.photo.url} />
       <ProfileForm />
     </Container>
   )
@@ -30,8 +32,10 @@ const Profile = props => {
 export default Profile
 
 const Container = styled.div`
-  /* border: 1px solid red; */
+  border: 1px solid red;
   display: flex;
   flex-direction: column;
   padding: 15px;
+  margin: 0 auto;
+  max-width: 400px;
 `

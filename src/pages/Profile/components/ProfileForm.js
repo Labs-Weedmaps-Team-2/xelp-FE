@@ -85,7 +85,6 @@ const StyledProfileForm = styled.form`
       border: 1px solid #efefef;
       border-radius: 3px;
       height: 32px;
-      width: 270px;
     }
   }
 
