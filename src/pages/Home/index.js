@@ -1,6 +1,5 @@
 import React from 'react'
-import SearchBar from './SearchBar'
-import MapComponent from './MapComponent'
+import {MapComponent, SearchBar} from './components'
 
 const Home = () => {
   return (
