@@ -1,11 +1,12 @@
 import React, { lazy, Suspense } from 'react'
 import styled from 'styled-components'
 import { Route, Switch } from 'react-router-dom'
-import CSSReset from 'styles/cssReset'
+import CSSReset from '../styles/cssReset'
 import { black, bg } from 'styles'
 import { Navbar, Footer } from 'components'
-const Home = lazy(() => import('pages/Home'))
-const Profile = lazy(() => import('pages/Profile'))
+const Home = lazy(() => import('../pages/Home'))
+const Profile = lazy(() => import('../pages/Profile'))
+const Business = lazy(() => import('../pages/Business'))
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/profile' component={Profile} />
+          <Route path='/business' component={Business}/>
         </Switch>
       </Suspense>
       <Footer />
