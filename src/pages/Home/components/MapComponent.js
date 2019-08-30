@@ -1,6 +1,6 @@
 import React from 'react'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
-import { usePosition } from '../../../hooks'
+import { usePosition } from 'hooks'
 const positions = [
   { lat: 39.7384, lng: -105.0521 },
   { lat: 39.7487, lng: -105.0518 },
