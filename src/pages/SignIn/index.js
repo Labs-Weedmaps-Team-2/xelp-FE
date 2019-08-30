@@ -1,13 +1,14 @@
 import React from 'react'
-
+import styled from 'styled-components'
+import createSignInButtons from './createButtons.js'
 const SignIn = () => {
-  return (
-    <div>
-      <div>Sign in with Facebook</div>
-      <div>Sign in with Google</div>
-      <div>Sign in with Github</div>
-    </div>
-  )
+  return <SignInWrapper>{createSignInButtons}</SignInWrapper>
 }
 
 export default SignIn
+
+const SignInWrapper = styled.div`
+  button {
+    padding: 1rem 1.5rem;
+  }
+`
