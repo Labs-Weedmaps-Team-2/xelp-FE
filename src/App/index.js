@@ -9,6 +9,7 @@ import { Navbar, Footer } from 'components'
 const Home = lazy(() => import('pages/Home'))
 const Profile = lazy(() => import('pages/Profile'))
 const SignIn = lazy(() => import('pages/SignIn'))
+const Business = lazy(() => import('pages/Business'))
 
 const App = () => {
   const dispatch = useDispatch()
@@ -26,6 +27,7 @@ const App = () => {
           <Route exact path='/' component={Home} />
           <Route path='/profile' component={Profile} />
           <Route path='/sign-in' component={SignIn} />
+          <Route path='/business' component={Business}/>
         </Switch>
       </Suspense>
       <Footer />
