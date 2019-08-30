@@ -1,3 +1,5 @@
+// Custom Hook to lock viewport scroll (e.g. prevent scrolling on modal popup)
+
 import { useLayoutEffect } from 'react'
 
 const useLockBodyScroll = () => {

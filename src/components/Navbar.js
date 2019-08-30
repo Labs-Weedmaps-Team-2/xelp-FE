@@ -16,7 +16,6 @@ const StyledNav = styled.nav`
   align-items: center;
   justify-content: center;
   height: 80px;
-
   h1 {
     font-size: 1.8rem;
   }

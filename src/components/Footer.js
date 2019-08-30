@@ -16,7 +16,6 @@ const StyledFooter = styled.footer`
   align-items: center;
   justify-content: center;
   height: 80px;
-
   h2 {
     font-size: 1.8rem;
   }
