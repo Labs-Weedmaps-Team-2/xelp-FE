@@ -3,9 +3,9 @@ import React from 'react'
 const SignIn = () => {
   return (
     <div>
-      <div>SignIn with Facebook</div>
-      <div>SignIn with Google</div>
-      <div>SignIn with Github</div>
+      <div>Sign in with Facebook</div>
+      <div>Sign in with Google</div>
+      <div>Sign in with Github</div>
     </div>
   )
 }
