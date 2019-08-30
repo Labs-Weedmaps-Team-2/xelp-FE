@@ -18,8 +18,6 @@ export default (function SignInButtons(authProviders, url) {
           ? 'google_oauth2'
           : provider.name.toLowerCase()
       }`}
-      target='_blank'
-      rel='noopener noreferrer'
     >
       <button>{`Sign in with ${provider.name}`}</button>
       <img src={provider.logo} alt={`${provider.name} sign in`} />
