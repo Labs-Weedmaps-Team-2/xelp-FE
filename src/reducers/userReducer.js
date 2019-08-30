@@ -7,8 +7,10 @@ const initialState = {
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.USER_SUCCESS:
+    case types.FETCH_USER_SUCCESS:
       return action.payload
+    case types.EDIT_USER_SUCCESS:
+      return { ...state, ...action.payload }
     default:
       return state
   }
