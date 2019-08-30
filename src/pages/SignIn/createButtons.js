@@ -1,21 +1,28 @@
 import React from 'react'
+import GoogleSvg from 'assets/svg/google.svg'
+import FacebookSvg from 'assets/svg/facebook.svg'
+import GithubSvg from 'assets/svg/github.svg'
+import { authUrl } from 'config'
 
-const authProviders = ['Google', 'Facebook', 'Github']
-// switch this out later to be dynamic depending on ENV
-const url = 'https://xelp-development.herokuapp.com'
+const authProviders = [
+  { name: 'Google', logo: GoogleSvg },
+  { name: 'Facebook', logo: FacebookSvg },
+  { name: 'Github', logo: GithubSvg },
+]
 
-export default (function createSignInButtons(authProviders, url) {
+export default (function SignInButtons(authProviders, url) {
   return authProviders.map(provider => (
     <a
-      href={`${url}/auth/${
-        provider.toLowerCase() === 'google'
+      href={`${url}/${
+        provider.name.toLowerCase() === 'google'
           ? 'google_oauth2'
-          : provider.toLowerCase()
+          : provider.name.toLowerCase()
       }`}
       target='_blank'
       rel='noopener noreferrer'
     >
-      <button>{`Sign in with ${provider}`}</button>
+      <button>{`Sign in with ${provider.name}`}</button>
+      <img src={provider.logo} alt={`${provider.name} sign in`} />
     </a>
   ))
-})(authProviders, url)
+})(authProviders, authUrl)

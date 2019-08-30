@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import SignIn from 'pages/SignIn'
 
 const Navbar = () => {
   return (
     <StyledNav>
-      <SignIn />
+      <Link to='/sign-in'>Sign In</Link>
     </StyledNav>
   )
 }
