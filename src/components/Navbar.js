@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import SignIn from 'pages/SignIn'
 
 const Navbar = () => {
   return (
     <StyledNav>
-      <h1>NavBar</h1>
+      <SignIn />
     </StyledNav>
   )
 }
