@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
   return (
     <StyledNav>
+      <Link to='/'>Home</Link>
       <Link to='/sign-in'>Sign In</Link>
       <Link to='/profile'>Profile</Link>
     </StyledNav>
