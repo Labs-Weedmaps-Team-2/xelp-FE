@@ -1,12 +1,11 @@
 import React, { lazy, Suspense } from 'react'
 import styled from 'styled-components'
 import { Route, Switch } from 'react-router-dom'
-import CSSReset from '../styles/cssReset'
+import CSSReset from 'styles/cssReset'
 import { black, bg } from 'styles'
-import Navbar from 'components/Navbar'
-import Footer from 'components/Footer'
-const Home = lazy(() => import('../pages/Home'))
-const Profile = lazy(() => import('../pages/Profile'))
+import { Navbar, Footer } from 'components'
+const Home = lazy(() => import('pages/Home'))
+const Profile = lazy(() => import('pages/Profile'))
 
 const App = () => {
   return (
