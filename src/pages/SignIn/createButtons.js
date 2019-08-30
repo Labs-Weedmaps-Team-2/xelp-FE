@@ -13,6 +13,7 @@ const authProviders = [
 export default (function SignInButtons(authProviders, url) {
   return authProviders.map(provider => (
     <a
+      key={provider.name}
       href={`${url}/${
         provider.name.toLowerCase() === 'google'
           ? 'google_oauth2'
