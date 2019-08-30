@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { editUser } from 'actions'
 import styled from 'styled-components'
 import { btnBg } from 'styles'
-import axios from 'api/axiosApi'
 
 const ProfileForm = props => {
-  const [profile, setProfile] = useState({
-    username: '',
-    email: '',
-    photo: '',
-  })
+  const { id, username, email, photo } = props
+  const dispatch = useDispatch()
+  const [profile, setProfile] = useState({ username, email, photo })
 
   useEffect(() => {
-    axios
-      .get(`/users/1`)
-      .then(res => {
-        setProfile({ ...res.data })
-      })
-      .catch(err => console.log(err))
-  }, [])
+    setProfile({
+      username,
+      email,
+      photo,
+    })
+  }, [username, email, photo])
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -26,12 +24,7 @@ const ProfileForm = props => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    axios
-      .put(`/users/1`, profile)
-      .then(res => {
-        setProfile({ ...res.data })
-      })
-      .catch(err => console.log(err))
+    dispatch(editUser(id, profile))
   }
 
   return (

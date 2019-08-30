@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const ProfileDetails = props => {
+const ProfileAvatar = props => {
   return (
-    <StyledProfileDetails>
+    <StyledProfileAvatar>
       <div className='details-left'>
         <img className='profile-image' src={props.photo} alt='avatar' />
       </div>
@@ -14,14 +14,13 @@ const ProfileDetails = props => {
         </label>
         <input id='edit-photo-input' type='file' />
       </div>
-    </StyledProfileDetails>
+    </StyledProfileAvatar>
   )
 }
 
-export default ProfileDetails
+export default ProfileAvatar
 
-/* PROFILE-DETAILS */
-const StyledProfileDetails = styled.div`
+const StyledProfileAvatar = styled.div`
   /* border: 1px solid blue; */
   display: flex;
   margin: 0px 0px 20px;

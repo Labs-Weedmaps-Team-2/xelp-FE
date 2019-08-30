@@ -6,6 +6,7 @@ const Navbar = () => {
   return (
     <StyledNav>
       <Link to='/sign-in'>Sign In</Link>
+      <Link to='/profile'>Profile</Link>
     </StyledNav>
   )
 }
@@ -17,7 +18,8 @@ const StyledNav = styled.nav`
   align-items: center;
   justify-content: center;
   height: 80px;
-  h1 {
+  a {
     font-size: 1.8rem;
+    margin-left: 2rem;
   }
 `

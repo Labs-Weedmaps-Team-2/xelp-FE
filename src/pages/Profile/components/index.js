@@ -1,4 +1,4 @@
-import ProfileDetails from './ProfileDetails'
+import ProfileAvatar from './ProfileAvatar'
 import ProfileForm from './ProfileForm'
 
-export { ProfileDetails, ProfileForm }
+export { ProfileAvatar, ProfileForm }
