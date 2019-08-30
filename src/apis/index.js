@@ -5,7 +5,4 @@ import { apiUrl, serverUrl } from 'config'
 export const api = axios.create({
   baseURL: apiUrl,
   withCredentials: true,
-  headers: {
-    'Access-Control-Allow-Origin': serverUrl,
-  },
 })
