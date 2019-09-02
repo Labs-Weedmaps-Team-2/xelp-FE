@@ -3,6 +3,7 @@ const initialState = {
   username: '',
   email: '',
   photo: '',
+  avatarUrl: '',
 }
 
 export const userReducer = (state = initialState, action) => {

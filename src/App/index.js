@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react'
+import React, { lazy, Suspense, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 import { Route, Switch } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -11,15 +11,18 @@ const Profile = lazy(() => import('pages/Profile'))
 const SignIn = lazy(() => import('pages/SignIn'))
 const Business = lazy(() => import('pages/Business'))
 
-
-
 const App = () => {
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(fetchUser())
-  }, [])
+  const fetchUserCB = useCallback(() => {
+    return dispatch(fetchUser())
+  }, [dispatch])
 
+  useEffect(() => {
+    fetchUserCB()
+  }, [fetchUserCB])
+
+  console.log('rending App')
   return (
     <Container>
       <CSSReset />
@@ -29,7 +32,7 @@ const App = () => {
           <Route exact path='/' component={Home} />
           <Route path='/profile' component={Profile} />
           <Route path='/sign-in' component={SignIn} />
-          <Route path='/business' component={Business}/>
+          <Route path='/business' component={Business} />
         </Switch>
       </Suspense>
       <Footer />

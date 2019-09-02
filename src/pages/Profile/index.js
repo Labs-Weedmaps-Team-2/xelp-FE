@@ -4,9 +4,10 @@ import styled from 'styled-components'
 
 import { ProfileAvatar, ProfileForm } from './components'
 
-const Profile = props => {
+const Profile = () => {
   const user = useSelector(state => state.user)
 
+  console.log('Rendering Profile', user)
   return (
     <Container>
       <ProfileAvatar {...user} />
