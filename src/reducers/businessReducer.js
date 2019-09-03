@@ -1,8 +1,13 @@
 import * as types from 'actions/types'
+
+// businesses => Array of businesses
+// total => Total number of businesses in query (integer)
+// region => center : {longitude, latitude}
+
 const initialState = {
-  username: '',
-  email: '',
-  photo: '',
+  businesses: [],
+  total: '',
+  region: {},
 }
 
 export const businessReducer = (state = initialState, action) => {

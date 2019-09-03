@@ -1,15 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <StyledFooter>
       <h2>Footer</h2>
     </StyledFooter>
   )
 }
-
-export default Footer
 
 const StyledFooter = styled.footer`
   display: flex;

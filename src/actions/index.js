@@ -1,7 +1,6 @@
 // Redux action creators
 import * as types from './types'
 import { api } from 'apis'
-import axios from 'axios'
 
 export const fetchUser = () => async dispatch => {
   dispatch({ type: types.FETCH_USER_REQUEST })
@@ -28,14 +27,21 @@ export const editUser = (id, profile) => async dispatch => {
 export const fetchBusinesses = (location, term, offset) => async dispatch => {
   dispatch({ type: types.FETCH_BUSINESS_REQUEST })
   try {
-    const res = await axios.get(
-      `http://localhost:3000/api/v1/search?location=${location}&term=${term}s&offset=${offset}`
+    const res = await api.get(
+      `/search?location=${location}&term=${term}s&offset=${offset}`
     )
-    console.log('HELLO')
-    const businesses = JSON.parse(res.data.data)
-    dispatch({ type: types.FETCH_BUSINESS_SUCCESS, payload: businesses })
+    console.log('DATA', res.data)
+    dispatch({
+      type: types.FETCH_BUSINESS_SUCCESS,
+      payload: res.data,
+    })
   } catch (err) {
     console.error(err)
     dispatch({ type: types.FETCH_BUSINESS_FAILURE })
   }
+}
+
+export const setSearch = (term, location) => {
+  const search = { term, location }
+  return { type: types.SET_SEARCH, payload: search }
 }
