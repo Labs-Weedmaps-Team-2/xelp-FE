@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBusiness } from 'actions'
 import { renderRating } from 'utils'
-import { SearchBar, SignIn } from 'containers'
+import { SearchBar, Map } from 'containers'
 import { Logo } from 'components'
 import { POPULATE_SINGLE } from 'actions/types'
 import useRouter from 'hooks/useRouter'
-import { MapComponent } from 'pages/Home/components'
 
 const BusinessList = () => {
   const dispatch = useDispatch()
@@ -17,11 +16,12 @@ const BusinessList = () => {
     search,
     business,
   ])
+
   const { businesses } = business
 
   useEffect(() => {
     dispatch(fetchBusiness(search.location, search.term, 0))
-  }, [search.location, search.term])
+  }, [])
   // const businesses = useSelector(({ businesses }) => ({ businesses }))
   const handleClick = business => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
@@ -83,7 +83,7 @@ const BusinessList = () => {
             </li>
           ))}
         </StyledBusinessList>
-        <MapComponent />
+        <Map />
       </Container>
     </Wrapper>
   )
@@ -119,7 +119,6 @@ const Container = styled.div`
   margin: 20px auto 30px;
   max-width: 1020px;
   width: 1020px;
-  height: 100%;
   display: flex;
   position: relative;
   justify-content: flex-start;

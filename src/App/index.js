@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react'
+import React, { lazy, Suspense, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 import { Route, Switch } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -14,10 +14,13 @@ const BusinessList = lazy(() => import('pages/BusinessList'))
 
 const App = () => {
   const dispatch = useDispatch()
+  const fetchUserCB = useCallback(() => {
+    dispatch(fetchUser())
+  }, [dispatch])
 
   useEffect(() => {
-    dispatch(fetchUser())
-  }, [])
+    fetchUserCB()
+  }, [fetchUserCB])
 
   return (
     <Container>
