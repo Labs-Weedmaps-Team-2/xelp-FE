@@ -8,6 +8,7 @@ const Navbar = () => {
       <Link to='/'>Home</Link>
       <Link to='/sign-in'>Sign In</Link>
       <Link to='/profile'>Profile</Link>
+      <Link to='/business-list'>BusinessList</Link>
     </StyledNav>
   )
 }

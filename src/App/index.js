@@ -10,8 +10,7 @@ const Home = lazy(() => import('pages/Home'))
 const Profile = lazy(() => import('pages/Profile'))
 const SignIn = lazy(() => import('pages/SignIn'))
 const Business = lazy(() => import('pages/Business'))
-
-
+const BusinessList = lazy(() => import('pages/BusinessList'))
 
 const App = () => {
   const dispatch = useDispatch()
@@ -29,7 +28,8 @@ const App = () => {
           <Route exact path='/' component={Home} />
           <Route path='/profile' component={Profile} />
           <Route path='/sign-in' component={SignIn} />
-          <Route path='/business' component={Business}/>
+          <Route path='/business' component={Business} />
+          <Route path='/business-list' component={BusinessList} />
         </Switch>
       </Suspense>
       <Footer />
