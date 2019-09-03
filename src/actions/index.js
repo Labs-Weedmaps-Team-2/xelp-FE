@@ -52,6 +52,7 @@ export const fetchBusinessDetails = yelp_id => async dispatch => {
     console.log(yelp_id)
     const res = await api.get(`/search/${yelp_id}`)
     dispatch({ type: types.FETCH_SINGLE_BUSSINESS_SUCCESS, payload: res.data })
+
     dispatch({ type: types.FETCH_BUSSINESS_REVIEWS_REQUEST })
     const review_res = await api.get(`/business/reviews/${yelp_id}`)
     console.log(review_res.data)
