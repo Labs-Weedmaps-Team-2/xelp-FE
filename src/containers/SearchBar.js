@@ -16,6 +16,7 @@ export const SearchBar = () => {
     location: search.location,
   }))
 
+  console.log('rendering')
   return (
     <Form
       onSubmit={e => {

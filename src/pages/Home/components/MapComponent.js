@@ -8,16 +8,9 @@ const MapComponent = props => {
   const positions = business.businesses.map(business => business.coordinates)
   console.log('BUSINESS', business)
   console.log('POSITIONS', positions)
-  console.log(
-    business.region &&
-      business.region.center &&
-      business.region.center.latitude,
-    business.region &&
-      business.region.center &&
-      business.region.center.longitude
-  )
+
   return (
-    <div style={{ width: '100%', height: '550px' }}>
+    <div style={{ height: '550px' }}>
       {business && business.region.center && business.region.center.latitude ? (
         <Map
           google={props.google}
@@ -34,9 +27,16 @@ const MapComponent = props => {
         >
           {positions.map(position => (
             <Marker
-              position={position}
+              style={{ border: '1px solid red' }}
+              position={{ lat: position.latitude, lng: position.longitude }}
               key={`${position.latitude}+${position.longitude}`}
-              text={<div>Here</div>}
+              name='Your position'
+              icon={{
+                url:
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIIK18JIYJFPTqF6qNZpyUEkTTglR1AcIU_-kX8-MPuSqoBpPZ',
+                anchor: new props.google.maps.Point(32, 32),
+                scaledSize: new props.google.maps.Size(64, 64),
+              }}
             />
           ))}
         </Map>

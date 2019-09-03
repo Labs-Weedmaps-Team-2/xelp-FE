@@ -30,7 +30,6 @@ export const fetchBusiness = (term, location, offset = 0) => async dispatch => {
     const res = await api.get(
       `/search?location=${location}&term=${term}s&offset=${offset}`
     )
-    console.log('DATA', res.data)
     dispatch({
       type: types.FETCH_BUSINESS_SUCCESS,
       payload: res.data,

@@ -3,3 +3,4 @@
 
 export * from './SearchBar'
 export * from './SignIn'
+export * from './Map'
