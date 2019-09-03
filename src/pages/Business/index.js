@@ -25,7 +25,7 @@ const Business = () => {
               return (
                 <div key={review.id}>
                   <span>
-                    {(review.user && review.user.name) || review.user_id}
+                    {(review.user && review.user.name) || review.user.username}
                   </span>
                   <p>{review.text}</p>
                 </div>
