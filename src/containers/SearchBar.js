@@ -16,13 +16,8 @@ export const SearchBar = () => {
     location: search.location,
   }))
 
-  const handleClick = e => {
-    const { id } = e.target
-  }
-
   return (
     <Form
-      onClick={handleClick}
       onSubmit={e => {
         e.preventDefault()
         dispatch(fetchBusiness(term, location))

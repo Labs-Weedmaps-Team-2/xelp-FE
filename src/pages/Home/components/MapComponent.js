@@ -17,12 +17,16 @@ const MapComponent = props => {
       business.region.center.longitude
   )
   return (
-    <div>
+    <div style={{ width: '100%', height: '550px' }}>
       {business && business.region.center && business.region.center.latitude ? (
         <Map
           google={props.google}
           zoom={15}
-          style={{ width: '600px', height: '550px' }}
+          style={{
+            width: '680px',
+            height: '500px',
+            border: '1px solid #e6e6e6',
+          }}
           initialCenter={{
             lat: business.region.center.latitude,
             lng: business.region.center.longitude,

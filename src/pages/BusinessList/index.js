@@ -7,6 +7,7 @@ import { renderRating } from 'utils'
 import { SearchBar, SignIn } from 'containers'
 import { Logo } from 'components'
 import { MapComponent } from 'pages/Home/components'
+
 const BusinessList = () => {
   const dispatch = useDispatch()
   const [search, business] = useSelector(({ search, business }) => [
@@ -21,7 +22,7 @@ const BusinessList = () => {
   // const businesses = useSelector(({ businesses }) => ({ businesses }))
 
   return (
-    <>
+    <Wrapper>
       <Nav>
         <div className='search-container'>
           <Logo />
@@ -30,10 +31,11 @@ const BusinessList = () => {
       </Nav>
       <Container>
         <StyledBusinessList>
+          <h1>All Results</h1>
           {businesses.map((business, i) => (
             <li className='list-item' key={business.id}>
               <div className='image-wrapper'>
-                <Link to='#'>
+                <Link to={`/${business.id}`}>
                   <img
                     className='image'
                     src={business.image_url}
@@ -41,33 +43,77 @@ const BusinessList = () => {
                   />
                 </Link>
               </div>
+              <div className='item-details'>
+                <h2 className='name'>
+                  <span className='number'>{`${i + 1}.`} </span>
+                  <Link to={`/${business.id}`}>{business.name}</Link>
+                </h2>
+                <div className='stats-wrapper'>
+                  <div className='rating'>{renderRating(business.rating)}</div>
+                  <span className='reviews'>
+                    {business.review_count} reviews
+                  </span>
+                </div>
+                <div className='category-wrapper'>
+                  {business.price && [
+                    <span key='1' className='price'>
+                      {business.price}
+                    </span>,
+                    <span key='2' className='dot'>
+                      {' '}
+                      &middot;
+                    </span>,
+                  ]}
+                  <span className='categories'>
+                    {business.categories
+                      .map(category => category.title)
+                      .join(', ')}
+                  </span>
+                </div>
+              </div>
             </li>
           ))}
         </StyledBusinessList>
         <MapComponent />
       </Container>
-    </>
+    </Wrapper>
   )
 }
 
 export default BusinessList
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`
+
+const Nav = styled.nav`
+  display: flex;
+  position: sticky;
+  z-index: 5;
+  top: 0;
+  align-items: center;
+  background-color: #d32323;
+  width: 100%;
+  height: 65px;
+  .search-container {
+    display: flex;
+    align-items: center;
+    max-width: 1020px;
+    margin: 0 auto;
+    height: 100%;
+  }
+`
+
 const Container = styled.div`
   margin: 20px auto 30px;
   max-width: 1020px;
+  width: 1020px;
   height: 100%;
   display: flex;
-
-  .map-wrapper {
-    width: 600px;
-    height: 500px;
-    border: 1px solid #e6e6e6;
-  }
-  .map-header {
-    height: 40px;
-    background-color: #f5f5f5;
-  }
-
+  position: relative;
+  justify-content: flex-start;
   .less-map-button {
     border: none;
     height: 100%;
@@ -93,40 +139,41 @@ const Container = styled.div`
   }
 `
 
-const Nav = styled.nav`
-  display: flex;
-  align-items: center;
-  background-color: #d32323;
-  height: 65px;
-  .search-container {
-    display: flex;
-    align-items: center;
-    max-width: 1020px;
-    margin: 0 auto;
-    height: 100%;
-  }
-`
-
 const StyledBusinessList = styled.ul`
-  border: 1px solid blue;
+  /* border: 1px solid red; */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: flex;
+  margin-right: 10px;
+  width: 340px;
+  height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  flex-direction: column;
+  position: relative;
+  h1 {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
   h2 {
-    height: 40px;
-    margin-top: 10px;
     display: flex;
-    align-items: center;
+    line-height: 22px;
+    padding-top: 5px;
     font-weight: bold;
   }
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  /* border: 1px solid red; */
-  margin: 0 auto 0 20px;
-  display: flex;
-  flex-direction: column;
-  width: 320px;
   .list-item {
     border-bottom: 1px solid #e6e6e6;
-    height: 127px;
+    height: 135px;
+    width: 340px;
     display: flex;
-    padding: 18px 0px;
+    padding: 18px 25px 0px 0px;
+    transition: 0.3s all ease;
+    &:hover {
+      background-color: rgba(0, 255, 255, 0.1);
+    }
   }
 
   .image-wrapper {
@@ -146,11 +193,10 @@ const StyledBusinessList = styled.ul`
   }
   .number {
     color: black;
+    margin-right: 10px;
   }
   .name {
     font-weight: bold;
-    margin-bottom: 10px;
-    line-height: 1.6rem;
     a {
       color: #0073bb;
       text-decoration: none;
@@ -162,6 +208,7 @@ const StyledBusinessList = styled.ul`
   .stats-wrapper {
     display: flex;
     align-items: center;
+    margin-top: 8px;
   }
   .rating {
     width: 102px;

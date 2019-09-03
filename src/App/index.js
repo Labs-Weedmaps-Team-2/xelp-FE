@@ -40,10 +40,12 @@ const App = () => {
 export default App
 
 const Container = styled.div`
+  border: 2px solid black;
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin: 0 auto;
   color: ${black};
   background-color: ${bg};
   min-height: 100vh;
