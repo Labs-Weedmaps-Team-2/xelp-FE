@@ -1,5 +1,6 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
+import { fitBounds } from 'google-map-react/utils'
 import { useSelector } from 'react-redux'
 import MarkerSvg from 'assets/svg/MarkerSvg'
 import styled from 'styled-components'
@@ -7,14 +8,56 @@ import styled from 'styled-components'
 const Marker = props => {
   return (
     <StyledMarker>
-      <MarkerSvg className='marker-svg' color='red' />
+      <MarkerSvg className='marker-svg' color='darkred' />
     </StyledMarker>
   )
 }
 
+const StyledMarker = styled.div`
+  position: 'relative';
+  width: 35px;
+  height: 35px;
+  color: red;
+
+  .marker-svg {
+    width: 100%;
+    color: red;
+  }
+`
+const losAngeles = [34.0522, 118.2437]
+const cityLevel = 10
+
 export const Map = props => {
   const business = useSelector(({ business }) => business)
   const positions = business.businesses.map(business => business.coordinates)
+  const getBounds = positions => {
+    const latitudes = positions.map(position => position.latitude)
+    const longitudes = positions.map(position => position.longitude)
+    const maxLat = Math.max(...latitudes)
+    const minLat = Math.min(...latitudes)
+    const maxLng = Math.max(...longitudes)
+    const minLng = Math.min(...longitudes)
+
+    const bounds = {
+      ne: {
+        lat: maxLat,
+        lng: maxLng,
+      },
+      sw: {
+        lat: minLat,
+        lng: minLng,
+      },
+    }
+    return bounds
+  }
+
+  const bounds = getBounds(positions)
+  const size = {
+    width: 680, // Map width in pixels
+    height: 500, // Map height in pixels
+  }
+
+  const { center, zoom } = fitBounds(bounds, size)
 
   return (
     // Important! Always set the container height explicitly */}
@@ -23,13 +66,10 @@ export const Map = props => {
         <GoogleMapReact
           className='google-map-react'
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_API_KEY }}
-          defaultCenter={[50.01038826014866, -118.6525866875]}
-          defaultZoom={10}
-          center={[
-            business.region.center.latitude,
-            business.region.center.longitude,
-          ]}
-          zoom={10}
+          defaultCenter={losAngeles}
+          defaultZoom={cityLevel}
+          center={center}
+          zoom={zoom}
         >
           {positions.map((position, index) => {
             return (
@@ -47,17 +87,6 @@ export const Map = props => {
   )
 }
 
-const StyledMarker = styled.div`
-  position: 'relative';
-  width: 35px;
-  height: 35px;
-  color: red;
-
-  .marker-svg {
-    width: 100%;
-    color: red;
-  }
-`
 const Container = styled.div`
   height: 500px;
   width: 680px;
