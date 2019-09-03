@@ -24,7 +24,7 @@ export const editUser = (id, profile) => async dispatch => {
   }
 }
 
-export const fetchBusinesses = (location, term, offset) => async dispatch => {
+export const fetchBusiness = (term, location, offset = 0) => async dispatch => {
   dispatch({ type: types.FETCH_BUSINESS_REQUEST })
   try {
     const res = await api.get(

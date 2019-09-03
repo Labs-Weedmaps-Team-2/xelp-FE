@@ -13,6 +13,7 @@ const StyledFooter = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid red;
   height: 80px;
   h2 {
     font-size: 1.8rem;

@@ -41,9 +41,10 @@ export default App
 
 const Container = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   color: ${black};
   background-color: ${bg};
   min-height: 100vh;
-  height: 100%;
 `
