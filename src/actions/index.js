@@ -26,16 +26,16 @@ export const editUser = (id, profile) => async dispatch => {
 }
 
 export const fetchBusinesses = (location, term, offset) => async dispatch => {
-  dispatch({ type: types.FETCH_BUSINESSES_REQUEST })
+  dispatch({ type: types.FETCH_BUSINESS_REQUEST })
   try {
-    const businesses = await axios.get(
+    const res = await axios.get(
       `http://localhost:3000/api/v1/search?location=${location}&term=${term}s&offset=${offset}`
     )
     console.log('HELLO')
-    console.log(JSON.parse(businesses.data.data))
-    dispatch({ type: types.FETCH_BUSINESSES_SUCCESS })
+    const businesses = JSON.parse(res.data.data)
+    dispatch({ type: types.FETCH_BUSINESS_SUCCESS, payload: businesses })
   } catch (err) {
     console.error(err)
-    dispatch({ type: types.FETCH_BUSINESSES_FAILURE })
+    dispatch({ type: types.FETCH_BUSINESS_FAILURE })
   }
 }
