@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusinesses } from 'actions'
+import { fetchBusiness } from 'actions'
 import { renderRating } from 'utils'
 import { SearchBar, SignIn } from 'containers'
 import { Logo } from 'components'
 import { POPULATE_SINGLE } from 'actions/types'
 import useRouter from 'hooks/useRouter'
+import { MapComponent } from 'pages/Home/components'
 
 const BusinessList = () => {
   const dispatch = useDispatch()
+  const { location, history, match } = useRouter()
   const [search, business] = useSelector(({ search, business }) => [
     search,
     business,
@@ -18,10 +20,8 @@ const BusinessList = () => {
   const { businesses } = business
 
   useEffect(() => {
-    dispatch(fetchBusinesses(search.location, search.term, 0))
-  }, [])
-  const { location, history, match } = useRouter()
-
+    dispatch(fetchBusiness(search.location, search.term, 0))
+  }, [search.location, search.term])
   // const businesses = useSelector(({ businesses }) => ({ businesses }))
   const handleClick = business => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
@@ -29,81 +29,160 @@ const BusinessList = () => {
   }
   console.log('what is ', businesses)
   return (
-    <Container>
+    <Wrapper>
       <Nav>
-        <Logo />
-        <SearchBar />
-        {/* <SignIn /> */}
+        <div className='search-container'>
+          <Logo />
+          <SearchBar />
+        </div>
       </Nav>
-      <StyledBusinessList>
-        {businesses.map((business, i) => (
-          <li className='list-item' key={business.id}>
-            <div className='image-wrapper'>
-              <img
-                onClick={() => handleClick(business)}
-                className='image'
-                src={business.image_url}
-                alt={`${business.alias}`}
-              />
-            </div>
-            <div className='item-details'>
-              <h2 className='name'>
-                <span className='number'>{`${i + 1}. `}</span>
-                <div onClick={() => handleClick(business)}>{business.name}</div>
-              </h2>
-              <div className='rating-wrapper'>
-                <div className='rating'>{renderRating(business.rating)}</div>
-                <span className='reviews'>{business.review_count} reviews</span>
+      <Container>
+        <StyledBusinessList>
+          <h1>All Results</h1>
+          {businesses.map((business, i) => (
+            <li className='list-item' key={business.id}>
+              <div className='image-wrapper'>
+                <div onClick={() => handleClick(business)}>
+                  <img
+                    className='image'
+                    src={business.image_url}
+                    alt={`${business.alias}`}
+                  />
+                </div>
               </div>
-              <div className='category-wrapper'>
-                {business.price && [
-                  <span key='1' className='price'>
-                    {business.price}
-                  </span>,
-                  <span key='2' className='dot'>
-                    {' '}
-                    &middot;
-                  </span>,
-                ]}
-                <span className='categories'>
-                  {business.categories
-                    .map(category => category.title)
-                    .join(', ')}
-                </span>
+              <div className='item-details'>
+                <h2 className='name'>
+                  <span className='number'>{`${i + 1}.`} </span>
+                  <div onClick={() => handleClick(business)}>
+                    {business.name}
+                  </div>
+                </h2>
+                <div className='stats-wrapper'>
+                  <div className='rating'>{renderRating(business.rating)}</div>
+                  <span className='reviews'>
+                    {business.review_count} reviews
+                  </span>
+                </div>
+                <div className='category-wrapper'>
+                  {business.price && [
+                    <span key='1' className='price'>
+                      {business.price}
+                    </span>,
+                    <span key='2' className='dot'>
+                      {' '}
+                      &middot;
+                    </span>,
+                  ]}
+                  <span className='categories'>
+                    {business.categories
+                      .map(category => category.title)
+                      .join(', ')}
+                  </span>
+                </div>
               </div>
-            </div>
-          </li>
-        ))}
-      </StyledBusinessList>
-    </Container>
+            </li>
+          ))}
+        </StyledBusinessList>
+        <MapComponent />
+      </Container>
+    </Wrapper>
   )
 }
 
 export default BusinessList
 
-const Container = styled.div`
-  margin: 0 auto;
-  max-width: 900px;
-  width: 100%;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
 `
 
 const Nav = styled.nav`
   display: flex;
-  justify-content: space-between;
+  position: sticky;
+  z-index: 5;
+  top: 0;
+  align-items: center;
+  background-color: #d32323;
+  width: 100%;
+  height: 65px;
+  .search-container {
+    display: flex;
+    align-items: center;
+    max-width: 1020px;
+    margin: 0 auto;
+    height: 100%;
+  }
+`
+
+const Container = styled.div`
+  margin: 20px auto 30px;
+  max-width: 1020px;
+  width: 1020px;
+  height: 100%;
+  display: flex;
+  position: relative;
+  justify-content: flex-start;
+  .less-map-button {
+    border: none;
+    height: 100%;
+    background: transparent;
+  }
+  .less-map-arrow {
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  .less-map-text {
+    display: inline-block;
+    color: #1999e9;
+    padding-bottom: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    padding-left: 10px;
+    letter-spacing: 0.8px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `
 
 const StyledBusinessList = styled.ul`
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   /* border: 1px solid red; */
-  margin: 0 auto 0 20px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   display: flex;
+  margin-right: 10px;
+  width: 340px;
+  height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
   flex-direction: column;
-  width: 320px;
+  position: relative;
+  h1 {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+  h2 {
+    display: flex;
+    line-height: 22px;
+    padding-top: 5px;
+    font-weight: bold;
+  }
   .list-item {
     border-bottom: 1px solid #e6e6e6;
-    height: 127px;
+    height: 135px;
+    width: 340px;
     display: flex;
-    padding: 18px 0px;
+    padding: 18px 25px 0px 0px;
+    transition: 0.3s all ease;
+    &:hover {
+      background-color: rgba(0, 255, 255, 0.1);
+    }
   }
 
   .image-wrapper {
@@ -123,11 +202,10 @@ const StyledBusinessList = styled.ul`
   }
   .number {
     color: black;
+    margin-right: 10px;
   }
   .name {
     font-weight: bold;
-    margin-bottom: 10px;
-    line-height: 1.6rem;
     a {
       color: #0073bb;
       text-decoration: none;
@@ -136,9 +214,10 @@ const StyledBusinessList = styled.ul`
       }
     }
   }
-  .rating-wrapper {
+  .stats-wrapper {
     display: flex;
     align-items: center;
+    margin-top: 8px;
   }
   .rating {
     width: 102px;

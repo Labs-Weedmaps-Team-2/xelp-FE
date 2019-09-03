@@ -14,10 +14,11 @@ export const Navbar = () => {
 }
 
 const StyledNav = styled.nav`
+  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80px;
+  height: 60px;
   a {
     font-size: 1.8rem;
     margin-left: 2rem;
