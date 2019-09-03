@@ -6,6 +6,8 @@ import { fetchBusinesses } from 'actions'
 import { renderRating } from 'utils'
 import { SearchBar, SignIn } from 'containers'
 import { Logo } from 'components'
+import { POPULATE_SINGLE } from 'actions/types'
+import useRouter from 'hooks/useRouter'
 
 const BusinessList = () => {
   const dispatch = useDispatch()
@@ -14,12 +16,18 @@ const BusinessList = () => {
     business,
   ])
   const { businesses } = business
+
   useEffect(() => {
     dispatch(fetchBusinesses(search.location, search.term, 0))
   }, [])
+  const { location, history, match } = useRouter()
 
   // const businesses = useSelector(({ businesses }) => ({ businesses }))
-
+  const handleClick = business => {
+    dispatch({ type: POPULATE_SINGLE, payload: business })
+    history.push(`/business/${business.id}`)
+  }
+  console.log('what is ', businesses)
   return (
     <Container>
       <Nav>
@@ -31,18 +39,17 @@ const BusinessList = () => {
         {businesses.map((business, i) => (
           <li className='list-item' key={business.id}>
             <div className='image-wrapper'>
-              <Link to='#'>
-                <img
-                  className='image'
-                  src={business.image_url}
-                  alt={`${business.alias}`}
-                />
-              </Link>
+              <img
+                onClick={() => handleClick(business)}
+                className='image'
+                src={business.image_url}
+                alt={`${business.alias}`}
+              />
             </div>
             <div className='item-details'>
               <h2 className='name'>
                 <span className='number'>{`${i + 1}. `}</span>
-                <Link to='#'>{business.name}</Link>
+                <div onClick={() => handleClick(business)}>{business.name}</div>
               </h2>
               <div className='rating-wrapper'>
                 <div className='rating'>{renderRating(business.rating)}</div>
@@ -50,8 +57,13 @@ const BusinessList = () => {
               </div>
               <div className='category-wrapper'>
                 {business.price && [
-                  <span className='price'>{business.price}</span>,
-                  <span className='dot'> &middot;</span>,
+                  <span key='1' className='price'>
+                    {business.price}
+                  </span>,
+                  <span key='2' className='dot'>
+                    {' '}
+                    &middot;
+                  </span>,
                 ]}
                 <span className='categories'>
                   {business.categories
