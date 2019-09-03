@@ -1,63 +1,64 @@
-import React, { useEffect } from 'react'
-import GoogleMap from 'google-map-react'
+import React from 'react'
+import GoogleMapReact from 'google-map-react'
 import { useSelector } from 'react-redux'
-import facebookSvg from 'assets/svg/facebook.svg'
+import MarkerSvg from 'assets/svg/MarkerSvg'
+import styled from 'styled-components'
 // const positions = business.businessess.map(business => business.coordinates)
-const AnyReactComponent = ({ text }) => (
-  <div
-    style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      transform: 'translate(-50%, -50%)',
-      width: '20px',
-      height: '20px',
-      borderRadius: '50%',
-    }}
-  >
-    <img style={{ width: '100%' }} src={facebookSvg} alt='marker' />
-  </div>
-)
+const Marker = props => {
+  return (
+    <StyledMarker>
+      <MarkerSvg className='marker-svg' color='red' />
+    </StyledMarker>
+  )
+}
 
 export const Map = props => {
   const business = useSelector(({ business }) => business)
   const positions = business.businesses.map(business => business.coordinates)
 
-  console.log('stuff', business.region)
-
   return (
     // Important! Always set the container height explicitly */}
-    <div style={{ height: '500px', width: '680px' }}>
-      {business.region &&
-      business.region.center &&
-      business.region.center.longitude ? (
-        <GoogleMap
-          style={{
-            height: '500px',
-            width: '680px',
-            position: 'relative',
-          }}
+    <Container>
+      {business.region.center && business.region.center.longitude ? (
+        <GoogleMapReact
           className='google-map-react'
-          yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_API_KEY }}
-          defaultCenter={{
-            lat: business.region.center.latitude,
-            lng: business.region.center.longitude,
-          }}
+          defaultCenter={[50.01038826014866, -118.6525866875]}
           defaultZoom={10}
+          center={[
+            business.region.center.latitude,
+            business.region.center.longitude,
+          ]}
+          zoom={10}
         >
           {positions.map((position, index) => {
             return (
-              <AnyReactComponent
+              <Marker
                 key={index}
                 lat={position.latitude}
                 lng={position.longitude}
-                text='here'
+                business={business.businesses[index]}
               />
             )
           })}
-        </GoogleMap>
+        </GoogleMapReact>
       ) : null}
-    </div>
+    </Container>
   )
 }
+
+const StyledMarker = styled.div`
+  position: 'relative';
+  width: 35px;
+  height: 35px;
+  color: red;
+
+  .marker-svg {
+    width: 100%;
+    color: red;
+  }
+`
+const Container = styled.div`
+  height: 500px;
+  width: 680px;
+`

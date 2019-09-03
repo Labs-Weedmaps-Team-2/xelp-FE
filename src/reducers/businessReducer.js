@@ -7,7 +7,9 @@ import * as types from 'actions/types'
 const initialState = {
   businesses: [],
   total: '',
-  region: {},
+  region: {
+    center: [],
+  },
 }
 
 export const businessReducer = (state = initialState, action) => {

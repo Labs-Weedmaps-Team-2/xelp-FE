@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBusiness } from 'actions'
 import { renderRating } from 'utils'
-import { SearchBar, SignIn, Map } from 'containers'
+import { SearchBar, Map } from 'containers'
 import { Logo } from 'components'
 
 const BusinessList = () => {
@@ -13,7 +13,9 @@ const BusinessList = () => {
     search,
     business,
   ])
+
   const { businesses } = business
+
   useEffect(() => {
     dispatch(fetchBusiness(search.term, search.location, 0))
   }, [])
