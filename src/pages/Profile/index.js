@@ -7,7 +7,6 @@ import { ProfileAvatar, ProfileForm } from './components'
 const Profile = () => {
   const user = useSelector(state => state.user)
 
-  console.log('Rendering Profile', user)
   return (
     <Container>
       <ProfileAvatar {...user} />
