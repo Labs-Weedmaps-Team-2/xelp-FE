@@ -5,13 +5,13 @@ import styled from 'styled-components'
 import { btnBg } from 'styles'
 
 const ProfileForm = props => {
-  const { id, username, email, photo, avatarUrl } = props
+  const { id, username, email, photo } = props
   const dispatch = useDispatch()
   const [profile, setProfile] = useState({ username, email, photo })
 
   useEffect(() => {
-    setProfile({ username, email, photo, avatarUrl })
-  }, [username, email, photo, avatarUrl])
+    setProfile({ username, email, photo })
+  }, [username, email, photo])
 
   const handleChange = e => {
     const { name, value } = e.target
