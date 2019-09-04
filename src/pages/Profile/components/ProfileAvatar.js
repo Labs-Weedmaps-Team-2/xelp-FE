@@ -91,16 +91,3 @@ const StyledProfileAvatar = styled.div`
     }
   }
 `
-
-const Preview = styled.div`
-  /* border: 1px solid red; */
-  width: 50px;
-  height: 50px;
-  margin-left: 80px;
-
-  .preview-img {
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-`
