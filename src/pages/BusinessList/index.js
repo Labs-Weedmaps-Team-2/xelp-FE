@@ -10,7 +10,7 @@ import useRouter from 'hooks/useRouter'
 
 const BusinessList = () => {
   const dispatch = useDispatch()
-  const { location, history, match } = useRouter()
+  const { history } = useRouter()
   const [search, business] = useSelector(({ search, business }) => [
     search,
     business,
@@ -19,9 +19,9 @@ const BusinessList = () => {
   const { businesses } = business
 
   useEffect(() => {
-    dispatch(fetchBusiness(search.location, search.term, 0))
+    dispatch(fetchBusiness(search.term, search.location, 0))
   }, [])
-  // const businesses = useSelector(({ businesses }) => ({ businesses }))
+
   const handleClick = business => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
     history.push(`/business/${business.id}`)
@@ -39,14 +39,15 @@ const BusinessList = () => {
           <h1>All Results</h1>
           {businesses.map((business, i) => (
             <li className='list-item' key={business.id}>
-              <div className='image-wrapper'>
-                <div onClick={() => handleClick(business)}>
-                  <img
-                    className='image'
-                    src={business.image_url}
-                    alt={`${business.alias}`}
-                  />
-                </div>
+              <div
+                className='image-wrapper'
+                onClick={() => handleClick(business)}
+              >
+                <img
+                  className='image'
+                  src={business.image_url}
+                  alt={business.alias}
+                />
               </div>
               <div className='item-details'>
                 <h2 className='name'>
