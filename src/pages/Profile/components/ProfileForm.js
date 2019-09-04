@@ -10,11 +10,7 @@ const ProfileForm = props => {
   const [profile, setProfile] = useState({ username, email, photo })
 
   useEffect(() => {
-    setProfile({
-      username,
-      email,
-      photo,
-    })
+    setProfile({ username, email, photo })
   }, [username, email, photo])
 
   const handleChange = e => {

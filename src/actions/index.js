@@ -24,6 +24,17 @@ export const editUser = (id, profile) => async dispatch => {
   }
 }
 
+export const uploadUserImage = (id, imageFile) => async dispatch => {
+  dispatch({ type: types.UPLOAD_USER_IMAGE_REQUEST })
+  try {
+    const user = await api.put(`/users/${id}`, imageFile)
+    dispatch({ type: types.UPLOAD_USER_IMAGE_SUCCESS, payload: user.data })
+  } catch (err) {
+    console.log(err)
+    dispatch({ type: types.UPLOAD_USER_IMAGE_FAILURE })
+  }
+}
+
 export const fetchBusiness = (term, location, offset = 0) => async dispatch => {
   dispatch({ type: types.FETCH_BUSINESS_REQUEST })
   try {
