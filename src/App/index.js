@@ -43,7 +43,7 @@ const App = () => {
 export default App
 
 const Container = styled.div`
-  border: 2px solid black;
+  /* border: 2px solid black; */
   position: relative;
   display: flex;
   flex-direction: column;

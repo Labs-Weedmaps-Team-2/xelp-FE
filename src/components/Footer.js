@@ -10,7 +10,7 @@ export const Footer = () => {
 }
 
 const StyledFooter = styled.footer`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   justify-content: center;
