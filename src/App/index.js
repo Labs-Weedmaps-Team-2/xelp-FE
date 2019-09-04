@@ -10,19 +10,18 @@ const Home = lazy(() => import('pages/Home'))
 const Profile = lazy(() => import('pages/Profile'))
 const SignIn = lazy(() => import('pages/SignIn'))
 const Business = lazy(() => import('pages/Business'))
+const BusinessList = lazy(() => import('pages/BusinessList'))
 
 const App = () => {
   const dispatch = useDispatch()
-
   const fetchUserCB = useCallback(() => {
-    return dispatch(fetchUser())
+    dispatch(fetchUser())
   }, [dispatch])
 
   useEffect(() => {
     fetchUserCB()
   }, [fetchUserCB])
 
-  console.log('rending App')
   return (
     <Container>
       <CSSReset />
@@ -32,7 +31,8 @@ const App = () => {
           <Route exact path='/' component={Home} />
           <Route path='/profile' component={Profile} />
           <Route path='/sign-in' component={SignIn} />
-          <Route path='/business' component={Business} />
+          <Route path='/business/:id/' component={Business} />
+          <Route path='/business-list' component={BusinessList} />
         </Switch>
       </Suspense>
       <Footer />
@@ -43,10 +43,13 @@ const App = () => {
 export default App
 
 const Container = styled.div`
+  /* border: 2px solid black; */
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  margin: 0 auto;
   color: ${black};
   background-color: ${bg};
   min-height: 100vh;
-  height: 100%;
 `

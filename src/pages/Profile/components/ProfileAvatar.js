@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { api } from 'apis'
-import { serverUrl } from 'config'
+import { useDispatch } from 'react-redux'
+import { uploadUserImage } from 'actions'
 
 const ProfileAvatar = props => {
-  const [avatarFile, setFile] = useState(null)
+  const dispatch = useDispatch()
   const [avatarSrc, setSrc] = useState(null)
 
   const handleFile = e => {
@@ -12,11 +12,10 @@ const ProfileAvatar = props => {
     const reader = new FileReader()
 
     reader.onloadend = () => {
-      setFile(file)
       setSrc(reader.result)
       const formData = new FormData()
       formData.append('user[avatar]', file)
-      api.put(`/users/${props.id}`, formData).then(res => console.log(res))
+      dispatch(uploadUserImage(props.id, formData))
     }
 
     if (file) {
@@ -24,45 +23,30 @@ const ProfileAvatar = props => {
     }
   }
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    const formData = new FormData()
-    formData.append('post[avatar]', avatarFile)
-  }
-
   return (
-    <>
-      <StyledProfileAvatar>
-        <div className='panel-left'>
-          <img
-            className='profile-image'
-            src={
-              props.avatarUrl ? `${serverUrl}/${props.avatarUrl}` : props.photo
-            }
-            alt='avatar'
+    <StyledProfileAvatar>
+      <div className='panel-left'>
+        <img
+          className='profile-image'
+          src={props.avatar ? props.avatar : props.photo}
+          alt='avatar'
+        />
+      </div>
+      <div className='panel-right'>
+        <p className='username'>{props.username}</p>
+        <form>
+          <label className='edit-photo-label' htmlFor='edit-photo-input'>
+            Change Profile Photo
+          </label>
+          <input
+            id='edit-photo-input'
+            type='file'
+            name='avatarFile'
+            onChange={handleFile}
           />
-        </div>
-        <div className='panel-right'>
-          <p className='username'>{props.username}</p>
-          <form onSubmit={handleSubmit}>
-            <label className='edit-photo-label' htmlFor='edit-photo-input'>
-              Change Profile Photo
-            </label>
-            <input
-              id='edit-photo-input'
-              type='file'
-              name='avatarFile'
-              onChange={handleFile}
-            />
-          </form>
-        </div>
-        <Preview>
-          {avatarSrc && (
-            <img className='preview-img' src={avatarSrc} alt='preview' />
-          )}
-        </Preview>
-      </StyledProfileAvatar>
-    </>
+        </form>
+      </div>
+    </StyledProfileAvatar>
   )
 }
 
@@ -72,6 +56,7 @@ const StyledProfileAvatar = styled.div`
   /* border: 1px solid blue; */
   display: flex;
   margin: 0px 0px 20px;
+  width: 320px;
 
   .panel-left {
     /* border: 1px solid green; */
