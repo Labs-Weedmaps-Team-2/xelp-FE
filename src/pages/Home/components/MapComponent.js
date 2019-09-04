@@ -1,30 +1,50 @@
 import React from 'react'
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react'
-import { usePosition } from 'hooks'
+import { useSelector } from 'react-redux'
 
-const positions = [
-  { lat: 39.7384, lng: -105.0521 },
-  { lat: 39.7487, lng: -105.0518 },
-  { lat: 39.7389, lng: -105.0541 },
-  { lat: 39.7367, lng: -105.0211 }
-]
+// const positions = business.businessess.map(business => business.coordinates)
+const MapComponent = props => {
+  const business = useSelector(({ business }) => business)
+  const positions = business.businesses.map(business => business.coordinates)
+  console.log('BUSINESS', business)
+  console.log('POSITIONS', positions)
 
-const MapComponent = (props) => {
-  const { latitude, longitude } = usePosition();
-  console.log('Location: ', latitude, longitude)
   return (
-    <div>
-      {latitude ?
+    <div style={{ height: '550px' }}>
+      {business && business.region.center && business.region.center.latitude ? (
         <Map
           google={props.google}
-          zoom={12}
-          style={{ width: '100%', height: '300px' }}
-          initialCenter={{ lat: latitude, lng: longitude }}>
-          {positions.map(position =>
-            <Marker position={position} key={`${position.lon}+${position.lat}`} />)}
-        </Map> : null}
+          zoom={15}
+          style={{
+            width: '680px',
+            height: '500px',
+            border: '1px solid #e6e6e6',
+          }}
+          initialCenter={{
+            lat: business.region.center.latitude,
+            lng: business.region.center.longitude,
+          }}
+        >
+          {positions.map(position => (
+            <Marker
+              style={{ border: '1px solid red' }}
+              position={{ lat: position.latitude, lng: position.longitude }}
+              key={`${position.latitude}+${position.longitude}`}
+              name='Your position'
+              icon={{
+                url:
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIIK18JIYJFPTqF6qNZpyUEkTTglR1AcIU_-kX8-MPuSqoBpPZ',
+                anchor: new props.google.maps.Point(32, 32),
+                scaledSize: new props.google.maps.Size(64, 64),
+              }}
+            />
+          ))}
+        </Map>
+      ) : null}
     </div>
   )
 }
 
-export default GoogleApiWrapper({ apiKey: process.env.REACT_APP_MAPS_API_KEY })(MapComponent)
+export default GoogleApiWrapper({ apiKey: process.env.REACT_APP_MAPS_API_KEY })(
+  MapComponent
+)

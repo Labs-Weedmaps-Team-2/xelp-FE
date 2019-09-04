@@ -23,3 +23,24 @@ export const editUser = (id, profile) => async dispatch => {
     dispatch({ type: types.EDIT_USER_FAILURE })
   }
 }
+
+export const fetchBusiness = (term, location, offset = 0) => async dispatch => {
+  dispatch({ type: types.FETCH_BUSINESS_REQUEST })
+  try {
+    const res = await api.get(
+      `/search?location=${location}&term=${term}s&offset=${offset}`
+    )
+    dispatch({
+      type: types.FETCH_BUSINESS_SUCCESS,
+      payload: res.data,
+    })
+  } catch (err) {
+    console.error(err)
+    dispatch({ type: types.FETCH_BUSINESS_FAILURE })
+  }
+}
+
+export const setSearch = (term, location) => {
+  const search = { term, location }
+  return { type: types.SET_SEARCH, payload: search }
+}
