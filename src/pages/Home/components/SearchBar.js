@@ -6,10 +6,16 @@ const SearchBar = () => {
   return (
     <StyledHero >
       <div className="inputs-container">
-        <div className="item-search-container"></div>
-        <div className="locale-search-container"></div>
+        <div className="item-search-container">
+          <p>What?</p>
+          <input type="text" placeholder="bars, clubs, breweries, venues" />
+        </div>
+        <div className="locale-search-container">
+          <p>Where?</p>
+          <input type="text" placeholder="Los Angeles" />
+        </div>
         <div className="search-button">
-          GO!
+          go
         </div>
       </div>
     </StyledHero>
@@ -34,11 +40,46 @@ const StyledHero = styled.div`
     border-radius: 5px;
     display: flex;
     flex-flow: row;
+    justify-content: center;
     .item-search-container {
       width:47%;
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90%;
+        width: 18%;
+        font-weight: bold;
+      }
+      input {
+        height: 90%;
+        width: 82%;
+        border: none;
+        font-size: 1em;
+      }
     }
     .locale-search-container {
       width:47%;
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90%;
+        width: 18%;
+        font-weight: bold;
+      }
+      input {
+        height: 90%;
+        width: 82%;
+        border: none;
+        font-size: 1em;
+      }
     }
     .search-button {
       width: 6%;
@@ -47,6 +88,7 @@ const StyledHero = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+      border-radius: 0px 5px 5px 0px;
     }
   }
 `
