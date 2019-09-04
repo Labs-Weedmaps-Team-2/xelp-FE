@@ -31,7 +31,7 @@ const App = () => {
           <Route exact path='/' component={Home} />
           <Route path='/profile' component={Profile} />
           <Route path='/sign-in' component={SignIn} />
-          <Route path='/business' component={Business} />
+          <Route path='/business/:id/' component={Business} />
           <Route path='/business-list' component={BusinessList} />
         </Switch>
       </Suspense>
