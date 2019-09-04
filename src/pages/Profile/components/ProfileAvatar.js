@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { uploadUserImage } from 'actions'
 
 const ProfileAvatar = props => {
   const dispatch = useDispatch()
-  const [avatarSrc, setSrc] = useState(null)
+  // const [avatarSrc, setSrc] = useState(null)
 
   const handleFile = e => {
     const file = e.target.files[0]
     const reader = new FileReader()
 
     reader.onloadend = () => {
-      setSrc(reader.result)
+      // setSrc(reader.result)
       const formData = new FormData()
       formData.append('user[avatar]', file)
       dispatch(uploadUserImage(props.id, formData))
