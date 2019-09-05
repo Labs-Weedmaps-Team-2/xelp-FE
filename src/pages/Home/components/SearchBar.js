@@ -4,7 +4,6 @@ import { useRouter, usePosition } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearch } from 'actions'
 
-// dispatch(fetchBusiness(search.term, search.location, 0))
 
 const SearchBar = () => {
   // Custom hook to get users location
@@ -16,9 +15,9 @@ const SearchBar = () => {
   useEffect(() => {
     console.log('Location: ', latitude, longitude)
     if (latitude) {
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_MAPS_API_KEY}`)
+      fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=${process.env.REACT_APP_OPENCAGE_API_KEY}`)
         .then(res => res.json())
-        .then(json => dispatch(setSearch(search.term, json.results[0].formatted_address)))
+        .then(json => dispatch(setSearch(search.term, `${json.results[0].components.city}, ${json.results[0].components.country_code.toUpperCase()}`)))
     }
   }, [latitude, longitude])
   const handleSubmit = () => {
@@ -26,8 +25,8 @@ const SearchBar = () => {
       history.push('/business-list')
     }
   }
-  const handleChange = (e) => {
-    const searchCopy = {...search, [e.target.name]:e.target.value}
+  const handleChange = e => {
+    const searchCopy = { ...search, [e.target.name]: e.target.value }
     dispatch(setSearch(searchCopy.term, searchCopy.location))
   }
   return (
