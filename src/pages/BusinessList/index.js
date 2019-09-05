@@ -166,16 +166,14 @@ const StyledBusinessList = styled.ul`
   }
   h2 {
     display: flex;
-    line-height: 22px;
-    padding-top: 5px;
+    line-height: 20px;
     font-weight: bold;
   }
   .list-item {
     border-bottom: 1px solid #e6e6e6;
-    height: 135px;
     width: 340px;
     display: flex;
-    padding: 18px 25px 0px 0px;
+    padding: 18px 25px 8px 0px;
     transition: 0.3s all ease;
     &:hover {
       background-color: rgba(0, 255, 255, 0.1);
@@ -195,11 +193,11 @@ const StyledBusinessList = styled.ul`
   .item-details {
     /* border: 1px solid blue; */
     width: 212px;
-    height: 100px;
+    /* height: 100px; */
   }
   .number {
     color: black;
-    margin-right: 10px;
+    margin-right: 6px;
   }
   .name {
     font-weight: bold;

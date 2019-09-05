@@ -5,7 +5,7 @@ import styled from 'styled-components'
 export const Logo = () => {
   return (
     <Link to='/'>
-      <Brand>Logo</Brand>
+      <Brand>Xelp</Brand>
     </Link>
   )
 }
