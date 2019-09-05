@@ -69,7 +69,11 @@ const Business = () => {
               >
                 <button className='btn-review'>Write a Review</button>
               </Link>
-              <button className='btn-add-photo'>Add Photo</button>
+              <Link
+                to={`/addphotos/${location.pathname.split('/business/')[1]}`}
+              >
+                <button className='btn-add-photo'>Add Photo</button>
+              </Link>
             </div>
           </div>
           <div className='map-showcase'>
