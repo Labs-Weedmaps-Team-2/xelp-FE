@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useRouter from 'hooks/useRouter'
 import { fetchBusinessDetails } from 'actions/index'
@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import { Logo } from 'components'
 import { SearchBar } from 'containers'
 import { renderRating } from 'utils'
+
+const mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?'
 
 const Business = () => {
   const { location } = useRouter()
@@ -40,6 +42,22 @@ const Business = () => {
                   {business.review_count} reviews
                 </span>
               </div>
+              <div className='business-category'>
+                {business.price && [
+                  <span key='1' className='price'>
+                    {business.price}
+                  </span>,
+                  <span key='2' className='dot'>
+                    &middot;
+                  </span>,
+                ]}
+                <span className='categories'>
+                  {business.categories.length
+                    ? business.categories[0].title
+                    : null}
+                </span>
+                <button className='edit'>Edit</button>
+              </div>
             </div>
             <div className='business-actionbar'>
               <button className='btn-review'>Write a Review</button>
@@ -48,7 +66,22 @@ const Business = () => {
           </div>
           <div className='map-showcase'>
             <div className='map-container'>
-              <div className='map-static'>Static Map</div>
+              <div className='map-static'>
+                {business.coordinates ? (
+                  <img
+                    src={`${mapUrl}key=${process.env.REACT_APP_MAPS_API_KEY}&size=287x138&center=${business.coordinates.latitude},${business.coordinates.longitude}&zoom=13&markers=color:blue%7label:*%7C${business.coordinates.latitude},${business.coordinates.longitude}`}
+                    alt=''
+                  />
+                ) : null}
+              </div>
+              <div className='address'>
+                {business.location
+                  ? business.location.display_address.map((line, index) => (
+                      <div key={index}>{line}</div>
+                    ))
+                  : null}
+              </div>
+              <div className='phone'>{business.display_phone}</div>
             </div>
             <div className='showcase-container'>
               {business.photos.map((photo, index) => (
@@ -65,16 +98,22 @@ const Business = () => {
         </Container>
       </BusinessHero>
       <Container>
-        <div>
-          {business.reviews &&
-            business.reviews.map(review => (
-              <div key={review.id}>
-                <span>
-                  {(review.user && review.user.name) || review.user.username}
-                </span>
-                <p>{review.text}</p>
-              </div>
-            ))}
+        <div className='reviews-more-details'>
+          <div className='review-list'>
+            REVIEW LIST GOES HERE
+            {business.reviews &&
+              business.reviews.map(review => (
+                <div key={review.id}>
+                  <span>
+                    {(review.user && review.user.name) || review.user.username}
+                  </span>
+                  <p>{review.text}</p>
+                </div>
+              ))}
+          </div>
+          <div className='more-details'>
+            MORE BUSINESS DETAILS/SERVICES GOES HERE
+          </div>
         </div>
       </Container>
     </Wrapper>
@@ -90,10 +129,27 @@ const Wrapper = styled.div`
 `
 
 const Container = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin: 0 auto;
   max-width: 1020px;
   width: 100%;
+  .reviews-more-details {
+    display: flex;
+    justify-content: space-between;
+    min-height: 500px;
+    width: 100%;
+    margin-top: 20px;
+  }
+  .review-list {
+    width: 720px;
+    height: 500px;
+    border: 1px solid blue;
+  }
+  .more-details {
+    width: 300px;
+    border: 1px solid red;
+    height: 500px;
+  }
 `
 
 const Nav = styled.nav`
@@ -115,11 +171,11 @@ const Nav = styled.nav`
 `
 
 const BusinessHero = styled.section`
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   /* height: 390px; */
   margin-top: 20px;
   .business-details {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -136,9 +192,10 @@ const BusinessHero = styled.section`
     margin-bottom: 10px;
   }
   .business-stats {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
   }
   .business-rating {
     width: 136px;
@@ -146,6 +203,22 @@ const BusinessHero = styled.section`
   .review-count {
     margin-left: 10px;
   }
+  .business-category {
+    display: flex;
+    position: relative;
+    .dot {
+      margin: 0 5px;
+    }
+    .edit {
+      position: absolute;
+      width: 35px;
+      height: 20px;
+      right: 5px;
+      background: none;
+      color: rgba(0, 0, 0, 87);
+    }
+  }
+
   .btn-review {
     width: 160px;
     height: 36px;
@@ -154,7 +227,7 @@ const BusinessHero = styled.section`
     color: white;
     font-size: 14px;
     font-weight: bold;
-    margin-right: 20px;
+    margin-right: 25px;
   }
 
   .btn-add-photo {
@@ -164,26 +237,26 @@ const BusinessHero = styled.section`
     color: #666666;
     background: #ffffff;
     border-radius: 3px;
-    margin-right: 20px;
+    margin-right: 25px;
   }
 
   .map-showcase {
     display: flex;
+    height: 260px;
   }
   .map-container {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 300px;
-    height: 278px;
     padding: 5px;
+    border: 1px solid #666666;
   }
   .showcase-container {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     display: flex;
     justify-content: center;
     align-items: flex-end;
     position: relative;
     width: 720px;
-    height: 278px;
   }
   .showcase-image-wrapper {
     width: 220px;
@@ -197,6 +270,11 @@ const BusinessHero = styled.section`
   .map-static {
     width: 288px;
     height: 139px;
-    border: 1px solid green;
+    margin-bottom: 10px;
+  }
+
+  .address {
+    line-height: 20px;
+    margin-bottom: 8px;
   }
 `
