@@ -1,12 +1,14 @@
 import React, { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useRouter } from 'hooks'
 import { setSearch, fetchBusiness } from 'actions'
 import styled from 'styled-components'
 
 export const SearchBar = () => {
   const inputTerm = useRef()
+  const inputLocation = useRef()
   const dispatch = useDispatch()
-
+  const { history } = useRouter()
   useEffect(() => {
     inputTerm.current.focus()
   }, [])
@@ -21,6 +23,11 @@ export const SearchBar = () => {
       onSubmit={e => {
         e.preventDefault()
         dispatch(fetchBusiness(term, location))
+        //* push to business-list if we use the search bar
+        //* and not already on business-list
+        if (!window.location.pathname.includes('business-list')) {
+          history.push('/business-list')
+        }
       }}
     >
       <div className='input-wrapper'>
@@ -34,9 +41,8 @@ export const SearchBar = () => {
           ref={inputTerm}
           placeholder="tacos, cheap dinner, Max's"
           value={term}
-          onChange={e =>
-            dispatch(setSearch(e.target.value, location, location))
-          }
+          onChange={e => dispatch(setSearch(e.target.value, location))}
+          onClick={() => inputTerm.current.select()}
         />
       </div>
       <div className='input-wrapper'>
@@ -47,9 +53,11 @@ export const SearchBar = () => {
           className='input'
           id='near'
           type='text'
+          ref={inputLocation}
           placeholder='city, state or zip code'
           value={location}
           onChange={e => dispatch(setSearch(term, e.target.value))}
+          onClick={() => inputLocation.current.select()}
         />
       </div>
       <button>S</button>
@@ -69,13 +77,18 @@ const Form = styled.form`
   border-top-right-radius: 4px;
   display: flex;
   margin: 0 auto 0 18px;
+  background-color: white;
+  position: relative;
   .input-wrapper {
     width: 50%;
     display: relative;
     border: none;
-    background-color: white;
-    padding: 8px 12px;
+    padding: 0px 12px;
     font-size: 14px;
+    margin: 6px 0px;
+    &:first-child {
+      border-right: 1px solid #cccccc;
+    }
   }
   label {
     font-weight: bold;
@@ -105,5 +118,7 @@ const Form = styled.form`
     border: 1px solid #a71c1c;
     color: white;
     font-weight: bold;
+    position: relative;
+    left: 1px;
   }
 `

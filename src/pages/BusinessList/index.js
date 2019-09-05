@@ -98,7 +98,7 @@ const Wrapper = styled.div`
 const Nav = styled.nav`
   display: flex;
   position: sticky;
-  z-index: 5;
+  z-index: 10;
   top: 0;
   align-items: center;
   background-color: #d32323;

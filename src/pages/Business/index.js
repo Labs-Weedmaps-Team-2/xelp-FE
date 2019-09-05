@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useRouter from 'hooks/useRouter'
 import { Link } from 'react-router-dom'
@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import { Logo } from 'components'
 import { SearchBar } from 'containers'
 import { renderRating } from 'utils'
-import ReviewForm from './components/ReviewForm'
 import Reviews from './components/Reviews'
 
 const mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?'
@@ -15,12 +14,11 @@ const mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?'
 const Business = () => {
   const { location } = useRouter()
   const dispatch = useDispatch()
+  const [hoverIndex, setHover] = useState(1)
 
   const business = useSelector(({ singleBusiness }) => singleBusiness)
   useEffect(() => {
-    console.log(location)
     const yelp_id = location.pathname.split('/')
-    console.log(yelp_id[2])
     dispatch(fetchBusinessDetails(yelp_id[2]))
   }, [])
 
@@ -94,7 +92,14 @@ const Business = () => {
             </div>
             <div className='showcase-container'>
               {business.photos.map((photo, index) => (
-                <div key={index} className='showcase-image-wrapper'>
+                <div
+                  key={index}
+                  className={`showcase-image-wrapper ${
+                    hoverIndex === index ? 'hover' : null
+                  }`}
+                  onMouseEnter={() => setHover(index)}
+                  onMouseLeave={() => setHover(1)}
+                >
                   <img className='showcase-image' src={photo} alt='business' />
                 </div>
               ))}
@@ -105,7 +110,6 @@ const Business = () => {
       <Container>
         <div className='reviews-more-details'>
           <div className='review-list'>
-            REVIEW LIST GOES HERE
             {business.reviews && <Reviews reviews={business.reviews} />}
           </div>
           <div className='more-details'>
@@ -211,6 +215,13 @@ const BusinessHero = styled.section`
     .dot {
       margin: 0 5px;
     }
+    .categories {
+      color: #1075b9;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
     .edit {
       height: 20px;
       background: none;
@@ -234,11 +245,12 @@ const BusinessHero = styled.section`
     width: 160px;
     height: 36px;
     border-radius: 3px;
-    background-color: #d32323;
+    background-color: #d1262b;
     color: white;
     font-size: 14px;
     font-weight: bold;
     margin-right: 25px;
+    cursor: pointer;
   }
 
   .btn-add-photo {
@@ -280,11 +292,12 @@ const BusinessHero = styled.section`
     width: 225px;
     height: 225px;
     transition: 0.25s transform ease-in-out;
-    &:hover {
-      transform: scale(1.1);
-      z-index: 5;
-    }
   }
+  .hover {
+    transform: scale(1.1);
+    z-index: 5;
+  }
+
   .showcase-image {
     width: 100%;
     height: 100%;
