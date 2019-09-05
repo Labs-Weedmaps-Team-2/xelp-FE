@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useRouter, usePosition } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,7 +17,16 @@ const SearchBar = () => {
     if (latitude) {
       fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=${process.env.REACT_APP_OPENCAGE_API_KEY}`)
         .then(res => res.json())
-        .then(json => dispatch(setSearch(search.term, `${json.results[0].components.city}, ${json.results[0].components.country_code.toUpperCase()}`)))
+        .then(json => {
+          dispatch(
+            setSearch(
+              search.term,
+              `${json.results[0].components.city ||
+              json.results[0].components.town}, ${
+              json.results[0].components.state_code}`
+            )
+          )
+        })
     }
   }, [latitude, longitude])
   const handleSubmit = () => {
