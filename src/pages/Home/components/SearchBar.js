@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import styled from 'styled-components'
 import { useRouter, usePosition } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
