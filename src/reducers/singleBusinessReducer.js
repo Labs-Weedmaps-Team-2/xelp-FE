@@ -1,5 +1,9 @@
 import * as types from 'actions/types'
-const initialState = {}
+const initialState = {
+  reviews: [],
+  photos: [],
+  categories: [],
+}
 
 export const singleBusinessReducer = (state = initialState, action) => {
   switch (action.type) {

@@ -9,9 +9,10 @@ const ReviewForm = () => {
   const handleSubmit = e => {
     e.preventDefault()
     api
-      .post(`/review/${window.location.pathname.split('/business/')[1]}`, {
+      .post(`/review/${window.location.pathname.split('/writeareview/')[1]}`, {
         review: {
           text: reviewText,
+          rating: 3,
         },
       })
       .then(res => {

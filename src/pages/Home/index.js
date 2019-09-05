@@ -1,11 +1,10 @@
 import React from 'react'
-import {MapComponent, SearchBar} from './components'
+import {SearchBar} from './components'
 
 const Home = () => {
   return (
     <div>
       <SearchBar />
-      <MapComponent />
     </div>
   )
 }

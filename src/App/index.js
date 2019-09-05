@@ -6,6 +6,7 @@ import { fetchUser } from 'actions'
 import CSSReset from 'styles/cssReset'
 import { black, bg } from 'styles'
 import { Navbar, Footer } from 'components'
+import ReviewForm from 'pages/Business/components/ReviewForm'
 const Home = lazy(() => import('pages/Home'))
 const Profile = lazy(() => import('pages/Profile'))
 const SignIn = lazy(() => import('pages/SignIn'))
@@ -33,6 +34,7 @@ const App = () => {
           <Route path='/sign-in' component={SignIn} />
           <Route path='/business/:id/' component={Business} />
           <Route path='/business-list' component={BusinessList} />
+          <Route path='/writeareview/:id' component={ReviewForm} />
         </Switch>
       </Suspense>
       <Footer />
