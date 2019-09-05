@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
+import usePosition from 'hooks/usePosition'
 
-
+//https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyD-VYKpBimXsY0c46BGOfdT3uEArB5YjeA
 const SearchBar = () => {
+  const { latitude, longitude } = usePosition();
+  useEffect(()=>{
+  console.log('Location: ', latitude, longitude)
+  }, [latitude, longitude])
   return (
     <StyledHero >
       <div className="inputs-container">
