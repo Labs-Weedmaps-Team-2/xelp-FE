@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { api } from 'apis'
 import { useDispatch } from 'react-redux'
-
+import useRouter from 'hooks/useRouter'
 const ReviewForm = () => {
   const dispatch = useDispatch()
+  const { history } = useRouter()
 
   const [reviewText, setReviewText] = useState('')
   const handleSubmit = e => {
@@ -19,6 +20,9 @@ const ReviewForm = () => {
         console.log('handle submit', res)
         dispatch({ type: 'ADD_REVIEW', payload: res.data })
         setReviewText('')
+        history.push(
+          `/business/${window.location.pathname.split('/writeareview/')[1]}`
+        )
       })
   }
   const handleInput = event => {
