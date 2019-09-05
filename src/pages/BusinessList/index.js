@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
@@ -39,49 +39,53 @@ const BusinessList = () => {
       <Container>
         <StyledBusinessList>
           <h1>All Results</h1>
-          {businesses.map((business, i) => (
-            <li className='list-item' key={business.id}>
-              <div className='image-wrapper'>
-                <div onClick={() => handleClick(business)}>
-                  <img
-                    className='image'
-                    src={business.image_url}
-                    alt={`${business.alias}`}
-                  />
-                </div>
-              </div>
-              <div className='item-details'>
-                <h2 className='name'>
-                  <span className='number'>{`${i + 1}.`} </span>
-                  <div onClick={() => handleClick(business)}>
-                    {business.name}
+          {businesses.length
+            ? businesses.map((business, i) => (
+                <li className='list-item' key={business.id}>
+                  <div className='image-wrapper'>
+                    <div onClick={() => handleClick(business)}>
+                      <img
+                        className='image'
+                        src={business.image_url}
+                        alt={`${business.alias}`}
+                      />
+                    </div>
                   </div>
-                </h2>
-                <div className='stats-wrapper'>
-                  <div className='rating'>{renderRating(business.rating)}</div>
-                  <span className='reviews'>
-                    {business.review_count} reviews
-                  </span>
-                </div>
-                <div className='category-wrapper'>
-                  {business.price && [
-                    <span key='1' className='price'>
-                      {business.price}
-                    </span>,
-                    <span key='2' className='dot'>
-                      {' '}
-                      &middot;
-                    </span>,
-                  ]}
-                  <span className='categories'>
-                    {business.categories
-                      .map(category => category.title)
-                      .join(', ')}
-                  </span>
-                </div>
-              </div>
-            </li>
-          ))}
+                  <div className='item-details'>
+                    <h2 className='name'>
+                      <span className='number'>{`${i + 1}.`} </span>
+                      <div onClick={() => handleClick(business)}>
+                        {business.name}{' '}
+                      </div>
+                    </h2>
+                    <div className='stats-wrapper'>
+                      <div className='rating'>
+                        {renderRating(business.rating)}
+                      </div>
+                      <span className='reviews'>
+                        {business.review_count} reviews
+                      </span>
+                    </div>
+                    <div className='category-wrapper'>
+                      {business.price && [
+                        <span key='1' className='price'>
+                          {business.price}
+                        </span>,
+                        <span key='2' className='dot'>
+                          {' '}
+                          &middot;
+                        </span>,
+                      ]}
+                      <span className='categories'>
+                        {business.categories
+                          .map(category => category.title)
+                          .join(', ')}
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              ))
+            : null}
         </StyledBusinessList>
         <Map />
       </Container>
@@ -162,7 +166,7 @@ const StyledBusinessList = styled.ul`
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: white;
+    background-color: #fafafa;
     font-weight: bold;
     padding-bottom: 10px;
   }
