@@ -6,6 +6,8 @@ import usePosition from 'hooks/usePosition'
 const SearchBar = () => {
   const { latitude, longitude } = usePosition();
   const [locale, setLocale] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+
   useEffect(() => {
     console.log('Location: ', latitude, longitude)
     if (latitude) {
@@ -18,8 +20,12 @@ const SearchBar = () => {
     <StyledHero >
       <div className="inputs-container">
         <div className="search-container type">
-          <p>What?</p>
-          <input type="text" placeholder="bars, clubs, breweries, venues..." />
+          <p>What?</p>            
+          <input 
+            type="text" 
+            placeholder="bars, clubs, breweries, venues..."
+            value={searchTerm} 
+            onChange={e => setSearchTerm(e.target.value)}/>
         </div>
         <div className="search-container locale">
           <p>Where?</p>
