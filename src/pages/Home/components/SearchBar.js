@@ -1,12 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import usePosition from 'hooks/usePosition'
 
-//https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyD-VYKpBimXsY0c46BGOfdT3uEArB5YjeA
+
 const SearchBar = () => {
   const { latitude, longitude } = usePosition();
-  useEffect(()=>{
-  console.log('Location: ', latitude, longitude)
+  const [locale, setLocale] = useState('')
+  useEffect(() => {
+    console.log('Location: ', latitude, longitude)
+    if (latitude) {
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_MAPS_API_KEY}`)
+        .then(res => res.json())
+        .then(json => console.log(json))
+      // setLocale()
+    }
   }, [latitude, longitude])
   return (
     <StyledHero >
