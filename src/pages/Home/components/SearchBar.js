@@ -12,7 +12,6 @@ const SearchBar = () => {
       fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_MAPS_API_KEY}`)
         .then(res => res.json())
         .then(json => setLocale(json.results[0].formatted_address))
-      // setLocale()
     }
   }, [latitude, longitude])
   return (
@@ -20,11 +19,16 @@ const SearchBar = () => {
       <div className="inputs-container">
         <div className="search-container type">
           <p>What?</p>
-          <input type="text" placeholder="bars, clubs, breweries, venues" />
+          <input type="text" placeholder="bars, clubs, breweries, venues..." />
         </div>
         <div className="search-container locale">
           <p>Where?</p>
-          <input type="text" placeholder="Los Angeles" value={locale} />
+          <input
+            type="text"
+            placeholder="Los Angeles"
+            value={locale}
+            onChange={e => setLocale(e.target.value)}
+          />
         </div>
         <div className="search-button">
           go
