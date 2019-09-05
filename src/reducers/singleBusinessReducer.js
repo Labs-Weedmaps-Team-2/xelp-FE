@@ -13,6 +13,8 @@ export const singleBusinessReducer = (state = initialState, action) => {
       return { ...action.payload }
     case types.FETCH_BUSSINESS_REVIEWS_SUCCESS:
       return { ...state, reviews: action.payload }
+    case types.ADD_REVIEW:
+      return { ...state, reviews: [...state.reviews, action.payload] }
     default:
       return state
   }

@@ -1,21 +1,27 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useRouter from 'hooks/useRouter'
+import { Link } from 'react-router-dom'
 import { fetchBusinessDetails } from 'actions/index'
 import styled from 'styled-components'
 import { Logo } from 'components'
 import { SearchBar } from 'containers'
 import { renderRating } from 'utils'
+import ReviewForm from './components/ReviewForm'
+import Reviews from './components/Reviews'
 
 const mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?'
 
 const Business = () => {
   const { location } = useRouter()
   const dispatch = useDispatch()
+
   const business = useSelector(({ singleBusiness }) => singleBusiness)
   useEffect(() => {
-    const yelp_id = location.pathname.split('/business/')
-    dispatch(fetchBusinessDetails(yelp_id[1]))
+    console.log(location)
+    const yelp_id = location.pathname.split('/')
+    console.log(yelp_id[2])
+    dispatch(fetchBusinessDetails(yelp_id[2]))
   }, [])
 
   return (
@@ -59,7 +65,11 @@ const Business = () => {
               </div>
             </div>
             <div className='business-actionbar'>
-              <button className='btn-review'>Write a Review</button>
+              <Link
+                to={`/writeareview/${location.pathname.split('/business/')[1]}`}
+              >
+                <button className='btn-review'>Write a Review</button>
+              </Link>
               <button className='btn-add-photo'>Add Photo</button>
             </div>
           </div>
@@ -96,15 +106,7 @@ const Business = () => {
         <div className='reviews-more-details'>
           <div className='review-list'>
             REVIEW LIST GOES HERE
-            {business.reviews &&
-              business.reviews.map(review => (
-                <div key={review.id}>
-                  <span>
-                    {(review.user && review.user.name) || review.user.username}
-                  </span>
-                  <p>{review.text}</p>
-                </div>
-              ))}
+            {business.reviews && <Reviews reviews={business.reviews} />}
           </div>
           <div className='more-details'>
             MORE BUSINESS DETAILS/SERVICES GOES HERE
@@ -136,13 +138,13 @@ const Container = styled.div`
     margin-top: 30px;
   }
   .review-list {
+    /* border: 1px solid blue; */
     width: 720px;
     height: 500px;
-    border: 1px solid blue;
   }
   .more-details {
+    /* border: 1px solid red; */
     width: 300px;
-    border: 1px solid red;
     height: 500px;
   }
 `
@@ -150,7 +152,7 @@ const Container = styled.div`
 const Nav = styled.nav`
   display: flex;
   position: sticky;
-  z-index: 5;
+  z-index: 10;
   top: 0;
   align-items: center;
   background-color: #d32323;
@@ -173,7 +175,7 @@ const BusinessHero = styled.section`
   border-top: 1px solid #e6e6e6;
   border-bottom: 1px solid #e6e6e6;
   .business-details {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -202,7 +204,7 @@ const BusinessHero = styled.section`
     margin-left: 10px;
   }
   .price-categories-wrap {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     display: flex;
     align-items: center;
     position: relative;
@@ -250,9 +252,10 @@ const BusinessHero = styled.section`
   }
 
   .map-showcase {
+    /* border: 1px solid red; */
     display: flex;
     height: 250px;
-    border: 1px solid red;
+    margin-top: 5px;
   }
   .map-container {
     /* border: 1px solid red; */
@@ -260,27 +263,26 @@ const BusinessHero = styled.section`
     padding: 5px;
     border: 1px solid #cccccc;
     position: relative;
-    bottom: -30px;
+    bottom: -20px;
     z-index: 5;
     background: #ffffff;
   }
   .showcase-container {
-    /* border: 1px solid red; */
+    /* border: 1px solid blue; */
     display: flex;
-    justify-content: center;
     align-items: flex-end;
     position: relative;
     width: 720px;
     position: relative;
   }
   .showcase-image-wrapper {
-    width: 220px;
-    height: 220px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    width: 225px;
+    height: 225px;
     transition: 0.25s transform ease-in-out;
     &:hover {
       transform: scale(1.1);
-      z-index: 10;
+      z-index: 5;
     }
   }
   .showcase-image {

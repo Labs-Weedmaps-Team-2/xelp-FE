@@ -21,7 +21,6 @@ const BusinessList = () => {
   useEffect(() => {
     dispatch(fetchBusiness(search.term, search.location, 0))
   }, [])
-
   const handleClick = business => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
     history.push(`/business/${business.id}`)
