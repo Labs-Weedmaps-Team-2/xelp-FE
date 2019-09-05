@@ -6,11 +6,11 @@ const SearchBar = () => {
   return (
     <StyledHero >
       <div className="inputs-container">
-        <div className="item-search-container">
+        <div className="search-container type">
           <p>What?</p>
           <input type="text" placeholder="bars, clubs, breweries, venues" />
         </div>
-        <div className="locale-search-container">
+        <div className="search-container locale">
           <p>Where?</p>
           <input type="text" placeholder="Los Angeles" />
         </div>
@@ -41,7 +41,7 @@ const StyledHero = styled.div`
     display: flex;
     flex-flow: row;
     justify-content: center;
-    .item-search-container {
+    .search-container {
       width:47%;
       display: flex;
       flex-flow: row;
@@ -50,35 +50,22 @@ const StyledHero = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 90%;
+        height: 80%;
         width: 18%;
         font-weight: bold;
       }
       input {
-        height: 90%;
+        height: 80%;
         width: 82%;
         border: none;
         font-size: 1em;
+        display: flex;
+        align-items: center;
       }
     }
-    .locale-search-container {
-      width:47%;
-      display: flex;
-      flex-flow: row;
-      align-items: center;
+    .locale {
       p {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 90%;
-        width: 18%;
-        font-weight: bold;
-      }
-      input {
-        height: 90%;
-        width: 82%;
-        border: none;
-        font-size: 1em;
+        border-left: 1px solid lightslategrey;
       }
     }
     .search-button {
