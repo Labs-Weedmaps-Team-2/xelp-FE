@@ -13,7 +13,6 @@ const Business = () => {
   const { location } = useRouter()
   const dispatch = useDispatch()
   const business = useSelector(({ singleBusiness }) => singleBusiness)
-  console.log('business', business)
   useEffect(() => {
     const yelp_id = location.pathname.split('/business/')
     dispatch(fetchBusinessDetails(yelp_id[1]))
@@ -42,7 +41,7 @@ const Business = () => {
                   {business.review_count} reviews
                 </span>
               </div>
-              <div className='business-category'>
+              <div className='price-categories-wrap'>
                 {business.price && [
                   <span key='1' className='price'>
                     {business.price}
@@ -74,23 +73,19 @@ const Business = () => {
                   />
                 ) : null}
               </div>
-              <div className='address'>
+              <address className='address'>
                 {business.location
                   ? business.location.display_address.map((line, index) => (
                       <div key={index}>{line}</div>
                     ))
                   : null}
-              </div>
+              </address>
               <div className='phone'>{business.display_phone}</div>
             </div>
             <div className='showcase-container'>
               {business.photos.map((photo, index) => (
                 <div key={index} className='showcase-image-wrapper'>
-                  <img
-                    className='showcase-image-wrapper'
-                    src={photo}
-                    alt='business'
-                  />
+                  <img className='showcase-image' src={photo} alt='business' />
                 </div>
               ))}
             </div>
@@ -138,7 +133,7 @@ const Container = styled.div`
     justify-content: space-between;
     min-height: 500px;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 30px;
   }
   .review-list {
     width: 720px;
@@ -173,9 +168,12 @@ const Nav = styled.nav`
 const BusinessHero = styled.section`
   /* border: 1px solid blue; */
   /* height: 390px; */
-  margin-top: 20px;
+  background: #f5f5f5;
+  padding: 20px 0 0px;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
   .business-details {
-    /* border: 1px solid green; */
+    border: 1px solid green;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -203,19 +201,30 @@ const BusinessHero = styled.section`
   .review-count {
     margin-left: 10px;
   }
-  .business-category {
+  .price-categories-wrap {
+    border: 1px solid blue;
     display: flex;
+    align-items: center;
     position: relative;
     .dot {
       margin: 0 5px;
     }
     .edit {
-      position: absolute;
-      width: 35px;
       height: 20px;
-      right: 5px;
       background: none;
-      color: rgba(0, 0, 0, 87);
+      color: #999999;
+      margin-left: 20px;
+      padding: 0 10px;
+      border-radius: 3px;
+      border: 1px solid #cccccc;
+      cursor: pointer;
+      transition: 0.2s color border ease;
+      &:hover {
+        color: #1a1a1a;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        border: 1px solid #666666;
+      }
     }
   }
 
@@ -242,13 +251,18 @@ const BusinessHero = styled.section`
 
   .map-showcase {
     display: flex;
-    height: 260px;
+    height: 250px;
+    border: 1px solid red;
   }
   .map-container {
     /* border: 1px solid red; */
     width: 300px;
     padding: 5px;
-    border: 1px solid #666666;
+    border: 1px solid #cccccc;
+    position: relative;
+    bottom: -30px;
+    z-index: 5;
+    background: #ffffff;
   }
   .showcase-container {
     /* border: 1px solid red; */
@@ -257,24 +271,37 @@ const BusinessHero = styled.section`
     align-items: flex-end;
     position: relative;
     width: 720px;
+    position: relative;
   }
   .showcase-image-wrapper {
     width: 220px;
     height: 220px;
+    border: 1px solid red;
+    transition: 0.25s transform ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+      z-index: 10;
+    }
   }
   .showcase-image {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   .map-static {
     width: 288px;
     height: 139px;
     margin-bottom: 10px;
+    overflow: hidden;
+    border: 1px solid #cccccc;
   }
 
   .address {
     line-height: 20px;
     margin-bottom: 8px;
+    font-weight: bold;
+    color: #333333;
   }
 `
