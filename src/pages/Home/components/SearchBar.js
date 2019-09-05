@@ -1,42 +1,59 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import usePosition from 'hooks/usePosition'
+import { useRouter, usePosition } from 'hooks'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSearch } from 'actions'
 
+// dispatch(fetchBusiness(search.term, search.location, 0))
 
 const SearchBar = () => {
-  const { latitude, longitude } = usePosition();
-  const [locale, setLocale] = useState('')
-  const [searchTerm, setSearchTerm] = useState('')
+  // Custom hook to get users location
+  const { latitude, longitude } = usePosition()
+  const dispatch = useDispatch()
+  const { history } = useRouter()
+  const search = useSelector(({ search }) => search)
 
   useEffect(() => {
     console.log('Location: ', latitude, longitude)
     if (latitude) {
       fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_MAPS_API_KEY}`)
         .then(res => res.json())
-        .then(json => setLocale(json.results[0].formatted_address))
+        .then(json => dispatch(setSearch(search.term, json.results[0].formatted_address)))
     }
   }, [latitude, longitude])
+  const handleSubmit = () => {
+    if (search.term && search.location) {
+      history.push('/business-list')
+    }
+  }
+  const handleChange = (e) => {
+    const searchCopy = {...search, [e.target.name]:e.target.value}
+    dispatch(setSearch(searchCopy.term, searchCopy.location))
+  }
   return (
-    <StyledHero >
+    <StyledHero>
       <div className="inputs-container">
         <div className="search-container type">
-          <p>What?</p>            
-          <input 
-            type="text" 
+          <p>What?</p>
+          <input
+            type="text"
             placeholder="bars, clubs, breweries, venues..."
-            value={searchTerm} 
-            onChange={e => setSearchTerm(e.target.value)}/>
+            value={search.term}
+            name="term"
+            onChange={handleChange}
+          />
         </div>
         <div className="search-container locale">
           <p>Where?</p>
           <input
             type="text"
             placeholder="Los Angeles"
-            value={locale}
-            onChange={e => setLocale(e.target.value)}
+            value={search.location}
+            name="location"
+            onChange={handleChange}
           />
         </div>
-        <div className="search-button">
+        <div className="search-button" onClick={handleSubmit}>
           go
         </div>
       </div>
