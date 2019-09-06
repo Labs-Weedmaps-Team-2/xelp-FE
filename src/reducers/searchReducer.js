@@ -1,7 +1,7 @@
 import * as types from 'actions/types'
 const initialState = {
   location: 'Los Angeles, CA',
-  term: 'Tacos',
+  term: '',
   offset: 0,
 }
 
