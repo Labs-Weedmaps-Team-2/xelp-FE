@@ -32,6 +32,7 @@ const Reviews = ({ reviews }) => {
             </div>
             <div className='review-content'>
               <div className='review-meta'>
+                {console.log(review.rating)}
                 <div className='rating-wrapper'>
                   {renderRating(review.rating)}
                 </div>
