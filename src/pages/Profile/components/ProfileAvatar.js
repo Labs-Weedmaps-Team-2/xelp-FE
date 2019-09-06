@@ -12,7 +12,6 @@ const ProfileAvatar = props => {
     const reader = new FileReader()
 
     reader.onloadend = () => {
-      // setSrc(reader.result)
       const formData = new FormData()
       formData.append('user[avatar]', file)
       dispatch(uploadUserImage(props.id, formData))

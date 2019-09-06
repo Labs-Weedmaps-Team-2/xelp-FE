@@ -1,13 +1,19 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const Logo = () => {
-  return <Brand>Logo</Brand>
+  return (
+    <Link to='/'>
+      <Brand>Xelp</Brand>
+    </Link>
+  )
 }
 
 const Brand = styled.div`
+  border: 1px solid black;
   width: 120px;
-  height: 70%;
+  height: 40px;
   margin-right: 20px;
   display: flex;
   font-size: 18px;
@@ -15,5 +21,5 @@ const Brand = styled.div`
   letter-spacing: 1.2px;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  color: white;
 `

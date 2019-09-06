@@ -39,7 +39,7 @@ export const Map = props => {
             return (
               <Marker
                 key={index}
-                id={index}
+                id={index + props.offset + 1}
                 lat={position.latitude}
                 lng={position.longitude}
                 item={business.businesses[index]}
