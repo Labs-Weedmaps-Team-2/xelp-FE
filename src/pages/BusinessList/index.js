@@ -21,6 +21,7 @@ const BusinessList = () => {
   ])
 
   const { businesses } = business
+  var log = console.log
 
   useEffect(() => {
     dispatch(fetchBusiness(search.term, search.location, search.offset))
@@ -33,7 +34,7 @@ const BusinessList = () => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
     history.push(`/business/${business.id}`)
   }
-
+  log(business.rating, 'here wtf')
   const handlePageClick = ({ selected }) => {
     const offset = Math.ceil(selected * itemsPerPage)
     dispatch(fetchBusiness(search.term, search.location, offset))

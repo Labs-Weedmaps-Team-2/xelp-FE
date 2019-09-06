@@ -24,7 +24,7 @@ const Business = () => {
       dispatch(resetSingleBusiness())
     }
   }, [])
-
+  console.log('single', business)
   return (
     <Wrapper>
       <Nav>

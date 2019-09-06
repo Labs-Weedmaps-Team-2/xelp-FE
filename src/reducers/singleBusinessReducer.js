@@ -8,7 +8,7 @@ const initialState = {
 export const singleBusinessReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.POPULATE_SINGLE:
-      return { ...state, single: action.payload }
+      return { ...state, ...action.payload }
     case types.FETCH_SINGLE_BUSINESS_SUCCESS:
       return { ...action.payload }
     case types.FETCH_BUSINESS_REVIEWS_SUCCESS:
