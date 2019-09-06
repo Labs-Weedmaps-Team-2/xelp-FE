@@ -98,7 +98,7 @@ const StyledHero = styled.div`
 
 const StyledLogo = styled.img`
   position: absolute;
-  top: 15%;
+  top: 10%;
   width: 200px;
   height: auto;
   padding: 0;
