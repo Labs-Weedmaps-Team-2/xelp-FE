@@ -4,7 +4,6 @@ import { useRouter, usePosition } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearch } from 'actions'
 
-
 const SearchBar = () => {
   // Custom hook to get users location
   const { latitude, longitude } = usePosition()
@@ -38,7 +37,8 @@ const SearchBar = () => {
     dispatch(setSearch(searchCopy.term, searchCopy.location))
   }
   return (
-    <StyledHero>
+    <StyledHero >
+      <StyledLogo src="https://s3-media1.fl.yelpcdn.com/assets/srv0/styleguide/891ac3707136/assets/img/brand_guidelines/yelp_fullcolor@2x.png" alt="Logo" />;
       <div className="inputs-container">
         <div className="search-container type">
           <p>What?</p>
@@ -125,3 +125,14 @@ const StyledHero = styled.div`
     }
   }
 `
+
+const StyledLogo = styled.img`
+  position: absolute;
+  top: 15%;
+  width: 200px;
+  height: auto;
+  padding: 0;
+  margin: 0 auto 48px;
+  background-repeat: no-repeat;
+}
+`;
