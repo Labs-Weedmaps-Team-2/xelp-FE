@@ -21,12 +21,11 @@ const SearchBar = () => {
           dispatch(
             setSearch(
               search.term,
-              `${json.results[0].components.city ||
-              json.results[0].components.town}, ${
-              json.results[0].components.state_code}`
+              json.results[0].formatted
             )
           )
-        })
+        }
+        )
     }
   }, [latitude, longitude])
   const handleSubmit = () => {
