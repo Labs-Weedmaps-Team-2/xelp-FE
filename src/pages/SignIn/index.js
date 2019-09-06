@@ -43,7 +43,7 @@ const StyledSignIn = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 90px auto;
   a {
     /* border: 2px solid red; */
     display: flex;

@@ -14,32 +14,33 @@ export const Navbar = () => {
       <StyledLink to='/'>Home</StyledLink>
       <StyledLink to='/sign-in'>Sign In</StyledLink>
       <StyledLink to='/profile'>Profile</StyledLink>
-      <StyledLink to='/business-list'>Businesses</StyledLink>
     </StyledNavHeader>
   )
 }
 
 const StyledNavHeader = styled.nav`
-  background: transparent;
+  width: 100%;
+  background: ${props =>
+    props.location.pathname === '/' ? 'transparent' : '#FAFAFA'};
   position: fixed;
   left: 0;
   top: 0;
-  max-width: 1010px;
   padding: 26px 20px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 60px;
+  z-index: 30;
+  border-bottom: ${props =>
+    props.location.pathname === '/' ? 'none' : '1px solid #e6e6e6'};
 
   a {
-    color: ${props =>
-      props.location.pathname.includes('profile') ? 'black' : 'white'};
+    color: ${props => (props.location.pathname === '/' ? 'white' : 'black')};
     font-size: 1.8rem;
     margin-left: 5rem;
+    &:hover {
+      text-decoration: none;
+    }
   }
-`
-const NavRight = styled.div`
-  width: 33.333%;
-  text-align: right;
 `

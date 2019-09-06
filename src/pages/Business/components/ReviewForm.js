@@ -123,6 +123,7 @@ const ReviewForm = () => {
 export default ReviewForm
 
 const Form = styled.form`
+  margin-top: 90px;
   display: flex;
   flex-direction: column;
   max-width: 1020px;
