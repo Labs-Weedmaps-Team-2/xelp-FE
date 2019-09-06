@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusiness, resetBusiness } from 'actions'
+import { fetchBusiness, resetBusiness, setSearch } from 'actions'
 import { renderRating } from 'utils'
 import { SearchBar, Map } from 'containers'
 import { Logo } from 'components'
@@ -9,7 +9,10 @@ import { POPULATE_SINGLE } from 'actions/types'
 import ReactPaginate from 'react-paginate'
 import useRouter from 'hooks/useRouter'
 
+const itemsPerPage = 20
+
 const BusinessList = () => {
+  const listRef = useRef()
   const dispatch = useDispatch()
   const { history } = useRouter()
   const [search, business] = useSelector(({ search, business }) => [
@@ -30,6 +33,16 @@ const BusinessList = () => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
     history.push(`/business/${business.id}`)
   }
+
+  const handlePageClick = ({ selected }) => {
+    const offset = Math.ceil(selected * itemsPerPage)
+    dispatch(fetchBusiness(search.term, search.location, offset))
+    dispatch(setSearch(search.term, search.location, offset))
+    if (listRef.current) {
+      listRef.current.scrollTop = 0
+    }
+  }
+
   return (
     <Wrapper>
       <Nav>
@@ -39,7 +52,7 @@ const BusinessList = () => {
         </div>
       </Nav>
       <Container>
-        <StyledBusinessList>
+        <StyledBusinessList ref={listRef}>
           <h1>All Results</h1>
           {businesses.map((business, i) => (
             <li className='list-item' key={business.id}>
@@ -87,17 +100,18 @@ const BusinessList = () => {
           ))}
           <ReactPaginate
             style={{ display: 'flex' }}
-            previousLabel={'previous'}
-            nextLabel={'next'}
+            previousLabel={'<'}
+            nextLabel={'>'}
             breakLabel={'...'}
             breakClassName={'break-me'}
-            pageCount={Math.floor(business.total / 20)}
+            pageCount={Math.floor(business.total / itemsPerPage) || 1}
             marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={() => {}}
+            pageRangeDisplayed={1}
+            onPageChange={handlePageClick}
             containerClassName={'pagination'}
             subContainerClassName={'pages pagination'}
             activeClassName={'active'}
+            initialPage={Math.floor(search.offset / itemsPerPage) || 0}
           />
         </StyledBusinessList>
         <Map offset={search.offset} />
@@ -258,5 +272,46 @@ const StyledBusinessList = styled.ul`
   .categories {
     font-size: 14px;
     color: #666666;
+  }
+  //* Pagination styles *//
+  .pagination {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-weight: 600;
+
+    .previous,
+    .next {
+      a {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .active,
+    .focus {
+      outline: none;
+      color: black;
+    }
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        font-size: 1.6rem;
+        cursor: pointer;
+        color: black;
+        &:hover {
+          color: #1999e9;
+          outline: none;
+        }
+      }
+    }
   }
 `
