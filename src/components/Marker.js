@@ -9,6 +9,7 @@ export const Marker = ({ $hover, color, item, id }) => {
 
   return (
     <StyledMarker
+      hover={$hover}
       color={hoverColor}
       onClick={() => history.push(`/business/${item.id}`)}
     >
@@ -20,12 +21,16 @@ export const Marker = ({ $hover, color, item, id }) => {
 
 const StyledMarker = styled.div`
   /* border: 1px solid blue; */
-  position: relative;
+  position: absolute;
+  transform: translate(-50%, -50%)
+    ${props => (props.hover ? 'scale(1.2)' : null)};
+  z-index: ${props => (props.hover ? 10 : null)};
   width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: 0.2s all ease-in-out;
   span {
     position: absolute;
     font-weight: bold;

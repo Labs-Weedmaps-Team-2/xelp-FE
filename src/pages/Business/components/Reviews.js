@@ -54,6 +54,7 @@ const Container = styled.div`
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
   .review-item {
     /* border: 1px solid green; */
     display: flex;

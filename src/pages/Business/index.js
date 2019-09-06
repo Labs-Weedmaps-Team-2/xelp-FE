@@ -127,9 +127,12 @@ const Business = () => {
 export default Business
 
 const Wrapper = styled.div`
+  /* border: 1px solid blue; */
   display: flex;
   flex-direction: column;
   position: relative;
+  background: #ffffff;
+  padding-bottom: 20px;
 `
 
 const Container = styled.div`
@@ -147,12 +150,10 @@ const Container = styled.div`
   .review-list {
     /* border: 1px solid blue; */
     width: 720px;
-    height: 500px;
   }
   .more-details {
     /* border: 1px solid red; */
     width: 300px;
-    height: 500px;
   }
 `
 
@@ -254,6 +255,11 @@ const BusinessHero = styled.section`
     font-weight: bold;
     margin-right: 25px;
     cursor: pointer;
+    opacity: 0.9;
+    transition: 0.3 opacity ease;
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .btn-add-photo {
@@ -264,6 +270,12 @@ const BusinessHero = styled.section`
     background: #ffffff;
     border-radius: 3px;
     margin-right: 25px;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: 0.3 opacity ease;
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .map-showcase {

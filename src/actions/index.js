@@ -61,13 +61,11 @@ export const setSearch = (term, location, offset = 0) => {
 export const fetchBusinessDetails = yelp_id => async dispatch => {
   dispatch({ type: types.FETCH_SINGLE_BUSINESS_REQUEST })
   try {
-    console.log(yelp_id)
     const res = await api.get(`/search/${yelp_id}`)
     dispatch({ type: types.FETCH_SINGLE_BUSINESS_SUCCESS, payload: res.data })
 
     dispatch({ type: types.FETCH_BUSINESS_REVIEWS_REQUEST })
     const review_res = await api.get(`/business/reviews/${yelp_id}`)
-    console.log(review_res.data, 'he;loooo')
     dispatch({
       type: types.FETCH_BUSINESS_REVIEWS_SUCCESS,
       payload: review_res.data,

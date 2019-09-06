@@ -15,7 +15,9 @@ const StyledFooter = styled.footer`
   align-items: center;
   justify-content: center;
   height: 300px;
+  border-top: 1px solid #e6e6e6;
+  background: #fafafa;
   h2 {
-    font-size: 1.8rem;
+    font-size: 3.2rem;
   }
 `
