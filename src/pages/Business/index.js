@@ -266,13 +266,12 @@ const BusinessHero = styled.section`
   .map-showcase {
     /* border: 1px solid red; */
     display: flex;
-    height: 250px;
     margin-top: 5px;
   }
   .map-container {
     /* border: 1px solid red; */
     width: 300px;
-    padding: 5px;
+    padding: 5px 5px 20px;
     border: 1px solid #cccccc;
     position: relative;
     bottom: -20px;
