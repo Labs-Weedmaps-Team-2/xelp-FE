@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'hooks'
 import { setSearch, fetchBusiness } from 'actions'
 import styled from 'styled-components'
+import SearchSvg from 'assets/svg/SearchSvg'
 
 export const SearchBar = () => {
   const inputTerm = useRef()
@@ -60,7 +61,9 @@ export const SearchBar = () => {
           onClick={() => inputLocation.current.select()}
         />
       </div>
-      <button>S</button>
+      <button className='btn-search'>
+        <SearchSvg color='white' />
+      </button>
     </Form>
   )
 }
@@ -109,13 +112,16 @@ const Form = styled.form`
     padding-left: 10px;
     font-weight: thin;
   }
-  button {
+  .btn-search {
     width: 70px;
     height: 100%;
     font-size: 24px;
     border: none;
     background-color: #a71c1c;
     border: 1px solid #a71c1c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
     font-weight: bold;
     position: relative;
