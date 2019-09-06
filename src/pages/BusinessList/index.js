@@ -6,6 +6,7 @@ import { renderRating } from 'utils'
 import { SearchBar, Map } from 'containers'
 import { Logo } from 'components'
 import { POPULATE_SINGLE } from 'actions/types'
+import ReactPaginate from 'react-paginate'
 import useRouter from 'hooks/useRouter'
 
 const BusinessList = () => {
@@ -81,6 +82,20 @@ const BusinessList = () => {
               </div>
             </li>
           ))}
+          <ReactPaginate
+            style={{ display: 'flex' }}
+            previousLabel={'previous'}
+            nextLabel={'next'}
+            breakLabel={'...'}
+            breakClassName={'break-me'}
+            pageCount={Math.floor(business.total / 20)}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={() => {}}
+            containerClassName={'pagination'}
+            subContainerClassName={'pages pagination'}
+            activeClassName={'active'}
+          />
         </StyledBusinessList>
         <Map />
       </Container>
