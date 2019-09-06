@@ -194,7 +194,7 @@ const StyledBusinessList = styled.ul`
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: #fFFFFF;
+    background-color: #ffffff;
     font-weight: bold;
     padding-bottom: 10px;
   }
