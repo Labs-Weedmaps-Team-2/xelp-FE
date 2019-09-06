@@ -38,7 +38,6 @@ const SearchBar = () => {
   }
   return (
     <StyledHero >
-      <StyledLogo src="https://s3-media1.fl.yelpcdn.com/assets/srv0/styleguide/891ac3707136/assets/img/brand_guidelines/yelp_fullcolor@2x.png" alt="Logo" />;
       <div className="inputs-container">
         <div className="search-container type">
           <p>What?</p>
@@ -71,7 +70,7 @@ const SearchBar = () => {
 export default SearchBar
 
 const StyledHero = styled.div`
-  background-image: url("https://s3-media3.fl.yelpcdn.com/assets/srv0/yelp_large_assets/fa674c810afa/assets/img/home/hero_photos/sL6pI2T8M-jSGiZzeq6Wxg.jpg");
+  background-image: url("https://i1.wp.com/www.horseshoegrille.com/wp-content/uploads/2017/10/harmony-bar-crawl-royal-caribbean.jpg?ssl=1");
   background-color: #333;
   background-size: cover;
   background-position: 50%;
@@ -125,14 +124,3 @@ const StyledHero = styled.div`
     }
   }
 `
-
-const StyledLogo = styled.img`
-  position: absolute;
-  top: 10%;
-  width: 200px;
-  height: auto;
-  padding: 0;
-  margin: 0 auto 48px;
-  background-repeat: no-repeat;
-}
-`;
