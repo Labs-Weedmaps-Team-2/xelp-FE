@@ -1,36 +1,65 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import usePosition from 'hooks/usePosition'
-
+import { useRouter, usePosition } from 'hooks'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSearch } from 'actions'
 
 const SearchBar = () => {
-  const { latitude, longitude } = usePosition();
-  const [locale, setLocale] = useState('')
+  // Custom hook to get users location
+  const { latitude, longitude } = usePosition()
+  const dispatch = useDispatch()
+  const { history } = useRouter()
+  const search = useSelector(({ search }) => search)
+
   useEffect(() => {
     console.log('Location: ', latitude, longitude)
     if (latitude) {
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_MAPS_API_KEY}`)
+      fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=${process.env.REACT_APP_OPENCAGE_API_KEY}`)
         .then(res => res.json())
-        .then(json => setLocale(json.results[0].formatted_address))
+        .then(json => {
+          dispatch(
+            setSearch(
+              search.term,
+              json.results[0].formatted
+            )
+          )
+        }
+        )
     }
   }, [latitude, longitude])
+  const handleSubmit = () => {
+    if (search.term && search.location) {
+      history.push('/business-list')
+    }
+  }
+  const handleChange = e => {
+    const searchCopy = { ...search, [e.target.name]: e.target.value }
+    dispatch(setSearch(searchCopy.term, searchCopy.location))
+  }
   return (
     <StyledHero >
       <div className="inputs-container">
         <div className="search-container type">
           <p>What?</p>
-          <input type="text" placeholder="bars, clubs, breweries, venues..." />
+          <input
+            type="text"
+            placeholder="bars, clubs, breweries, venues..."
+            value={search.term}
+            name="term"
+            onChange={handleChange}
+          />
         </div>
         <div className="search-container locale">
           <p>Where?</p>
           <input
             type="text"
             placeholder="Los Angeles"
-            value={locale}
-            onChange={e => setLocale(e.target.value)}
+            value={search.location}
+            name="location"
+            onChange={handleChange}
           />
         </div>
-        <div className="search-button">
+        <div className="search-button" onClick={handleSubmit}>
           go
         </div>
       </div>
@@ -41,7 +70,7 @@ const SearchBar = () => {
 export default SearchBar
 
 const StyledHero = styled.div`
-  background-image: url("https://s3-media3.fl.yelpcdn.com/assets/srv0/yelp_large_assets/fa674c810afa/assets/img/home/hero_photos/sL6pI2T8M-jSGiZzeq6Wxg.jpg");
+  background-image: url("https://i1.wp.com/www.horseshoegrille.com/wp-content/uploads/2017/10/harmony-bar-crawl-royal-caribbean.jpg?ssl=1");
   background-color: #333;
   background-size: cover;
   background-position: 50%;

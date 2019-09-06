@@ -51,26 +51,28 @@ export const fetchBusiness = (term, location, offset = 0) => async dispatch => {
   }
 }
 
-export const setSearch = (term, location) => {
-  const search = { term, location }
+export const resetBusiness = () => ({ type: types.RESET_BUSINESS })
+
+export const setSearch = (term, location, offset = 0) => {
+  const search = { term, location, offset }
   return { type: types.SET_SEARCH, payload: search }
 }
 
 export const fetchBusinessDetails = yelp_id => async dispatch => {
-  dispatch({ type: types.FETCH_SINGLE_BUSSINESS_REQUEST })
+  dispatch({ type: types.FETCH_SINGLE_BUSINESS_REQUEST })
   try {
-    console.log(yelp_id)
     const res = await api.get(`/search/${yelp_id}`)
-    dispatch({ type: types.FETCH_SINGLE_BUSSINESS_SUCCESS, payload: res.data })
+    dispatch({ type: types.FETCH_SINGLE_BUSINESS_SUCCESS, payload: res.data })
 
-    dispatch({ type: types.FETCH_BUSSINESS_REVIEWS_REQUEST })
+    dispatch({ type: types.FETCH_BUSINESS_REVIEWS_REQUEST })
     const review_res = await api.get(`/business/reviews/${yelp_id}`)
-    console.log(review_res.data)
     dispatch({
-      type: types.FETCH_BUSSINESS_REVIEWS_SUCCESS,
+      type: types.FETCH_BUSINESS_REVIEWS_SUCCESS,
       payload: review_res.data,
     })
   } catch (err) {
-    dispatch({ type: types.FETCH_SINGLE_BUSSINESS_FAILURE })
+    dispatch({ type: types.FETCH_SINGLE_BUSINESS_FAILURE })
   }
 }
+
+export const resetSingleBusiness = () => ({ type: types.RESET_SINGLE_BUSINESS })

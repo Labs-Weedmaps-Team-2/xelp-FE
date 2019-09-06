@@ -13,7 +13,7 @@ import rating_5 from 'assets/img/rating_5.png'
 import styled from 'styled-components'
 
 export const renderRating = rating => {
-  switch (rating) {
+  switch (Number(rating)) {
     case 5:
       return <Img src={rating_5} alt='' />
     case 4.5:
@@ -36,7 +36,8 @@ export const renderRating = rating => {
       return <Img src={rating_0} alt='' />
     // TODO: throw an actual error
     default:
-      throw new Error('renderRating error')
+      console.log('RATING ERROR', rating)
+      return <Img src={rating_0} alt='' />
   }
 }
 

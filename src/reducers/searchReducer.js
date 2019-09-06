@@ -1,7 +1,8 @@
 import * as types from 'actions/types'
 const initialState = {
-  location: 'los angeles, ca',
-  term: 'tacos',
+  location: 'Los Angeles, CA',
+  term: '',
+  offset: 0,
 }
 
 export const searchReducer = (state = initialState, action) => {

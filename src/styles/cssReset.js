@@ -61,7 +61,7 @@ table {
   border-spacing: 0;
 }
 a {
-  color: 'black';
+  color: black;
   text-decoration: none;
 }
 `

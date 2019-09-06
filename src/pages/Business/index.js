@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useRouter from 'hooks/useRouter'
 import { Link } from 'react-router-dom'
-import { fetchBusinessDetails } from 'actions/index'
+import { fetchBusinessDetails, resetSingleBusiness } from 'actions/index'
 import styled from 'styled-components'
 import { Logo } from 'components'
 import { SearchBar } from 'containers'
 import { renderRating } from 'utils'
-import ReviewForm from './components/ReviewForm'
 import Reviews from './components/Reviews'
 
 const mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?'
@@ -15,12 +14,15 @@ const mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?'
 const Business = () => {
   const { location } = useRouter()
   const dispatch = useDispatch()
+  const [hoverIndex, setHover] = useState(1)
 
   const business = useSelector(({ singleBusiness }) => singleBusiness)
-
   useEffect(() => {
-    const yelp_id = location.pathname.split('/business/')
-    dispatch(fetchBusinessDetails(yelp_id[1]))
+    const yelp_id = location.pathname.split('/')
+    dispatch(fetchBusinessDetails(yelp_id[2]))
+    return () => {
+      dispatch(resetSingleBusiness())
+    }
   }, [])
 
   return (
@@ -46,7 +48,7 @@ const Business = () => {
                   {business.review_count} reviews
                 </span>
               </div>
-              <div className='business-category'>
+              <div className='price-categories-wrap'>
                 {business.price && [
                   <span key='1' className='price'>
                     {business.price}
@@ -86,23 +88,26 @@ const Business = () => {
                   />
                 ) : null}
               </div>
-              <div className='address'>
+              <address className='address'>
                 {business.location
                   ? business.location.display_address.map((line, index) => (
                       <div key={index}>{line}</div>
                     ))
                   : null}
-              </div>
+              </address>
               <div className='phone'>{business.display_phone}</div>
             </div>
             <div className='showcase-container'>
               {business.photos.map((photo, index) => (
-                <div key={index} className='showcase-image-wrapper'>
-                  <img
-                    className='showcase-image-wrapper'
-                    src={photo}
-                    alt='business'
-                  />
+                <div
+                  key={index}
+                  className={`showcase-image-wrapper ${
+                    hoverIndex === index ? 'hover' : null
+                  }`}
+                  onMouseEnter={() => setHover(index)}
+                  onMouseLeave={() => setHover(1)}
+                >
+                  <img className='showcase-image' src={photo} alt='business' />
                 </div>
               ))}
             </div>
@@ -112,7 +117,6 @@ const Business = () => {
       <Container>
         <div className='reviews-more-details'>
           <div className='review-list'>
-            REVIEW LIST GOES HERE
             {business.reviews && <Reviews reviews={business.reviews} />}
           </div>
           <div className='more-details'>
@@ -127,9 +131,12 @@ const Business = () => {
 export default Business
 
 const Wrapper = styled.div`
+  /* border: 1px solid blue; */
   display: flex;
   flex-direction: column;
   position: relative;
+  background: #ffffff;
+  padding-bottom: 20px;
 `
 
 const Container = styled.div`
@@ -142,24 +149,22 @@ const Container = styled.div`
     justify-content: space-between;
     min-height: 500px;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 30px;
   }
   .review-list {
+    /* border: 1px solid blue; */
     width: 720px;
-    height: 500px;
-    border: 1px solid blue;
   }
   .more-details {
+    /* border: 1px solid red; */
     width: 300px;
-    border: 1px solid red;
-    height: 500px;
   }
 `
 
 const Nav = styled.nav`
   display: flex;
   position: sticky;
-  z-index: 5;
+  z-index: 10;
   top: 0;
   align-items: center;
   background-color: #d32323;
@@ -177,7 +182,10 @@ const Nav = styled.nav`
 const BusinessHero = styled.section`
   /* border: 1px solid blue; */
   /* height: 390px; */
-  margin-top: 20px;
+  background: #f5f5f5;
+  padding: 20px 0 0px;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
   .business-details {
     /* border: 1px solid green; */
     display: flex;
@@ -207,19 +215,37 @@ const BusinessHero = styled.section`
   .review-count {
     margin-left: 10px;
   }
-  .business-category {
+  .price-categories-wrap {
+    /* border: 1px solid blue; */
     display: flex;
+    align-items: center;
     position: relative;
     .dot {
       margin: 0 5px;
     }
+    .categories {
+      color: #1075b9;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
     .edit {
-      position: absolute;
-      width: 35px;
       height: 20px;
-      right: 5px;
       background: none;
-      color: rgba(0, 0, 0, 87);
+      color: #999999;
+      margin-left: 20px;
+      padding: 0 10px;
+      border-radius: 3px;
+      border: 1px solid #cccccc;
+      cursor: pointer;
+      transition: 0.2s color border ease;
+      &:hover {
+        color: #1a1a1a;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        border: 1px solid #666666;
+      }
     }
   }
 
@@ -227,11 +253,17 @@ const BusinessHero = styled.section`
     width: 160px;
     height: 36px;
     border-radius: 3px;
-    background-color: #d32323;
+    background-color: #d1262b;
     color: white;
     font-size: 14px;
     font-weight: bold;
     margin-right: 25px;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: 0.3 opacity ease;
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .btn-add-photo {
@@ -242,43 +274,67 @@ const BusinessHero = styled.section`
     background: #ffffff;
     border-radius: 3px;
     margin-right: 25px;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: 0.3 opacity ease;
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .map-showcase {
+    /* border: 1px solid red; */
     display: flex;
-    height: 260px;
+    margin-top: 5px;
   }
   .map-container {
     /* border: 1px solid red; */
     width: 300px;
-    padding: 5px;
-    border: 1px solid #666666;
+    padding: 5px 5px 20px;
+    border: 1px solid #cccccc;
+    position: relative;
+    bottom: -20px;
+    z-index: 5;
+    background: #ffffff;
   }
   .showcase-container {
-    /* border: 1px solid red; */
+    /* border: 1px solid blue; */
     display: flex;
-    justify-content: center;
     align-items: flex-end;
     position: relative;
     width: 720px;
+    position: relative;
   }
   .showcase-image-wrapper {
-    width: 220px;
-    height: 220px;
+    /* border: 1px solid red; */
+    width: 225px;
+    height: 225px;
+    transition: 0.25s transform ease-in-out;
   }
+  .hover {
+    transform: scale(1.1);
+    z-index: 5;
+  }
+
   .showcase-image {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   .map-static {
     width: 288px;
     height: 139px;
     margin-bottom: 10px;
+    overflow: hidden;
+    border: 1px solid #cccccc;
   }
 
   .address {
     line-height: 20px;
     margin-bottom: 8px;
+    font-weight: bold;
+    color: #333333;
   }
 `

@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusiness } from 'actions'
+import { fetchBusiness, resetBusiness, setSearch } from 'actions'
 import { renderRating } from 'utils'
 import { SearchBar, Map } from 'containers'
 import { Logo } from 'components'
 import { POPULATE_SINGLE } from 'actions/types'
+import ReactPaginate from 'react-paginate'
 import useRouter from 'hooks/useRouter'
 
+const itemsPerPage = 20
+
 const BusinessList = () => {
+  const listRef = useRef()
   const dispatch = useDispatch()
   const { history } = useRouter()
   const [search, business] = useSelector(({ search, business }) => [
@@ -19,12 +23,26 @@ const BusinessList = () => {
   const { businesses } = business
 
   useEffect(() => {
-    dispatch(fetchBusiness(search.term, search.location, 0))
+    dispatch(fetchBusiness(search.term, search.location, search.offset))
+    return () => {
+      dispatch(resetBusiness())
+    }
   }, [])
+
   const handleClick = business => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
     history.push(`/business/${business.id}`)
   }
+
+  const handlePageClick = ({ selected }) => {
+    const offset = Math.ceil(selected * itemsPerPage)
+    dispatch(fetchBusiness(search.term, search.location, offset))
+    dispatch(setSearch(search.term, search.location, offset))
+    if (listRef.current) {
+      listRef.current.scrollTop = 0
+    }
+  }
+
   return (
     <Wrapper>
       <Nav>
@@ -34,7 +52,7 @@ const BusinessList = () => {
         </div>
       </Nav>
       <Container>
-        <StyledBusinessList>
+        <StyledBusinessList ref={listRef}>
           <h1>All Results</h1>
           {businesses.map((business, i) => (
             <li className='list-item' key={business.id}>
@@ -50,7 +68,7 @@ const BusinessList = () => {
               </div>
               <div className='item-details'>
                 <h2 className='name'>
-                  <span className='number'>{`${i + 1}.`} </span>
+                  <span className='number'>{`${i + 1 + search.offset}.`} </span>
                   <div onClick={() => handleClick(business)}>
                     {business.name}
                   </div>
@@ -80,8 +98,23 @@ const BusinessList = () => {
               </div>
             </li>
           ))}
+          <ReactPaginate
+            style={{ display: 'flex' }}
+            previousLabel={'<'}
+            nextLabel={'>'}
+            breakLabel={'...'}
+            breakClassName={'break-me'}
+            pageCount={Math.floor(business.total / itemsPerPage) || 1}
+            marginPagesDisplayed={1}
+            pageRangeDisplayed={1}
+            onPageChange={handlePageClick}
+            containerClassName={'pagination'}
+            subContainerClassName={'pages pagination'}
+            activeClassName={'active'}
+            initialPage={Math.floor(search.offset / itemsPerPage) || 0}
+          />
         </StyledBusinessList>
-        <Map />
+        <Map offset={search.offset} />
       </Container>
     </Wrapper>
   )
@@ -93,12 +126,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  background: #ffffff;
 `
 
 const Nav = styled.nav`
   display: flex;
   position: sticky;
-  z-index: 5;
+  z-index: 10;
   top: 0;
   align-items: center;
   background-color: #d32323;
@@ -160,22 +194,20 @@ const StyledBusinessList = styled.ul`
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: #fafafa;
+    background-color: #ffffff;
     font-weight: bold;
     padding-bottom: 10px;
   }
   h2 {
     display: flex;
-    line-height: 22px;
-    padding-top: 5px;
+    line-height: 20px;
     font-weight: bold;
   }
   .list-item {
     border-bottom: 1px solid #e6e6e6;
-    height: 135px;
     width: 340px;
     display: flex;
-    padding: 18px 25px 0px 0px;
+    padding: 18px 25px 8px 0px;
     transition: 0.3s all ease;
     &:hover {
       background-color: rgba(0, 255, 255, 0.1);
@@ -195,11 +227,11 @@ const StyledBusinessList = styled.ul`
   .item-details {
     /* border: 1px solid blue; */
     width: 212px;
-    height: 100px;
+    /* height: 100px; */
   }
   .number {
     color: black;
-    margin-right: 10px;
+    margin-right: 6px;
   }
   .name {
     font-weight: bold;
@@ -240,5 +272,46 @@ const StyledBusinessList = styled.ul`
   .categories {
     font-size: 14px;
     color: #666666;
+  }
+  //* Pagination styles *//
+  .pagination {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-weight: 600;
+
+    .previous,
+    .next {
+      a {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .active,
+    .focus {
+      outline: none;
+      color: black;
+    }
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        font-size: 1.6rem;
+        cursor: pointer;
+        color: black;
+        &:hover {
+          color: #1999e9;
+          outline: none;
+        }
+      }
+    }
   }
 `

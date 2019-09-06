@@ -1,19 +1,24 @@
 import React, { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useRouter } from 'hooks'
 import { setSearch, fetchBusiness } from 'actions'
+import { GridLoader } from 'react-spinners'
 import styled from 'styled-components'
+import SearchSvg from 'assets/svg/SearchSvg'
 
 export const SearchBar = () => {
   const inputTerm = useRef()
+  const inputLocation = useRef()
   const dispatch = useDispatch()
-
+  const { history } = useRouter()
   useEffect(() => {
     inputTerm.current.focus()
   }, [])
 
-  const { term, location } = useSelector(({ search }) => ({
+  const { term, location, loading } = useSelector(({ search, business }) => ({
     term: search.term,
     location: search.location,
+    loading: business.loading,
   }))
 
   return (
@@ -21,6 +26,11 @@ export const SearchBar = () => {
       onSubmit={e => {
         e.preventDefault()
         dispatch(fetchBusiness(term, location))
+        //* push to business-list if we use the search bar
+        //* and not already on business-list
+        if (!window.location.pathname.includes('business-list')) {
+          history.push('/business-list')
+        }
       }}
     >
       <div className='input-wrapper'>
@@ -34,9 +44,8 @@ export const SearchBar = () => {
           ref={inputTerm}
           placeholder="tacos, cheap dinner, Max's"
           value={term}
-          onChange={e =>
-            dispatch(setSearch(e.target.value, location, location))
-          }
+          onChange={e => dispatch(setSearch(e.target.value, location))}
+          onClick={() => inputTerm.current.select()}
         />
       </div>
       <div className='input-wrapper'>
@@ -47,12 +56,20 @@ export const SearchBar = () => {
           className='input'
           id='near'
           type='text'
+          ref={inputLocation}
           placeholder='city, state or zip code'
           value={location}
           onChange={e => dispatch(setSearch(term, e.target.value))}
+          onClick={() => inputLocation.current.select()}
         />
       </div>
-      <button>S</button>
+      <button className='btn-search'>
+        {loading ? (
+          <GridLoader loading={loading} color='white' size='5' />
+        ) : (
+          <SearchSvg color='white' />
+        )}
+      </button>
     </Form>
   )
 }
@@ -69,13 +86,18 @@ const Form = styled.form`
   border-top-right-radius: 4px;
   display: flex;
   margin: 0 auto 0 18px;
+  background-color: white;
+  position: relative;
   .input-wrapper {
     width: 50%;
     display: relative;
     border: none;
-    background-color: white;
-    padding: 8px 12px;
+    padding: 0px 12px;
     font-size: 14px;
+    margin: 6px 0px;
+    &:first-child {
+      border-right: 1px solid #cccccc;
+    }
   }
   label {
     font-weight: bold;
@@ -90,20 +112,25 @@ const Form = styled.form`
     font-size: 15px;
     letter-spacing: 0.8px;
     line-height: 20px;
-    width: 70%;
+    width: 88%;
     height: 100%;
     color: #141414;
     padding-left: 10px;
     font-weight: thin;
   }
-  button {
+  .btn-search {
     width: 70px;
     height: 100%;
     font-size: 24px;
     border: none;
     background-color: #a71c1c;
     border: 1px solid #a71c1c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
     font-weight: bold;
+    position: relative;
+    left: 1px;
   }
 `
