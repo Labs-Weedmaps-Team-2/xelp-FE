@@ -32,6 +32,10 @@ const StyledNavHeader = styled.nav`
   height: 60px;
   a {
     font-size: 1.8rem;
-    margin-left: 2rem;
+    margin-left: 5rem;
 }
 `
+const NavRight = styled.div`
+  width: 33.333%;
+  text-align: right;
+`;
