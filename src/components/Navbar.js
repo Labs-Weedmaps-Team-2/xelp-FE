@@ -19,8 +19,10 @@ export const Navbar = () => {
 }
 
 const StyledNavHeader = styled.nav`
-  background-color: #D32323;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.0975);
+  background: transparent;
+  position:fixed;
+  left:0;
+  top:0;
   max-width: 1010px;
   padding: 26px 20px;
   width: 100%;
@@ -31,5 +33,5 @@ const StyledNavHeader = styled.nav`
   a {
     font-size: 1.8rem;
     margin-left: 2rem;
-  }
+}
 `
