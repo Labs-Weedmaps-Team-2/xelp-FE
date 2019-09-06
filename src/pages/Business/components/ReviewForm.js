@@ -42,6 +42,7 @@ const ReviewForm = () => {
         },
       })
       .then(res => {
+        console.log('PAYLOAD', res.data)
         dispatch({ type: 'ADD_REVIEW', payload: res.data })
         setReviewText('')
         history.push(
