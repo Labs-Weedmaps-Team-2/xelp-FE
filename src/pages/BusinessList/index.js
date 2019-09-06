@@ -105,7 +105,7 @@ const BusinessList = () => {
             breakLabel={'...'}
             breakClassName={'break-me'}
             pageCount={Math.floor(business.total / itemsPerPage) || 1}
-            marginPagesDisplayed={2}
+            marginPagesDisplayed={1}
             pageRangeDisplayed={1}
             onPageChange={handlePageClick}
             containerClassName={'pagination'}
