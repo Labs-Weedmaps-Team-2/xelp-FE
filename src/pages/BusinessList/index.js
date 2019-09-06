@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusiness } from 'actions'
+import { fetchBusiness, resetBusiness } from 'actions'
 import { renderRating } from 'utils'
 import { SearchBar, Map } from 'containers'
 import { Logo } from 'components'
@@ -19,8 +19,12 @@ const BusinessList = () => {
   const { businesses } = business
 
   useEffect(() => {
-    dispatch(fetchBusiness(search.term, search.location, 0))
+    dispatch(fetchBusiness(search.term, search.location, search.offset))
+    return () => {
+      dispatch(resetBusiness())
+    }
   }, [])
+
   const handleClick = business => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
     history.push(`/business/${business.id}`)
@@ -50,7 +54,7 @@ const BusinessList = () => {
               </div>
               <div className='item-details'>
                 <h2 className='name'>
-                  <span className='number'>{`${i + 1}.`} </span>
+                  <span className='number'>{`${i + 1 + search.offset}.`} </span>
                   <div onClick={() => handleClick(business)}>
                     {business.name}
                   </div>
@@ -81,7 +85,7 @@ const BusinessList = () => {
             </li>
           ))}
         </StyledBusinessList>
-        <Map />
+        <Map offset={search.offset} />
       </Container>
     </Wrapper>
   )

@@ -1,23 +1,36 @@
 import React from 'react'
 import styled from 'styled-components'
-import MarkerSvg from 'assets/svg/MarkerSvg'
+import Marker2Svg from 'assets/svg/Marker2Svg'
+import { useRouter } from 'hooks'
 
-export const Marker = ({ color, item, id }) => {
+export const Marker = ({ $hover, color, item, id }) => {
+  const { history } = useRouter()
+  const hoverColor = $hover ? 'blue' : color
+
   return (
-    <StyledMarker>
-      <MarkerSvg className='marker-svg' color={color} />
+    <StyledMarker
+      color={hoverColor}
+      onClick={() => history.push(`/business/${item.id}`)}
+    >
+      <span>{id}</span>
+      <Marker2Svg className='marker-svg' color={hoverColor} />
     </StyledMarker>
   )
 }
 
 const StyledMarker = styled.div`
-  position: 'relative';
-  width: 35px;
-  height: 35px;
-  color: red;
-
-  .marker-svg {
-    width: 100%;
-    color: red;
+  /* border: 1px solid blue; */
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    position: absolute;
+    font-weight: bold;
+    font-size: 12px;
+    color: ${props => props.color};
+    top: 8px;
   }
 `

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useRouter from 'hooks/useRouter'
 import { Link } from 'react-router-dom'
-import { fetchBusinessDetails } from 'actions/index'
+import { fetchBusinessDetails, resetSingleBusiness } from 'actions/index'
 import styled from 'styled-components'
 import { Logo } from 'components'
 import { SearchBar } from 'containers'
@@ -20,6 +20,9 @@ const Business = () => {
   useEffect(() => {
     const yelp_id = location.pathname.split('/')
     dispatch(fetchBusinessDetails(yelp_id[2]))
+    return () => {
+      dispatch(resetSingleBusiness())
+    }
   }, [])
 
   return (

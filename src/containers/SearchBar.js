@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'hooks'
 import { setSearch, fetchBusiness } from 'actions'
+import { GridLoader } from 'react-spinners'
 import styled from 'styled-components'
 import SearchSvg from 'assets/svg/SearchSvg'
 
@@ -14,9 +15,10 @@ export const SearchBar = () => {
     inputTerm.current.focus()
   }, [])
 
-  const { term, location } = useSelector(({ search }) => ({
+  const { term, location, loading } = useSelector(({ search, business }) => ({
     term: search.term,
     location: search.location,
+    loading: business.loading,
   }))
 
   return (
@@ -62,7 +64,11 @@ export const SearchBar = () => {
         />
       </div>
       <button className='btn-search'>
-        <SearchSvg color='white' />
+        {loading ? (
+          <GridLoader loading={loading} color='white' size='5' />
+        ) : (
+          <SearchSvg color='white' />
+        )}
       </button>
     </Form>
   )
@@ -106,7 +112,7 @@ const Form = styled.form`
     font-size: 15px;
     letter-spacing: 0.8px;
     line-height: 20px;
-    width: 70%;
+    width: 88%;
     height: 100%;
     color: #141414;
     padding-left: 10px;
