@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusiness } from 'actions'
+import { fetchBusiness, resetBusiness } from 'actions'
 import { renderRating } from 'utils'
 import { SearchBar, Map } from 'containers'
 import { Logo } from 'components'
@@ -20,7 +20,10 @@ const BusinessList = () => {
   const { businesses } = business
 
   useEffect(() => {
-    dispatch(fetchBusiness(search.term, search.location, 0))
+    dispatch(fetchBusiness(search.term, search.location, search.offset))
+    return () => {
+      dispatch(resetBusiness())
+    }
   }, [])
 
   const handleClick = business => {
@@ -52,7 +55,7 @@ const BusinessList = () => {
               </div>
               <div className='item-details'>
                 <h2 className='name'>
-                  <span className='number'>{`${i + 1}.`} </span>
+                  <span className='number'>{`${i + 1 + search.offset}.`} </span>
                   <div onClick={() => handleClick(business)}>
                     {business.name}
                   </div>
@@ -97,7 +100,7 @@ const BusinessList = () => {
             activeClassName={'active'}
           />
         </StyledBusinessList>
-        <Map />
+        <Map offset={search.offset} />
       </Container>
     </Wrapper>
   )
@@ -109,12 +112,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  background: #ffffff;
 `
 
 const Nav = styled.nav`
   display: flex;
   position: sticky;
-  z-index: 5;
+  z-index: 10;
   top: 0;
   align-items: center;
   background-color: #d32323;
@@ -182,16 +186,14 @@ const StyledBusinessList = styled.ul`
   }
   h2 {
     display: flex;
-    line-height: 22px;
-    padding-top: 5px;
+    line-height: 20px;
     font-weight: bold;
   }
   .list-item {
     border-bottom: 1px solid #e6e6e6;
-    height: 135px;
     width: 340px;
     display: flex;
-    padding: 18px 25px 0px 0px;
+    padding: 18px 25px 8px 0px;
     transition: 0.3s all ease;
     &:hover {
       background-color: rgba(0, 255, 255, 0.1);
@@ -211,11 +213,11 @@ const StyledBusinessList = styled.ul`
   .item-details {
     /* border: 1px solid blue; */
     width: 212px;
-    height: 100px;
+    /* height: 100px; */
   }
   .number {
     color: black;
-    margin-right: 10px;
+    margin-right: 6px;
   }
   .name {
     font-weight: bold;
