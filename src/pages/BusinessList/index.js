@@ -35,10 +35,10 @@ const BusinessList = () => {
     history.push(`/business/${business.id}`)
   }
 
-  const handlePageClick = ({ selected }) => {
+  const handlePageClick = async ({ selected }) => {
     const offset = Math.ceil(selected * itemsPerPage)
     dispatch(setYelpUpdate())
-    dispatch(fetchBusiness(search.term, search.location, offset))
+    await dispatch(fetchBusiness(search.term, search.location, offset))
     dispatch(setSearch(search.term, search.location, offset))
     if (listRef.current) {
       listRef.current.scrollTop = 0

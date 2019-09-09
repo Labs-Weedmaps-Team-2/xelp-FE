@@ -26,12 +26,11 @@ export const Map = props => {
     var { center, zoom } = fitBounds(bounds, mapSize)
   }
 
-  const handleMapChange = props => {
+  const handleMapChange = async props => {
     // console.log('mapProps', props)
     dispatch(setMap(props.center, props.zoom))
     if (!update) {
-      dispatch(setSearch(search.term, search.location, 0))
-      dispatch(
+      await dispatch(
         fetchBusiness(
           search.term,
           `${props.center.lat}, ${props.center.lng}`,
@@ -39,6 +38,7 @@ export const Map = props => {
           false
         )
       )
+      dispatch(setSearch(search.term, search.location, 0))
     }
     dispatch(setMapUpdate())
   }
