@@ -1,20 +1,30 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
+import { createBusiness } from 'actions'
 const BusinessForm = () => {
+  const dispatch = useDispatch()
   const [form, setValues] = useState({
-    businessName: '',
-    businessAddress: '',
-    businessState: '',
-    businessHours: '',
-    businessPhoneNum: '',
-    businessWebsite: '',
+    name: '',
+    address: '',
+    state: '',
+    city: '',
+    zipcode: '',
+    hours: '',
+    phone: '',
+    website: '',
+    category: '',
   })
   const updateField = e => {
     setValues({
       ...form,
       [e.target.name]: e.target.value,
     })
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    dispatch(createBusiness(form))
   }
 
   return (
@@ -25,50 +35,70 @@ const BusinessForm = () => {
         display: 'flex',
         flexDirection: 'column',
       }}
+      onSubmit={handleSubmit}
     >
       <label>Add Business</label>
       <div>
         <label>Required Information</label>
         <input
           placeholder='business name'
-          value={form.businessName}
+          value={form.name}
           onChange={updateField}
-          name='businessName'
+          name='name'
         />
         <input
-          placeholder='123 Main St'
-          value={form.businessAddress}
+          placeholder='address: 123 Main St'
+          value={form.address}
           onChange={updateField}
-          name='businessAddress'
+          name='address'
         />
         <input
-          placeholder='San Francisco, CA 94103'
-          value={form.businessState}
+          placeholder='state: CA'
+          value={form.state}
           onChange={updateField}
-          name='businessState'
+          name='state'
+        />
+        <input
+          placeholder='zipcode: 91081'
+          value={form.zipcode}
+          onChange={updateField}
+          name='zipcode'
+        />
+        <input
+          placeholder='city: San Francisco'
+          value={form.city}
+          onChange={updateField}
+          name='city'
+        />
+        <input
+          placeholder='category: Bar, Club, Lounge'
+          value={form.category}
+          onChange={updateField}
+          name='category'
         />
       </div>
       <div>
         <label>Optional Details</label>
         <textarea
           placeholder='hours'
-          value={form.businessHours}
+          value={form.hours}
           onChange={updateField}
-          name='businessHours'
+          name='hours'
         />
         <input
           placeholder='phone #'
-          value={form.businessPhoneNum}
+          value={form.phone}
           onChange={updateField}
-          name='businessPhoneNum'
+          name='phone'
         />
         <input
           placeholder='Website'
-          value={form.businessWebsite}
+          value={form.website}
           onChange={updateField}
-          name='businessWebsite'
+          name='website'
         />
       </div>
+      <button type='submit'>submit</button>
     </FormWrapper>
   )
 }
@@ -93,5 +123,8 @@ const FormWrapper = styled.form`
     height: 60px;
     border: 2px solid goldenrod;
     margin-bottom: 0.5rem;
+  }
+  button {
+    padding: 0.5rem;
   }
 `
