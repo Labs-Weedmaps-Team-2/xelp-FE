@@ -35,12 +35,17 @@ const ReviewForm = () => {
   const handleSubmit = e => {
     e.preventDefault()
     api
-      .post(`/review/${window.location.pathname.split('/writeareview/')[1]}`, {
-        review: {
-          text: reviewText,
-          rating: rateValue,
-        },
-      })
+      .post(
+        `/business/${
+          window.location.pathname.split('/writeareview/')[1]
+        }/review`,
+        {
+          review: {
+            text: reviewText,
+            rating: rateValue,
+          },
+        }
+      )
       .then(res => {
         console.log('PAYLOAD', res.data)
         dispatch({ type: 'ADD_REVIEW', payload: res.data })
