@@ -22,9 +22,8 @@ const Business = () => {
     dispatch(fetchBusinessDetails(yelp_id[2]))
     return () => {
       dispatch(resetSingleBusiness())
-      renderRating(business.rating)
     }
-  }, [])
+  }, [business.rating])
 
   return (
     <Wrapper>
