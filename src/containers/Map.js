@@ -2,12 +2,13 @@ import React from 'react'
 import GoogleMapReact from 'google-map-react'
 import { fitBounds } from 'google-map-react/utils'
 import { useSelector, useDispatch } from 'react-redux'
+import { fetchBusiness, setMap, setMapUpdate, setSearch } from 'actions'
 import { getBounds } from 'utils'
 import { Marker } from 'components'
 import styled from 'styled-components'
 
 const losAngelesCoords = [34.0522, 118.2437]
-const cityLevel = 10
+const cityLevel = 10 // 20 world, 15 continent, 10 city, 5 street-level, 1 building-level
 const mapSize = {
   height: 500, // Map height in pixels
   width: 670, // Map width in pixels
@@ -15,12 +16,32 @@ const mapSize = {
 
 export const Map = props => {
   const dispatch = useDispatch()
-  const business = useSelector(({ business }) => business)
+  const [business, search, map, update] = useSelector(
+    ({ business, search, map, update }) => [business, search, map, update]
+  )
   const positions = business.businesses.map(business => business.coordinates)
 
-  const bounds = getBounds(positions)
+  if (update) {
+    const bounds = getBounds(positions)
+    var { center, zoom } = fitBounds(bounds, mapSize)
+  }
 
-  const { center, zoom } = fitBounds(bounds, mapSize)
+  const handleMapChange = props => {
+    // console.log('mapProps', props)
+    dispatch(setMap(props.center, props.zoom))
+    if (!update) {
+      dispatch(setSearch(search.term, search.location, 0))
+      dispatch(
+        fetchBusiness(
+          search.term,
+          `${props.center.lat}, ${props.center.lng}`,
+          0,
+          false
+        )
+      )
+    }
+    dispatch(setMapUpdate())
+  }
 
   return (
     // Important! Always set the container height explicitly */}
@@ -31,9 +52,9 @@ export const Map = props => {
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_API_KEY }}
           defaultCenter={losAngelesCoords}
           defaultZoom={cityLevel}
-          center={center}
-          zoom={zoom}
-          onChange={props => console.log('props', props)}
+          center={center && center.lat ? center : map.center}
+          zoom={center && center.lat ? zoom : map.zoom}
+          onChange={handleMapChange}
         >
           {positions.map((position, index) => {
             return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusiness, resetBusiness, setSearch } from 'actions'
+import { fetchBusiness, resetBusiness, setSearch, setYelpUpdate } from 'actions'
 import { renderRating } from 'utils'
 import { SearchBar, Map } from 'containers'
 import { Logo } from 'components'
@@ -23,6 +23,7 @@ const BusinessList = () => {
   const { businesses } = business
 
   useEffect(() => {
+    dispatch(setYelpUpdate())
     dispatch(fetchBusiness(search.term, search.location, search.offset))
     return () => {
       dispatch(resetBusiness())
@@ -36,6 +37,7 @@ const BusinessList = () => {
 
   const handlePageClick = ({ selected }) => {
     const offset = Math.ceil(selected * itemsPerPage)
+    dispatch(setYelpUpdate())
     dispatch(fetchBusiness(search.term, search.location, offset))
     dispatch(setSearch(search.term, search.location, offset))
     if (listRef.current) {
