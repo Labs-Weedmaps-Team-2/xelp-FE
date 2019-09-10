@@ -28,6 +28,9 @@ const SearchBar = () => {
       history.push('/business-list')
     }
   }
+  const handleEnter = e => {
+    if (e.keyCode == 13) handleSubmit()
+  }
   const handleChange = e => {
     const searchCopy = { ...search, [e.target.name]: e.target.value }
     dispatch(setSearch(searchCopy.term, searchCopy.location))
@@ -43,6 +46,7 @@ const SearchBar = () => {
             value={search.term}
             name='term'
             onChange={handleChange}
+            onKeyUp={handleEnter}
           />
         </div>
         <div className='search-container locale'>
