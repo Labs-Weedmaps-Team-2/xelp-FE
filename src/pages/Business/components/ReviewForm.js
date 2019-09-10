@@ -35,12 +35,17 @@ const ReviewForm = () => {
   const handleSubmit = e => {
     e.preventDefault()
     api
-      .post(`/review/${window.location.pathname.split('/writeareview/')[1]}`, {
-        review: {
-          text: reviewText,
-          rating: rateValue,
-        },
-      })
+      .post(
+        `/business/${
+          window.location.pathname.split('/writeareview/')[1]
+        }/review`,
+        {
+          review: {
+            text: reviewText,
+            rating: rateValue,
+          },
+        }
+      )
       .then(res => {
         dispatch({ type: 'ADD_REVIEW', payload: res.data })
         setReviewText('')
@@ -123,6 +128,7 @@ const ReviewForm = () => {
 export default ReviewForm
 
 const Form = styled.form`
+  margin-top: 90px;
   display: flex;
   flex-direction: column;
   max-width: 1020px;

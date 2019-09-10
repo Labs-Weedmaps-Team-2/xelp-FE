@@ -164,7 +164,7 @@ const Container = styled.div`
 const Nav = styled.nav`
   display: flex;
   position: sticky;
-  z-index: 10;
+  z-index: 100;
   top: 0;
   align-items: center;
   background-color: #d32323;
