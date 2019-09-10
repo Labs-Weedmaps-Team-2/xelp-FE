@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusiness, resetBusiness, setSearch } from 'actions'
+import { fetchBusiness, resetBusiness, setSearch, setYelpUpdate } from 'actions'
 import { renderRating } from 'utils'
 import { SearchBar, Map } from 'containers'
 import { Logo } from 'components'
@@ -23,6 +23,7 @@ const BusinessList = () => {
   const { businesses } = business
 
   useEffect(() => {
+    dispatch(setYelpUpdate())
     dispatch(fetchBusiness(search.term, search.location, search.offset))
     return () => {
       dispatch(resetBusiness())
@@ -34,9 +35,10 @@ const BusinessList = () => {
     history.push(`/business/${business.id}`)
   }
 
-  const handlePageClick = ({ selected }) => {
+  const handlePageClick = async ({ selected }) => {
     const offset = Math.ceil(selected * itemsPerPage)
-    dispatch(fetchBusiness(search.term, search.location, offset))
+    dispatch(setYelpUpdate())
+    await dispatch(fetchBusiness(search.term, search.location, offset))
     dispatch(setSearch(search.term, search.location, offset))
     if (listRef.current) {
       listRef.current.scrollTop = 0

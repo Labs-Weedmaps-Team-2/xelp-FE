@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'hooks'
-import { setSearch, fetchBusiness } from 'actions'
+import { setSearch, fetchBusiness, setYelpUpdate } from 'actions'
 import { GridLoader } from 'react-spinners'
 import styled from 'styled-components'
 import SearchSvg from 'assets/svg/SearchSvg'
@@ -25,7 +25,8 @@ export const SearchBar = () => {
     <Form
       onSubmit={e => {
         e.preventDefault()
-        dispatch(fetchBusiness(term, location))
+        dispatch(setYelpUpdate())
+        dispatch(fetchBusiness(term, location, 0))
         //* push to business-list if we use the search bar
         //* and not already on business-list
         if (!window.location.pathname.includes('business-list')) {
