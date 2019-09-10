@@ -65,7 +65,7 @@ export const fetchBusinessDetails = yelp_id => async dispatch => {
     dispatch({ type: types.FETCH_SINGLE_BUSINESS_SUCCESS, payload: res.data })
 
     dispatch({ type: types.FETCH_BUSINESS_REVIEWS_REQUEST })
-    const review_res = await api.get(`/business/reviews/${yelp_id}`)
+    const review_res = await api.get(`/business/${yelp_id}/reviews`)
     dispatch({
       type: types.FETCH_BUSINESS_REVIEWS_SUCCESS,
       payload: review_res.data,
@@ -77,6 +77,19 @@ export const fetchBusinessDetails = yelp_id => async dispatch => {
 
 export const resetSingleBusiness = () => ({ type: types.RESET_SINGLE_BUSINESS })
 
+export const createBusiness = formData => async dispatch => {
+  dispatch({ type: types.CREATE_BUSINESS_REQUEST })
+  try {
+    const res = await api.post('/business', { business: formData })
+    console.log('response after creating a new business', res)
+    if (res.status === 201) {
+      dispatch({ type: types.CREATE_BUSINESS_SUCCESS })
+    }
+  } catch (err) {
+    console.log(err)
+    dispatch({ type: types.CREATE_BUSINESS_FAILURE, payload: err })
+  }
+}
 export const setMap = (center, zoom, hasMoved) => ({
   type: types.SET_MAP,
   payload: { center, zoom, hasMoved },

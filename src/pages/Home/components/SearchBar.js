@@ -14,17 +14,13 @@ const SearchBar = () => {
   useEffect(() => {
     console.log('Location: ', latitude, longitude)
     if (latitude) {
-      fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=${process.env.REACT_APP_OPENCAGE_API_KEY}`)
+      fetch(
+        `https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=${process.env.REACT_APP_OPENCAGE_API_KEY}`
+      )
         .then(res => res.json())
         .then(json => {
-          dispatch(
-            setSearch(
-              search.term,
-              json.results[0].formatted
-            )
-          )
-        }
-        )
+          dispatch(setSearch(search.term, json.results[0].formatted))
+        })
     }
   }, [latitude, longitude])
   const handleSubmit = () => {
@@ -32,37 +28,41 @@ const SearchBar = () => {
       history.push('/business-list')
     }
   }
+  const handleEnter = e => {
+    if (e.keyCode == 13) handleSubmit()
+  }
   const handleChange = e => {
     const searchCopy = { ...search, [e.target.name]: e.target.value }
     dispatch(setSearch(searchCopy.term, searchCopy.location))
   }
   return (
-    <StyledHero >
-      <div className="inputs-container">
-        <div className="search-container type">
+    <StyledHero>
+      <form onSubmit={handleSubmit} className='inputs-container'>
+        <div className='search-container type'>
           <p>What?</p>
           <input
-            type="text"
-            placeholder="bars, clubs, breweries, venues..."
+            type='text'
+            placeholder='bars, clubs, breweries, venues...'
             value={search.term}
-            name="term"
+            name='term'
             onChange={handleChange}
+            onKeyUp={handleEnter}
           />
         </div>
-        <div className="search-container locale">
+        <div className='search-container locale'>
           <p>Where?</p>
           <input
-            type="text"
-            placeholder="Los Angeles"
+            type='text'
+            placeholder='Los Angeles'
             value={search.location}
-            name="location"
+            name='location'
             onChange={handleChange}
           />
         </div>
-        <div className="search-button" onClick={handleSubmit}>
+        <div className='search-button' onClick={handleSubmit}>
           go
         </div>
-      </div>
+      </form>
     </StyledHero>
   )
 }
@@ -70,7 +70,7 @@ const SearchBar = () => {
 export default SearchBar
 
 const StyledHero = styled.div`
-  background-image: url("https://i1.wp.com/www.horseshoegrille.com/wp-content/uploads/2017/10/harmony-bar-crawl-royal-caribbean.jpg?ssl=1");
+  background-image: url('https://i1.wp.com/www.horseshoegrille.com/wp-content/uploads/2017/10/harmony-bar-crawl-royal-caribbean.jpg?ssl=1');
   background-color: #333;
   background-size: cover;
   background-position: 50%;
@@ -87,7 +87,7 @@ const StyledHero = styled.div`
     flex-flow: row;
     justify-content: center;
     .search-container {
-      width:47%;
+      width: 47%;
       display: flex;
       flex-flow: row;
       align-items: center;

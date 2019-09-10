@@ -12,6 +12,9 @@ const Profile = lazy(() => import('pages/Profile'))
 const SignIn = lazy(() => import('pages/SignIn'))
 const Business = lazy(() => import('pages/Business'))
 const BusinessList = lazy(() => import('pages/BusinessList'))
+const AddBusinessForm = lazy(() =>
+  import('pages/Business/components/AddBusinessForm')
+)
 
 const App = () => {
   const dispatch = useDispatch()
@@ -35,6 +38,7 @@ const App = () => {
           <Route path='/business/:id/' component={Business} />
           <Route path='/business-list' component={BusinessList} />
           <Route path='/writeareview/:id' component={ReviewForm} />
+          <Route path='/addbusiness' component={AddBusinessForm} />
         </Switch>
       </Suspense>
       <Footer />
