@@ -1,46 +1,116 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { useRouter } from 'hooks'
-
-const StyledLink = styled(Link)`
-  font-weight: bolder;
-`
+import { useSelector } from 'react-redux'
+import DownSvg from 'assets/svg/DownSvg'
+import useOnClickOutside from 'use-onclickoutside'
+import { authUrl } from 'config'
 
 export const Navbar = () => {
-  const { location } = useRouter()
+  const popupRef = useRef()
+  const [isMenuOpen, setMenu] = useState(false)
+  useOnClickOutside(popupRef, () => setMenu(false))
+
+  const user = useSelector(({ user }) => user)
+
   return (
-    <StyledNavHeader location={location}>
-      <StyledLink to='/'>Home</StyledLink>
-      <StyledLink to='/sign-in'>Sign In</StyledLink>
-      <StyledLink to='/profile'>Profile</StyledLink>
+    <StyledNavHeader>
+      {user.id ? (
+        <div className='menu-avatar' ref={popupRef}>
+          <div className='image-arrow' onClick={() => setMenu(prev => !prev)}>
+            <img
+              className='menu-image'
+              src={user.avatar || user.photo}
+              alt='avatar'
+            />
+            <div className='menu-arrow-wrapper'>
+              <DownSvg />
+            </div>
+          </div>
+          {isMenuOpen ? (
+            <div className='menu-popup'>
+              <a className='logout' href={`${authUrl}/logout`}>
+                Logout
+              </a>
+            </div>
+          ) : null}
+        </div>
+      ) : (
+        <StyledLink to='/sign-in'>Sign In</StyledLink>
+      )}
     </StyledNavHeader>
   )
 }
 
 const StyledNavHeader = styled.nav`
-  width: 100%;
-  background: ${props =>
-    props.location.pathname === '/' ? 'transparent' : '#FAFAFA'};
-  position: fixed;
-  left: 0;
-  top: 0;
-  padding: 26px 20px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 60px;
-  z-index: 30;
-  border-bottom: ${props =>
-    props.location.pathname === '/' ? 'none' : '1px solid #e6e6e6'};
-
-  a {
-    color: ${props => (props.location.pathname === '/' ? 'white' : 'black')};
-    font-size: 1.8rem;
-    margin-left: 5rem;
+  .menu-avatar {
+    position: relative;
+    height: 40px;
+    width: 60px;
+    cursor: pointer;
+    border-radius: 4px;
+    background: rgba(51, 51, 51, 0.25);
     &:hover {
-      text-decoration: none;
+      background: rgba(51, 51, 51, 0.4);
     }
+  }
+  .image-arrow {
+    display: flex;
+    align-items: center;
+  }
+  .menu-image {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    width: 40px;
+  }
+  .menu-arrow-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 40px;
+  }
+  .menu-popup {
+    position: absolute;
+    width: 200px;
+    height: 250px;
+    top: 0;
+    right: 0;
+    z-index: 50;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    margin-top: 50px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .logout {
+    color: #0073bb;
+    cursor: pointer;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e6e6e6;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`
+
+const StyledLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 105px;
+  height: 40px;
+  border: 2px solid #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  color: white;
+  transition: all 0.6s;
+  &:hover {
+    color: #666;
+    background: #fff;
   }
 `

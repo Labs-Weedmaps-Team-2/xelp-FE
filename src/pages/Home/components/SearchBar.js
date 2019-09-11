@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useRouter, usePosition } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,59 +9,73 @@ const SearchBar = () => {
   const { latitude, longitude } = usePosition()
   const dispatch = useDispatch()
   const { history } = useRouter()
+  const inputTerm = useRef()
+  const inputLocation = useRef()
   const search = useSelector(({ search }) => search)
 
   useEffect(() => {
-    console.log('Location: ', latitude, longitude)
+    inputTerm.current.focus()
     if (latitude) {
       fetch(
         `https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=${process.env.REACT_APP_OPENCAGE_API_KEY}`
       )
         .then(res => res.json())
         .then(json => {
-          dispatch(setSearch(search.term, json.results[0].formatted))
+          const {
+            town,
+            city,
+            state_code,
+            postcode,
+          } = json.results[0].components
+          const location = `${town || city}, ${state_code} ${postcode}`
+          dispatch(setSearch(search.term, location))
         })
     }
   }, [latitude, longitude])
-  const handleSubmit = () => {
-    if (search.term && search.location) {
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    if (search.location) {
       history.push('/business-list')
     }
   }
-  const handleEnter = e => {
-    if (e.keyCode == 13) handleSubmit()
-  }
+
   const handleChange = e => {
-    const searchCopy = { ...search, [e.target.name]: e.target.value }
+    const { name, value } = e.target
+    const searchCopy = { ...search, [name]: value }
     dispatch(setSearch(searchCopy.term, searchCopy.location))
   }
+
   return (
     <StyledHero>
       <form onSubmit={handleSubmit} className='inputs-container'>
         <div className='search-container type'>
-          <p>What?</p>
+          <label htmlFor='term'>What?</label>
           <input
+            id='term'
             type='text'
+            ref={inputTerm}
             placeholder='bars, clubs, breweries, venues...'
             value={search.term}
             name='term'
             onChange={handleChange}
-            onKeyUp={handleEnter}
+            onClick={() => inputTerm.current.select()}
           />
         </div>
         <div className='search-container locale'>
-          <p>Where?</p>
+          <label htmlFor='location'>Where?</label>
           <input
+            id='location'
             type='text'
+            ref={inputLocation}
             placeholder='Los Angeles'
             value={search.location}
             name='location'
             onChange={handleChange}
+            onClick={() => inputLocation.current.select()}
           />
         </div>
-        <div className='search-button' onClick={handleSubmit}>
-          go
-        </div>
+        <button className='search-button'>go</button>
       </form>
     </StyledHero>
   )
@@ -70,10 +84,11 @@ const SearchBar = () => {
 export default SearchBar
 
 const StyledHero = styled.div`
+  position: relative;
   background-image: url('https://i1.wp.com/www.horseshoegrille.com/wp-content/uploads/2017/10/harmony-bar-crawl-royal-caribbean.jpg?ssl=1');
   background-color: #333;
   background-size: cover;
-  background-position: 50%;
+  background-position: center;
   height: 570px;
   display: flex;
   justify-content: center;
@@ -91,36 +106,45 @@ const StyledHero = styled.div`
       display: flex;
       flex-flow: row;
       align-items: center;
-      p {
+      label {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 80%;
         width: 18%;
         font-weight: bold;
+        letter-spacing: 0.8px;
       }
       input {
+        letter-spacing: 0.6px;
         height: 80%;
         width: 82%;
         border: none;
         font-size: 1em;
         display: flex;
         align-items: center;
+        outline: none;
       }
     }
     .locale {
-      p {
+      label {
         border-left: 1px solid lightslategrey;
+        letter-spacing: 0.8px;
       }
     }
     .search-button {
+      position: relative;
       width: 6%;
+      font-size: 1em;
       background-color: red;
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 0px 5px 5px 0px;
+      border: 1px solid red;
+      right: -1px;
+      letter-spacing: 0.8px;
     }
   }
 `

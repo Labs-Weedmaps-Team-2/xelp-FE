@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { fetchUser } from 'actions'
 import CSSReset from 'styles/cssReset'
 import { black, bg } from 'styles'
-import { Navbar, Footer } from 'components'
+import { Footer } from 'components'
 import ReviewForm from 'pages/Business/components/ReviewForm'
 const Home = lazy(() => import('pages/Home'))
 const Profile = lazy(() => import('pages/Profile'))
@@ -30,7 +30,6 @@ const App = () => {
   return (
     <Container>
       <CSSReset />
-      <Navbar />
       <Suspense fallback={null}>
         <Switch>
           <Route exact path='/' component={Home} />

@@ -1,14 +1,28 @@
 import React from 'react'
-import {SearchBar} from './components'
+import { Navbar } from 'components'
+import { SearchBar } from './components'
+import styled from 'styled-components'
 
 const Home = () => {
   return (
-    <div>
+    <Container>
+      <div className='nav-wrap'>
+        <Navbar />
+      </div>
       <SearchBar />
-    </div>
+    </Container>
   )
 }
 
 export default Home
 
-
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+  .nav-wrap {
+    position: absolute;
+    top: 50px;
+    right: 10%;
+    z-index: 30;
+  }
+`

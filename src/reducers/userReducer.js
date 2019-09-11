@@ -1,9 +1,10 @@
 import * as types from 'actions/types'
 const initialState = {
+  id: '',
   username: '',
   email: '',
   photo: '',
-  avatarUrl: '',
+  avatar: '',
 }
 
 export const userReducer = (state = initialState, action) => {
