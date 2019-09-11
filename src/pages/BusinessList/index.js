@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBusiness, resetBusiness, setSearch, setYelpUpdate } from 'actions'
 import { renderRating } from 'utils'
-import { SearchBar, Map } from 'containers'
+import { SearchBar, SearchFilter, Map } from 'containers'
 import { Logo } from 'components'
 import { POPULATE_SINGLE } from 'actions/types'
 import ReactPaginate from 'react-paginate'
@@ -53,6 +53,8 @@ const BusinessList = () => {
           <SearchBar />
         </div>
       </Nav>
+      <SearchFilter />
+
       <Container>
         <StyledBusinessList ref={listRef}>
           <h1>All Results</h1>
@@ -100,21 +102,23 @@ const BusinessList = () => {
               </div>
             </li>
           ))}
-          <ReactPaginate
-            style={{ display: 'flex' }}
-            previousLabel={'<'}
-            nextLabel={'>'}
-            breakLabel={'...'}
-            breakClassName={'break-me'}
-            pageCount={Math.floor(business.total / itemsPerPage) || 1}
-            marginPagesDisplayed={1}
-            pageRangeDisplayed={1}
-            onPageChange={handlePageClick}
-            containerClassName={'pagination'}
-            subContainerClassName={'pages pagination'}
-            activeClassName={'active'}
-            initialPage={Math.floor(search.offset / itemsPerPage) || 0}
-          />
+          {businesses.length ? (
+            <ReactPaginate
+              style={{ display: 'flex' }}
+              previousLabel={'<'}
+              nextLabel={'>'}
+              breakLabel={'...'}
+              breakClassName={'break-me'}
+              pageCount={Math.floor(business.total / itemsPerPage) || 1}
+              marginPagesDisplayed={1}
+              pageRangeDisplayed={1}
+              onPageChange={handlePageClick}
+              containerClassName={'pagination'}
+              subContainerClassName={'pages pagination'}
+              activeClassName={'active'}
+              initialPage={Math.floor(search.offset / itemsPerPage) || 0}
+            />
+          ) : null}
         </StyledBusinessList>
         <Map offset={search.offset} />
       </Container>
