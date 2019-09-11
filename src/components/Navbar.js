@@ -13,9 +13,10 @@ export const Navbar = () => {
 
   const user = useSelector(({ user }) => user)
 
+  // TODO: Clean up loading v. signin/logout logic
   return (
     <StyledNavHeader>
-      {user.id ? (
+      {user.loading ? null : user.id ? (
         <div className='menu-avatar' ref={popupRef}>
           <div className='image-arrow' onClick={() => setMenu(prev => !prev)}>
             <img
