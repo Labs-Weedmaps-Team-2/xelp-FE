@@ -30,6 +30,8 @@ export const Navbar = () => {
           </div>
           {isMenuOpen ? (
             <div className='menu-popup'>
+              <div class='arrow-up'></div>
+
               <a className='logout' href={`${authUrl}/logout`}>
                 Logout
               </a>
@@ -85,9 +87,20 @@ const StyledNavHeader = styled.nav`
     border-radius: 3px;
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
-
+  .arrow-up {
+    position: absolute;
+    top: -10px;
+    right: 15%;
+    width: 0;
+    height: 0;
+    z-index: 60;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+  }
   .logout {
     color: #0073bb;
+    display: block;
     cursor: pointer;
     margin-top: 12px;
     padding-top: 12px;
