@@ -12,6 +12,7 @@ const Profile = lazy(() => import('pages/Profile'))
 const SignIn = lazy(() => import('pages/SignIn'))
 const Business = lazy(() => import('pages/Business'))
 const BusinessList = lazy(() => import('pages/BusinessList'))
+const AddPhotos = lazy(() => import('pages/AddPhotos'))
 const AddBusinessForm = lazy(() =>
   import('pages/Business/components/AddBusinessForm')
 )
@@ -38,6 +39,7 @@ const App = () => {
           <Route path='/business/:id/' component={Business} />
           <Route path='/business-list' component={BusinessList} />
           <Route path='/writeareview/:id' component={ReviewForm} />
+          <Route path='/addphotos/:id' component={AddPhotos} />
           <Route path='/addbusiness' component={AddBusinessForm} />
         </Switch>
       </Suspense>
