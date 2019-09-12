@@ -58,7 +58,7 @@ const Business = () => {
                   </span>,
                 ]}
                 <span className='categories'>
-                  {business.categories.length
+                  {business.categories && business.categories.length
                     ? business.categories[0].title
                     : null}
                 </span>

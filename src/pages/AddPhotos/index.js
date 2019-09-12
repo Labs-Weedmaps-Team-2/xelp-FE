@@ -50,6 +50,8 @@ const AddPhotos = () => {
                 return (
                   <p key={upload.id}>Finished uploading {upload.file.name}</p>
                 )
+              default:
+                return new Error('business photo error')
             }
           })}
         </div>

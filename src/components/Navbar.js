@@ -30,7 +30,7 @@ export const Navbar = () => {
           </div>
           {isMenuOpen ? (
             <div className='menu-popup'>
-              <div class='arrow-up'></div>
+              <div className='arrow-up'></div>
 
               <a className='logout' href={`${authUrl}/logout`}>
                 Logout

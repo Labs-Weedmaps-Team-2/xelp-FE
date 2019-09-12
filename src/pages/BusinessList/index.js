@@ -21,7 +21,6 @@ const BusinessList = () => {
   ])
 
   const { businesses } = business
-  var log = console.log
 
   useEffect(() => {
     dispatch(setYelpUpdate())
