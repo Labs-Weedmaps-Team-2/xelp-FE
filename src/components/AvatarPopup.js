@@ -23,6 +23,7 @@ export const AvatarPopup = () => {
           <Link to='/profile' className='username'>
             {user.username}
           </Link>
+          {/* // TODO: Add dynamic user location to user model */}
           <p className='location'>Los Angeles, CA</p>
         </div>
       </div>
@@ -40,7 +41,7 @@ const StyledAvatarPopup = styled.div`
   position: absolute;
   cursor: default;
   width: 220px;
-  height: 250px;
+  height: 180px;
   top: 0;
   right: 0;
   z-index: 50;
@@ -78,6 +79,7 @@ const StyledAvatarPopup = styled.div`
     margin-left: 10px;
   }
   .username {
+    display: block;
     font-size: 14px;
     font-weight: bold;
     color: #0077b3;
