@@ -315,6 +315,9 @@ const StyledFilter = styled.section`
     cursor: pointer;
     font-size: 14px;
     li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       outline: none;
       padding: 8.5px 11px;
       border-right: 1px solid #ccc;

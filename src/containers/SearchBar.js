@@ -1,26 +1,38 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'hooks'
 import { setSearch, fetchBusiness, setYelpUpdate } from 'actions'
 import { GridLoader } from 'react-spinners'
 import styled from 'styled-components'
 import SearchSvg from 'assets/svg/SearchSvg'
+import { api } from 'apis'
 
 export const SearchBar = () => {
   const inputTerm = useRef()
   const inputLocation = useRef()
   const dispatch = useDispatch()
   const { history } = useRouter()
+  const [auto, setAuto] = useState([])
   useEffect(() => {
     inputTerm.current.focus()
   }, [])
 
-  const { term, location, loading } = useSelector(({ search, business }) => ({
-    term: search.term,
-    location: search.location,
-    loading: business.loading,
-  }))
+  const { term, location, loading, center } = useSelector(
+    ({ search, business }) => ({
+      term: search.term,
+      location: search.location,
+      loading: business.loading,
+      center: business.region.center,
+    })
+  )
 
+  const handleChange = async e => {
+    dispatch(setSearch(e.target.value, location))
+    const res = await api.get(
+      `/search/autocomplete?text=${term}&latitude=${center.latitude}&longitude=${center.longitude}`
+    )
+    console.log(res)
+  }
   return (
     <Form
       onSubmit={e => {
@@ -45,7 +57,7 @@ export const SearchBar = () => {
           ref={inputTerm}
           placeholder='bars, clubs, breweries, venues...'
           value={term}
-          onChange={e => dispatch(setSearch(e.target.value, location))}
+          onChange={handleChange}
           onClick={() => inputTerm.current.select()}
         />
       </div>
