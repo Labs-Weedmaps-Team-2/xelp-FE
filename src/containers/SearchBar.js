@@ -43,7 +43,7 @@ export const SearchBar = () => {
           id='find'
           type='text'
           ref={inputTerm}
-          placeholder="tacos, cheap dinner, Max's"
+          placeholder='bars, clubs, breweries, venues...'
           value={term}
           onChange={e => dispatch(setSearch(e.target.value, location))}
           onClick={() => inputTerm.current.select()}

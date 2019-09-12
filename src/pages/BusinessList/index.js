@@ -1,7 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusiness, resetBusiness, setSearch, setYelpUpdate } from 'actions'
+import {
+  fetchBusiness,
+  resetBusiness,
+  setSearch,
+  setYelpUpdate,
+  resetPrevSearch,
+} from 'actions'
 import { renderRating } from 'utils'
 import { SearchFilter, Map } from 'containers'
 import { Navbar } from 'components'
@@ -27,6 +33,7 @@ const BusinessList = () => {
     dispatch(fetchBusiness(search.term, search.location, search.offset))
     return () => {
       dispatch(resetBusiness())
+      dispatch(resetPrevSearch())
     }
   }, [])
 

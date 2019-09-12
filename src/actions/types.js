@@ -39,3 +39,10 @@ export const SET_MAP = 'SET_MAP'
 
 export const SET_YELP_UPDATE = 'SET_YELP_UPDATE'
 export const SET_MAP_UPDATE = 'SET_MAP_UPDATE'
+
+export const SAVE_PREV_SEARCH = 'SAVE_PREV_SEARCH'
+export const RESET_PREV_SEARCH = 'RESET_PREV_SEARCH'
+
+export const SET_OPEN = 'SET_OPEN'
+export const SET_PRICE = 'SET_PRICE'
+export const SET_CATEGORIES = 'SET_CATEGORIES'
