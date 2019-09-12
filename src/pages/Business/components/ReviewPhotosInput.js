@@ -2,15 +2,17 @@ import React from 'react'
 import { DirectUploadProvider } from 'react-activestorage-provider'
 import { api } from 'apis'
 import { serverUrl } from 'config'
+import useRouter from 'hooks/useRouter'
 
 const AddPhotos = ({ text, rating, yelp_id, uploadStatus }) => {
+  const { history } = useRouter()
   const handleAttachment = signedIds => {
-    console.log(signedIds, 'here')
     const body = {
       review: { text, rating, photos: signedIds },
     }
     api.post(`/business/${yelp_id}/review`, body).then(res => {
       console.log(res)
+      history.push(`/business/${yelp_id}`)
     })
   }
 
