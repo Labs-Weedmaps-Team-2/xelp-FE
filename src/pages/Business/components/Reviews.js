@@ -45,7 +45,6 @@ const Reviews = ({ reviews }) => {
               </div>
               <div style={{ display: 'flex' }}>
                 {review.photos &&
-                  review.photos.length &&
                   review.photos.map((photo, i) => {
                     return (
                       <div
