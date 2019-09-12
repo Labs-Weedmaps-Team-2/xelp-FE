@@ -24,7 +24,6 @@ const ReviewForm = () => {
   const [reviewText, setReviewText] = useState('')
   const [rateValue, setRateValue] = useState(1)
   const [rateText, setRateText] = useState('Select your rating')
-  const [uploadStatus, setUploadStatus] = useState(false)
   const yelp_id = window.location.pathname.split('/writeareview/')[1]
   useEffect(() => {
     dispatch(fetchBusinessDetails(yelp_id))
@@ -33,22 +32,6 @@ const ReviewForm = () => {
     }
   }, [])
 
-  const handleSubmit = e => {
-    // e.preventDefault()
-    // api
-    //   .post(`/business/${yelp_id}/review`, {
-    //     review: {
-    //       text: reviewText,
-    //       rating: rateValue,
-    //     },
-    //   })
-    //   .then(res => {
-    //     dispatch({ type: 'ADD_REVIEW', payload: res.data })
-    //     setReviewText('')
-    //     history.push(`/business/${yelp_id}`)
-    //   })
-    setUploadStatus(true)
-  }
   const handleInput = e => {
     setReviewText(e.target.value)
   }
@@ -59,13 +42,7 @@ const ReviewForm = () => {
   }
   return (
     <div>
-      <AddPhotos
-        text={reviewText}
-        rating={rateValue}
-        yelp_id={yelp_id}
-        uploadStatus={uploadStatus}
-      />
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Link to={`/business/${business.id}`}>
           <h2>{business.name}</h2>
         </Link>
@@ -122,7 +99,7 @@ const ReviewForm = () => {
             placeholder='Your review helps others learn about great local businesses.'
           />
         </div>
-        <button className='btn-submit'>Submit</button>
+        <AddPhotos text={reviewText} rating={rateValue} yelp_id={yelp_id} />
       </Form>
     </div>
   )
@@ -130,7 +107,7 @@ const ReviewForm = () => {
 
 export default ReviewForm
 
-const Form = styled.form`
+const Form = styled.div`
   margin-top: 90px;
   display: flex;
   flex-direction: column;
@@ -157,9 +134,7 @@ const Form = styled.form`
   .rate-text {
     margin-left: 20px;
   }
-  input {
-    display: none;
-  }
+
   .radio-textarea {
     display: flex;
     flex-direction: column;
@@ -169,6 +144,9 @@ const Form = styled.form`
   .radio-wrapper {
     position: relative;
     margin: 0 0 20px;
+    input {
+      display: none;
+    }
   }
   .review-text {
     padding: 18px;

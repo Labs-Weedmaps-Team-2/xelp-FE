@@ -4,7 +4,7 @@ import { api } from 'apis'
 import { serverUrl } from 'config'
 import useRouter from 'hooks/useRouter'
 
-const AddPhotos = ({ text, rating, yelp_id, uploadStatus }) => {
+const AddPhotos = ({ text, rating, yelp_id }) => {
   const { history } = useRouter()
   const handleAttachment = signedIds => {
     const body = {
@@ -37,10 +37,16 @@ const AddPhotos = ({ text, rating, yelp_id, uploadStatus }) => {
             multiple
             disabled={!ready}
             onChange={e => handleChooseFiles(e.currentTarget.files)}
-            style={{ marginTop: '60px' }}
+            style={{ border: '2px solid red' }}
           />
-          <button type='submit' onClick={handleBeginUpload}>
-            SUBMIT!
+          <button
+            className='btn-submit'
+            onClick={e => {
+              e.preventDefault()
+              handleBeginUpload()
+            }}
+          >
+            SUBMIT!!
           </button>
 
           {uploads.map(upload => {

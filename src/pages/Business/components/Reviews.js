@@ -49,14 +49,23 @@ const Reviews = ({ reviews }) => {
                   review.photos.map((photo, i) => {
                     return (
                       <div
+                        key={i}
                         style={{
                           width: '200px',
                           height: '200px',
                           marginRight: '20px',
-                          marginBottom: '20px'
+                          marginBottom: '20px',
                         }}
                       >
-                        <img src={photo} key={i} style={{ width: '100%', height: '100%', objectFit:'cover', objectPosition: 'center'}} />
+                        <img
+                          src={photo}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                          }}
+                        />
                       </div>
                     )
                   })}
