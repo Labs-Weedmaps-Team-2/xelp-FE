@@ -1,11 +1,9 @@
 import React from 'react'
 import { authUrl } from 'config'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const AvatarPopup = () => {
-  const user = useSelector(({ user }) => user)
+export const AvatarPopup = ({ user }) => {
   return (
     <StyledAvatarPopup>
       <div className='arrow-up'></div>
