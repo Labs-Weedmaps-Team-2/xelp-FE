@@ -30,17 +30,37 @@ const Reviews = ({ reviews }) => {
                 {review.user.name || review.user.username}
               </a>
             </div>
-            <div className='review-content'>
-              <div className='review-meta'>
-                {console.log(review.rating)}
-                <div className='rating-wrapper'>
-                  {renderRating(review.rating)}
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div className='review-content'>
+                <div className='review-meta'>
+                  {console.log(review.rating)}
+                  <div className='rating-wrapper'>
+                    {renderRating(review.rating)}
+                  </div>
+                  <span className='review-created'>
+                    {moment(review.time_created).format('M/D/YYYY')}
+                  </span>
                 </div>
-                <span className='review-created'>
-                  {moment(review.time_created).format('M/D/YYYY')}
-                </span>
+                <p className='review-text'>{review.text}</p>
               </div>
-              <p className='review-text'>{review.text}</p>
+              <div style={{ display: 'flex' }}>
+                {review.photos &&
+                  review.photos.length &&
+                  review.photos.map((photo, i) => {
+                    return (
+                      <div
+                        style={{
+                          width: '200px',
+                          height: '200px',
+                          marginRight: '20px',
+                          marginBottom: '20px'
+                        }}
+                      >
+                        <img src={photo} key={i} style={{ width: '100%', height: '100%', objectFit:'cover', objectPosition: 'center'}} />
+                      </div>
+                    )
+                  })}
+              </div>
             </div>
           </div>
         )
