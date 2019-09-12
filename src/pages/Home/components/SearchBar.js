@@ -89,12 +89,12 @@ const StyledHero = styled.div`
   background-color: #333;
   background-size: cover;
   background-position: center;
-  height: 570px;
+  height: 650px;
   display: flex;
   justify-content: center;
   align-items: center;
   .inputs-container {
-    width: 80%;
+    width: 65%;
     height: 50px;
     background-color: white;
     border-radius: 5px;
@@ -136,6 +136,8 @@ const StyledHero = styled.div`
       position: relative;
       width: 6%;
       font-size: 1em;
+      font-weight: bold;
+      letter-spacing: 0.5px;
       background-color: red;
       color: white;
       display: flex;

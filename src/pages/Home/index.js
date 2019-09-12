@@ -22,7 +22,7 @@ const Container = styled.div`
   .auth-wrap {
     position: absolute;
     top: 50px;
-    right: 10%;
+    right: 17.5%;
     z-index: 30;
   }
 `
