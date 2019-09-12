@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import DownSvg from 'assets/svg/DownSvg'
 import useOnClickOutside from 'use-onclickoutside'
-import { authUrl } from 'config'
+import { AvatarPopup } from 'components'
+import { Link } from 'react-router-dom'
 
-export const Navbar = () => {
+export const Auth = () => {
   const popupRef = useRef()
   const [isMenuOpen, setMenu] = useState(false)
   useOnClickOutside(popupRef, () => setMenu(false))
@@ -28,15 +28,7 @@ export const Navbar = () => {
               <DownSvg />
             </div>
           </div>
-          {isMenuOpen ? (
-            <div className='menu-popup'>
-              <div className='arrow-up'></div>
-
-              <a className='logout' href={`${authUrl}/logout`}>
-                Logout
-              </a>
-            </div>
-          ) : null}
+          {isMenuOpen ? <AvatarPopup /> : null}
         </div>
       ) : (
         <StyledLink to='/sign-in'>Sign In</StyledLink>
@@ -72,42 +64,6 @@ const StyledNavHeader = styled.nav`
     justify-content: center;
     width: 20px;
     height: 40px;
-  }
-  .menu-popup {
-    position: absolute;
-    width: 200px;
-    height: 250px;
-    top: 0;
-    right: 0;
-    z-index: 50;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    padding: 12px;
-    margin-top: 50px;
-    border-radius: 3px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-  }
-  .arrow-up {
-    position: absolute;
-    top: -10px;
-    right: 15%;
-    width: 0;
-    height: 0;
-    z-index: 60;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid white;
-  }
-  .logout {
-    color: #0073bb;
-    display: block;
-    cursor: pointer;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid #e6e6e6;
-    &:hover {
-      text-decoration: underline;
-    }
   }
 `
 

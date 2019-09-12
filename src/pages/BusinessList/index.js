@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBusiness, resetBusiness, setSearch, setYelpUpdate } from 'actions'
 import { renderRating } from 'utils'
-import { SearchBar, SearchFilter, Map } from 'containers'
-import { Logo } from 'components'
+import { SearchFilter, Map } from 'containers'
+import { Nav } from 'components'
 import { POPULATE_SINGLE } from 'actions/types'
 import ReactPaginate from 'react-paginate'
 import useRouter from 'hooks/useRouter'
@@ -47,12 +47,7 @@ const BusinessList = () => {
 
   return (
     <Wrapper>
-      <Nav>
-        <div className='search-container'>
-          <Logo />
-          <SearchBar />
-        </div>
-      </Nav>
+      <Nav />
       <SearchFilter />
 
       <Container>
@@ -133,24 +128,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   position: relative;
   background: #ffffff;
-`
-
-const Nav = styled.nav`
-  display: flex;
-  position: sticky;
-  z-index: 100;
-  top: 0;
-  align-items: center;
-  background-color: #d32323;
-  width: 100%;
-  height: 65px;
-  .search-container {
-    display: flex;
-    align-items: center;
-    max-width: 1020px;
-    margin: 0 auto;
-    height: 100%;
-  }
 `
 
 const Container = styled.div`

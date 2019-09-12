@@ -77,7 +77,7 @@ export const SearchBar = () => {
 
 const Form = styled.form`
   font-family: 'Helvetica Neue';
-  width: 900px;
+  width: 770px;
   height: 40px;
   border-radius: 4px;
   border: 1px solid #a71c1c;
@@ -113,7 +113,7 @@ const Form = styled.form`
     font-size: 15px;
     letter-spacing: 0.8px;
     line-height: 20px;
-    width: 88%;
+    width: 85%;
     height: 100%;
     color: #141414;
     padding-left: 10px;

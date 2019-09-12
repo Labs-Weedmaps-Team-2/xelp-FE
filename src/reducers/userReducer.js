@@ -5,23 +5,25 @@ const initialState = {
   email: '',
   photo: '',
   avatar: '',
-  loading: false,
+  loadingAuth: false,
+  uploadingPhoto: false,
+  updatingDetails: false,
 }
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.FETCH_USER_REQUEST:
-      return { ...state, loading: true }
+      return { ...state, loadingAuth: true }
     case types.FETCH_USER_SUCCESS:
-      return { ...state, ...action.payload, loading: false }
+      return { ...state, ...action.payload, loadingAuth: false }
     case types.EDIT_USER_REQUEST:
-      return { ...state, loading: true }
+      return { ...state, updatingDetails: true }
     case types.EDIT_USER_SUCCESS:
-      return { ...state, ...action.payload, loading: false }
+      return { ...state, ...action.payload, updatingDetails: false }
     case types.UPLOAD_USER_IMAGE_REQUEST:
-      return { ...state, loading: true }
+      return { ...state, uploadingPhoto: true }
     case types.UPLOAD_USER_IMAGE_SUCCESS:
-      return { ...state, ...action.payload, loading: false }
+      return { ...state, ...action.payload, uploadingPhoto: false }
     default:
       return state
   }

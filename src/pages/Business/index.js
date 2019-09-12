@@ -4,8 +4,7 @@ import useRouter from 'hooks/useRouter'
 import { Link } from 'react-router-dom'
 import { fetchBusinessDetails, resetSingleBusiness } from 'actions/index'
 import styled from 'styled-components'
-import { Logo } from 'components'
-import { SearchBar } from 'containers'
+import { Nav } from 'components'
 import { renderRating } from 'utils'
 import Reviews from './components/Reviews'
 
@@ -27,12 +26,7 @@ const Business = () => {
   console.log('single', business)
   return (
     <Wrapper>
-      <Nav>
-        <div className='search-container'>
-          <Logo />
-          <SearchBar />
-        </div>
-      </Nav>
+      <Nav />
       <BusinessHero>
         <Container>
           <div className='business-details'>
@@ -158,24 +152,6 @@ const Container = styled.div`
   .more-details {
     /* border: 1px solid red; */
     width: 300px;
-  }
-`
-
-const Nav = styled.nav`
-  display: flex;
-  position: sticky;
-  z-index: 100;
-  top: 0;
-  align-items: center;
-  background-color: #d32323;
-  width: 100%;
-  height: 65px;
-  .search-container {
-    display: flex;
-    align-items: center;
-    max-width: 1020px;
-    margin: 0 auto;
-    height: 100%;
   }
 `
 
