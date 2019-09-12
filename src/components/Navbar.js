@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { Logo } from 'components'
 import { SearchBar, Auth } from 'containers'
 
-export const Nav = () => {
+export const Navbar = () => {
   return (
-    <StyledNav>
+    <StyledNavbar>
       <div className='search-container'>
         <Logo />
         <SearchBar />
@@ -13,11 +13,11 @@ export const Nav = () => {
           <Auth />
         </div>
       </div>
-    </StyledNav>
+    </StyledNavbar>
   )
 }
 
-const StyledNav = styled.nav`
+const StyledNavbar = styled.nav`
   display: flex;
   position: sticky;
   z-index: 100;

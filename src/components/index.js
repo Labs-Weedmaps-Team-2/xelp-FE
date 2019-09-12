@@ -2,7 +2,7 @@
 // import/export file
 export * from './Logo'
 export * from './Marker'
-export * from './Nav'
+export * from './Navbar'
 export * from './AvatarPopup'
 export * from './AvatarMenu'
 export * from './Footer'

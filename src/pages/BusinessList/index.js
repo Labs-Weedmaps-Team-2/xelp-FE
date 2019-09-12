@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchBusiness, resetBusiness, setSearch, setYelpUpdate } from 'actions'
 import { renderRating } from 'utils'
 import { SearchFilter, Map } from 'containers'
-import { Nav } from 'components'
+import { Navbar } from 'components'
 import { POPULATE_SINGLE } from 'actions/types'
 import ReactPaginate from 'react-paginate'
 import useRouter from 'hooks/useRouter'
@@ -47,7 +47,7 @@ const BusinessList = () => {
 
   return (
     <Wrapper>
-      <Nav />
+      <Navbar />
       <SearchFilter />
 
       <Container>

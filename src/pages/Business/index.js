@@ -4,7 +4,7 @@ import useRouter from 'hooks/useRouter'
 import { Link } from 'react-router-dom'
 import { fetchBusinessDetails, resetSingleBusiness } from 'actions/index'
 import styled from 'styled-components'
-import { Nav } from 'components'
+import { Navbar } from 'components'
 import { renderRating } from 'utils'
 import Reviews from './components/Reviews'
 
@@ -26,7 +26,7 @@ const Business = () => {
   console.log('single', business)
   return (
     <Wrapper>
-      <Nav />
+      <Navbar />
       <BusinessHero>
         <Container>
           <div className='business-details'>

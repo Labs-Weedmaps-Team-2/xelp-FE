@@ -1,6 +1,6 @@
 import React from 'react'
 import ActiveStorageProvider from 'react-activestorage-provider'
-import { Nav } from 'components'
+import { Navbar } from 'components'
 import { apiUrl, serverUrl } from 'config'
 
 const AddPhotos = () => {
@@ -18,7 +18,7 @@ const AddPhotos = () => {
       multiple={true}
       render={({ handleUpload, uploads, ready }) => (
         <div>
-          <Nav />
+          <Navbar />
           <input
             type='file'
             id='photos'

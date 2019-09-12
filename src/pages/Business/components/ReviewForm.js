@@ -5,7 +5,7 @@ import { api } from 'apis'
 import { useRouter } from 'hooks'
 import { fetchBusinessDetails, resetSingleBusiness } from 'actions'
 import { renderRating } from 'utils'
-import { Nav } from 'components'
+import { Navbar } from 'components'
 import styled from 'styled-components'
 
 const textHash = {
@@ -65,7 +65,7 @@ const ReviewForm = () => {
   }
   return (
     <>
-      <Nav />
+      <Navbar />
       <Form onSubmit={handleSubmit}>
         <Link to={`/business/${business.id}`}>
           <h2>{business.name}</h2>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { Nav } from 'components'
+import { Navbar } from 'components'
 import { ProfileAvatar, ProfileForm } from './components'
 
 const Profile = () => {
@@ -9,7 +9,7 @@ const Profile = () => {
 
   return (
     <>
-      <Nav />
+      <Navbar />
       <Container>
         <ProfileAvatar {...user} />
         <ProfileForm {...user} />
