@@ -56,7 +56,6 @@ const BusinessList = () => {
     <Wrapper>
       <Navbar />
       <SearchFilter />
-
       <Container>
         <StyledBusinessList ref={listRef}>
           <h1>All Results</h1>
@@ -138,9 +137,10 @@ const Wrapper = styled.div`
 `
 
 const Container = styled.div`
+  /* border: 1px solid blue; */
   margin: 20px auto 30px;
   max-width: 1020px;
-  width: 1020px;
+  /* width: 1020px; */
   display: flex;
   position: relative;
   justify-content: flex-start;
@@ -175,9 +175,9 @@ const StyledBusinessList = styled.ul`
   display: flex;
   margin-right: 10px;
   width: 340px;
-  height: 500px;
+  /* height: 500px;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: hidden; */
   flex-direction: column;
   position: relative;
   h1 {

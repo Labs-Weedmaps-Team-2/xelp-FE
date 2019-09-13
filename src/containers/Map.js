@@ -75,6 +75,9 @@ export const Map = props => {
 }
 
 const Container = styled.div`
+  /* border: 1px solid red; */
+  position: sticky;
+  top: 90px;
   height: ${mapSize.height}px;
   width: ${mapSize.width}px;
 `
