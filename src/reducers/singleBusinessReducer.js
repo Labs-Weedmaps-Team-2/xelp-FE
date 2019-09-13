@@ -15,6 +15,8 @@ export const singleBusinessReducer = (state = initialState, action) => {
       return { ...state, reviews: action.payload }
     case types.ADD_REVIEW:
       return { ...state, reviews: [...state.reviews, action.payload] }
+    case types.FETCH_BUSINESS_GALLERY_SUCCESS:
+      return { ...state, photos: action.payload }
     case types.RESET_SINGLE_BUSINESS:
       return initialState
     default:

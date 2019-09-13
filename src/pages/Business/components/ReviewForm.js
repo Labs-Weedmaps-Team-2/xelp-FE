@@ -6,6 +6,7 @@ import { useRouter } from 'hooks'
 import { fetchBusinessDetails, resetSingleBusiness } from 'actions'
 import { renderRating } from 'utils'
 import styled from 'styled-components'
+import AddPhotos from './ReviewPhotosInput'
 
 const textHash = {
   '1': 'Eek! Methinks not.',
@@ -23,37 +24,14 @@ const ReviewForm = () => {
   const [reviewText, setReviewText] = useState('')
   const [rateValue, setRateValue] = useState(1)
   const [rateText, setRateText] = useState('Select your rating')
-
+  const yelp_id = window.location.pathname.split('/writeareview/')[1]
   useEffect(() => {
-    const yelp_id = location.pathname.split('/')
-    dispatch(fetchBusinessDetails(yelp_id[2]))
+    dispatch(fetchBusinessDetails(yelp_id))
     return () => {
       dispatch(resetSingleBusiness())
     }
   }, [])
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    api
-      .post(
-        `/business/${
-          window.location.pathname.split('/writeareview/')[1]
-        }/review`,
-        {
-          review: {
-            text: reviewText,
-            rating: rateValue,
-          },
-        }
-      )
-      .then(res => {
-        dispatch({ type: 'ADD_REVIEW', payload: res.data })
-        setReviewText('')
-        history.push(
-          `/business/${window.location.pathname.split('/writeareview/')[1]}`
-        )
-      })
-  }
   const handleInput = e => {
     setReviewText(e.target.value)
   }
@@ -63,71 +41,73 @@ const ReviewForm = () => {
     setRateText(textHash[e.target.value])
   }
   return (
-    <Form onSubmit={handleSubmit}>
-      <Link to={`/business/${business.id}`}>
-        <h2>{business.name}</h2>
-      </Link>
-      <div className='radio-textarea'>
-        <div className='rating-bar'>{renderRating(rateValue)}</div>
-        <div className='radio-wrapper'>
-          <label htmlFor='1'>1</label>
-          <input
-            id='1'
-            type='radio'
-            name='rating'
-            value='1'
-            onClick={handleClick}
-            defaultChecked
+    <div>
+      <Form>
+        <Link to={`/business/${business.id}`}>
+          <h2>{business.name}</h2>
+        </Link>
+        <div className='radio-textarea'>
+          <div className='rating-bar'>{renderRating(rateValue)}</div>
+          <div className='radio-wrapper'>
+            <label htmlFor='1'>1</label>
+            <input
+              id='1'
+              type='radio'
+              name='rating'
+              value='1'
+              onClick={handleClick}
+              defaultChecked
+            />
+            <label htmlFor='2'>2</label>
+            <input
+              id='2'
+              type='radio'
+              name='rating'
+              value='2'
+              onClick={handleClick}
+            />
+            <label htmlFor='3'>3</label>
+            <input
+              id='3'
+              type='radio'
+              name='rating'
+              value='3'
+              onClick={handleClick}
+            />
+            <label htmlFor='4'>4</label>
+            <input
+              id='4'
+              type='radio'
+              name='rating'
+              value='4'
+              onClick={handleClick}
+            />
+            <label htmlFor='5'>5</label>
+            <input
+              id='5'
+              type='radio'
+              name='rating'
+              value='5'
+              onClick={handleClick}
+            />
+            <span className='rate-text'>{rateText}</span>
+          </div>
+          <textarea
+            className='review-text'
+            onChange={handleInput}
+            value={reviewText}
+            placeholder='Your review helps others learn about great local businesses.'
           />
-          <label htmlFor='2'>2</label>
-          <input
-            id='2'
-            type='radio'
-            name='rating'
-            value='2'
-            onClick={handleClick}
-          />
-          <label htmlFor='3'>3</label>
-          <input
-            id='3'
-            type='radio'
-            name='rating'
-            value='3'
-            onClick={handleClick}
-          />
-          <label htmlFor='4'>4</label>
-          <input
-            id='4'
-            type='radio'
-            name='rating'
-            value='4'
-            onClick={handleClick}
-          />
-          <label htmlFor='5'>5</label>
-          <input
-            id='5'
-            type='radio'
-            name='rating'
-            value='5'
-            onClick={handleClick}
-          />
-          <span className='rate-text'>{rateText}</span>
         </div>
-        <textarea
-          className='review-text'
-          onChange={handleInput}
-          value={reviewText}
-          placeholder='Your review helps others learn about great local businesses.'
-        />
-      </div>
-      <button className='btn-submit'>Submit</button>
-    </Form>
+        <AddPhotos text={reviewText} rating={rateValue} yelp_id={yelp_id} />
+      </Form>
+    </div>
   )
 }
 
 export default ReviewForm
 
-const Form = styled.form`
+const Form = styled.div`
   margin-top: 90px;
   display: flex;
   flex-direction: column;
@@ -154,9 +134,7 @@ const Form = styled.form`
   .rate-text {
     margin-left: 20px;
   }
-  input {
-    display: none;
-  }
+
   .radio-textarea {
     display: flex;
     flex-direction: column;
@@ -166,6 +144,9 @@ const Form = styled.form`
   .radio-wrapper {
     position: relative;
     margin: 0 0 20px;
+    input {
+      display: none;
+    }
   }
   .review-text {
     padding: 18px;

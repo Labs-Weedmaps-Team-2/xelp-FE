@@ -102,3 +102,14 @@ export const setYelpUpdate = () => ({
 export const setMapUpdate = () => ({
   type: types.SET_MAP_UPDATE,
 })
+
+export const fetchBusinessGallery = yelp_id => async dispatch => {
+  dispatch({ type: types.FETCH_BUSINESS_GALLERY_REQUEST })
+  try {
+    const res = await api.get(`/business/${yelp_id}/gallery`)
+    dispatch({ type: types.FETCH_BUSINESS_GALLERY_SUCCESS, payload: res.data })
+  } catch (err) {
+    console.log(err)
+    dispatch({ type: types.FETCH_BUSINESS_GALLERY_FAILURE })
+  }
+}
