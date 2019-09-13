@@ -3,7 +3,7 @@ const initialState = {
   location: 'Los Angeles, CA',
   term: '',
   offset: 0,
-  price: '',
+  price: '1, 2, 3, 4',
   open_now: false,
   categories: 'nightlife, arts',
 }
