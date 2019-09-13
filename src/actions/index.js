@@ -117,3 +117,14 @@ export const setMapUpdate = () => ({
 })
 
 export const resetPrevSearch = () => ({ type: types.RESET_PREV_SEARCH })
+
+export const fetchBusinessGallery = yelp_id => async dispatch => {
+  dispatch({ type: types.FETCH_BUSINESS_GALLERY_REQUEST })
+  try {
+    const res = await api.get(`/business/${yelp_id}/gallery`)
+    dispatch({ type: types.FETCH_BUSINESS_GALLERY_SUCCESS, payload: res.data })
+  } catch (err) {
+    console.log(err)
+    dispatch({ type: types.FETCH_BUSINESS_GALLERY_FAILURE })
+  }
+}
