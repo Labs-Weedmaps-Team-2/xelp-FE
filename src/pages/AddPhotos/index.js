@@ -1,7 +1,7 @@
 import React from 'react'
 import ActiveStorageProvider from 'react-activestorage-provider'
-import { DirectUploadProvider } from 'react-activestorage-provider'
-import { apiUrl } from 'config'
+import { Navbar } from 'components'
+import { apiUrl, serverUrl } from 'config'
 
 const AddPhotos = () => {
   return (
@@ -14,10 +14,11 @@ const AddPhotos = () => {
         attribute: 'photos',
         method: 'PUT',
       }}
-      directUploadsPath='http://localhost:3000/rails/active_storage/direct_uploads'
+      directUploadsPath={`${serverUrl}/rails/active_storage/direct_uploads`}
       multiple={true}
       render={({ handleUpload, uploads, ready }) => (
         <div>
+          <Navbar />
           <input
             type='file'
             id='photos'
@@ -50,6 +51,8 @@ const AddPhotos = () => {
                 return (
                   <p key={upload.id}>Finished uploading {upload.file.name}</p>
                 )
+              default:
+                return new Error('business photo error')
             }
           })}
         </div>

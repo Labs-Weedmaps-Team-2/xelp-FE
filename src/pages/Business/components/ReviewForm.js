@@ -5,6 +5,7 @@ import { api } from 'apis'
 import { useRouter } from 'hooks'
 import { fetchBusinessDetails, resetSingleBusiness } from 'actions'
 import { renderRating } from 'utils'
+import { Navbar } from 'components'
 import styled from 'styled-components'
 import AddPhotos from './ReviewPhotosInput'
 
@@ -41,67 +42,70 @@ const ReviewForm = () => {
     setRateText(textHash[e.target.value])
   }
   return (
-    <div>
-      <Form>
-        <Link to={`/business/${business.id}`}>
-          <h2>{business.name}</h2>
-        </Link>
-        <div className='radio-textarea'>
-          <div className='rating-bar'>{renderRating(rateValue)}</div>
-          <div className='radio-wrapper'>
-            <label htmlFor='1'>1</label>
-            <input
-              id='1'
-              type='radio'
-              name='rating'
-              value='1'
-              onClick={handleClick}
-              defaultChecked
+    <>
+      <div>
+        <Navbar />
+        <Form>
+          <Link to={`/business/${business.id}`}>
+            <h2>{business.name}</h2>
+          </Link>
+          <div className='radio-textarea'>
+            <div className='rating-bar'>{renderRating(rateValue)}</div>
+            <div className='radio-wrapper'>
+              <label htmlFor='1'>1</label>
+              <input
+                id='1'
+                type='radio'
+                name='rating'
+                value='1'
+                onClick={handleClick}
+                defaultChecked
+              />
+              <label htmlFor='2'>2</label>
+              <input
+                id='2'
+                type='radio'
+                name='rating'
+                value='2'
+                onClick={handleClick}
+              />
+              <label htmlFor='3'>3</label>
+              <input
+                id='3'
+                type='radio'
+                name='rating'
+                value='3'
+                onClick={handleClick}
+              />
+              <label htmlFor='4'>4</label>
+              <input
+                id='4'
+                type='radio'
+                name='rating'
+                value='4'
+                onClick={handleClick}
+              />
+              <label htmlFor='5'>5</label>
+              <input
+                id='5'
+                type='radio'
+                name='rating'
+                value='5'
+                onClick={handleClick}
+              />
+              <span className='rate-text'>{rateText}</span>
+            </div>
+            <textarea
+              className='review-text'
+              onChange={handleInput}
+              value={reviewText}
+              placeholder='Your review helps others learn about great local businesses.'
             />
-            <label htmlFor='2'>2</label>
-            <input
-              id='2'
-              type='radio'
-              name='rating'
-              value='2'
-              onClick={handleClick}
-            />
-            <label htmlFor='3'>3</label>
-            <input
-              id='3'
-              type='radio'
-              name='rating'
-              value='3'
-              onClick={handleClick}
-            />
-            <label htmlFor='4'>4</label>
-            <input
-              id='4'
-              type='radio'
-              name='rating'
-              value='4'
-              onClick={handleClick}
-            />
-            <label htmlFor='5'>5</label>
-            <input
-              id='5'
-              type='radio'
-              name='rating'
-              value='5'
-              onClick={handleClick}
-            />
-            <span className='rate-text'>{rateText}</span>
           </div>
-          <textarea
-            className='review-text'
-            onChange={handleInput}
-            value={reviewText}
-            placeholder='Your review helps others learn about great local businesses.'
-          />
-        </div>
-        <AddPhotos text={reviewText} rating={rateValue} yelp_id={yelp_id} />
-      </Form>
-    </div>
+          <AddPhotos text={reviewText} rating={rateValue} yelp_id={yelp_id} />
+        </Form>
+      </div>
+    </>
   )
 }
 

@@ -2,10 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { uploadUserImage } from 'actions'
+import { RingLoader } from 'react-spinners'
+
+const override = {
+  position: 'absolute',
+  opacity: '50%',
+}
 
 const ProfileAvatar = props => {
   const dispatch = useDispatch()
-  // const [avatarSrc, setSrc] = useState(null)
 
   const handleFile = e => {
     const file = e.target.files[0]
@@ -25,6 +30,12 @@ const ProfileAvatar = props => {
   return (
     <StyledProfileAvatar>
       <div className='panel-left'>
+        <RingLoader
+          css={override}
+          size={40}
+          color='white'
+          loading={props.uploadingPhoto}
+        />
         <img
           className='profile-image'
           src={props.avatar ? props.avatar : props.photo}
@@ -61,7 +72,10 @@ const StyledProfileAvatar = styled.div`
     /* border: 1px solid green; */
     width: 50px;
     height: 50px;
-
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .profile-image {
       /* border: 1px solid red; */
       width: 100%;

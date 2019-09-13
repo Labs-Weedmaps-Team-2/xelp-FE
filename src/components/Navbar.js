@@ -1,46 +1,39 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { useRouter } from 'hooks'
-
-const StyledLink = styled(Link)`
-  font-weight: bolder;
-`
+import { Logo } from 'components'
+import { SearchBar, Auth } from 'containers'
 
 export const Navbar = () => {
-  const { location } = useRouter()
   return (
-    <StyledNavHeader location={location}>
-      <StyledLink to='/'>Home</StyledLink>
-      <StyledLink to='/sign-in'>Sign In</StyledLink>
-      <StyledLink to='/profile'>Profile</StyledLink>
-    </StyledNavHeader>
+    <StyledNavbar>
+      <div className='search-container'>
+        <Logo />
+        <SearchBar />
+        <div className='auth-wrapper'>
+          <Auth />
+        </div>
+      </div>
+    </StyledNavbar>
   )
 }
 
-const StyledNavHeader = styled.nav`
-  width: 100%;
-  background: ${props =>
-    props.location.pathname === '/' ? 'transparent' : '#FAFAFA'};
-  position: fixed;
-  left: 0;
-  top: 0;
-  padding: 26px 20px;
-  width: 100%;
+const StyledNavbar = styled.nav`
   display: flex;
+  position: sticky;
+  z-index: 100;
+  top: 0;
   align-items: center;
-  justify-content: center;
-  height: 60px;
-  z-index: 30;
-  border-bottom: ${props =>
-    props.location.pathname === '/' ? 'none' : '1px solid #e6e6e6'};
-
-  a {
-    color: ${props => (props.location.pathname === '/' ? 'white' : 'black')};
-    font-size: 1.8rem;
-    margin-left: 5rem;
-    &:hover {
-      text-decoration: none;
-    }
+  background-color: #d32323;
+  width: 100%;
+  height: 65px;
+  .search-container {
+    display: flex;
+    align-items: center;
+    max-width: 1020px;
+    margin: 0 auto;
+    height: 100%;
+  }
+  .auth-wrapper {
+    margin-left: 25px;
   }
 `

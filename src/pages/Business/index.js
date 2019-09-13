@@ -4,8 +4,7 @@ import useRouter from 'hooks/useRouter'
 import { Link } from 'react-router-dom'
 import { fetchBusinessDetails, resetSingleBusiness } from 'actions/index'
 import styled from 'styled-components'
-import { Logo } from 'components'
-import { SearchBar } from 'containers'
+import { Navbar } from 'components'
 import { renderRating } from 'utils'
 import Reviews from './components/Reviews'
 
@@ -15,24 +14,18 @@ const Business = () => {
   const { location } = useRouter()
   const dispatch = useDispatch()
   const [hoverIndex, setHover] = useState(1)
-  const yelp_id = location.pathname.split('/')
+  const yelp_id = location.pathname.split('/')[2]
 
   const business = useSelector(({ singleBusiness }) => singleBusiness)
   useEffect(() => {
-    dispatch(fetchBusinessDetails(yelp_id[2]))
-    return () => {
-      dispatch(resetSingleBusiness())
-    }
+    dispatch(resetSingleBusiness())
+    dispatch(fetchBusinessDetails(yelp_id))
   }, [])
+
   console.log('single', business)
   return (
     <Wrapper>
-      <Nav>
-        <div className='search-container'>
-          <Logo />
-          <SearchBar />
-        </div>
-      </Nav>
+      <Navbar />
       <BusinessHero>
         <Container>
           <div className='business-details'>
@@ -58,7 +51,7 @@ const Business = () => {
                   </span>,
                 ]}
                 <span className='categories'>
-                  {business.categories.length
+                  {business.categories && business.categories.length
                     ? business.categories[0].title
                     : null}
                 </span>
@@ -120,7 +113,9 @@ const Business = () => {
             {business.reviews && <Reviews reviews={business.reviews} />}
           </div>
           <div className='more-details'>
-            <Link to={`/biz_gallery/${yelp_id[2]}`}>See all photos</Link>
+            <Link to={`/biz_gallery/${yelp_id[2]}`}>
+              See all {business.photo_count} photos
+            </Link>
           </div>
         </div>
       </Container>
@@ -158,24 +153,6 @@ const Container = styled.div`
   .more-details {
     /* border: 1px solid red; */
     width: 300px;
-  }
-`
-
-const Nav = styled.nav`
-  display: flex;
-  position: sticky;
-  z-index: 100;
-  top: 0;
-  align-items: center;
-  background-color: #d32323;
-  width: 100%;
-  height: 65px;
-  .search-container {
-    display: flex;
-    align-items: center;
-    max-width: 1020px;
-    margin: 0 auto;
-    height: 100%;
   }
 `
 

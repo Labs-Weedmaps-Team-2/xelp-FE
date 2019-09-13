@@ -1,26 +1,38 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'hooks'
 import { setSearch, fetchBusiness, setYelpUpdate } from 'actions'
 import { GridLoader } from 'react-spinners'
 import styled from 'styled-components'
 import SearchSvg from 'assets/svg/SearchSvg'
+import { api } from 'apis'
 
 export const SearchBar = () => {
   const inputTerm = useRef()
   const inputLocation = useRef()
   const dispatch = useDispatch()
   const { history } = useRouter()
+  const [auto, setAuto] = useState([])
   useEffect(() => {
     inputTerm.current.focus()
   }, [])
 
-  const { term, location, loading } = useSelector(({ search, business }) => ({
-    term: search.term,
-    location: search.location,
-    loading: business.loading,
-  }))
+  const { term, location, loading, center } = useSelector(
+    ({ search, business }) => ({
+      term: search.term,
+      location: search.location,
+      loading: business.loading,
+      center: business.region.center,
+    })
+  )
 
+  const handleChange = async e => {
+    dispatch(setSearch(e.target.value, location))
+    const res = await api.get(
+      `/search/autocomplete?text=${term}&latitude=${center.latitude}&longitude=${center.longitude}`
+    )
+    console.log(res)
+  }
   return (
     <Form
       onSubmit={e => {
@@ -43,9 +55,9 @@ export const SearchBar = () => {
           id='find'
           type='text'
           ref={inputTerm}
-          placeholder="tacos, cheap dinner, Max's"
+          placeholder='bars, clubs, breweries, venues...'
           value={term}
-          onChange={e => dispatch(setSearch(e.target.value, location))}
+          onChange={handleChange}
           onClick={() => inputTerm.current.select()}
         />
       </div>
@@ -77,7 +89,7 @@ export const SearchBar = () => {
 
 const Form = styled.form`
   font-family: 'Helvetica Neue';
-  width: 900px;
+  width: 770px;
   height: 40px;
   border-radius: 4px;
   border: 1px solid #a71c1c;
@@ -113,7 +125,7 @@ const Form = styled.form`
     font-size: 15px;
     letter-spacing: 0.8px;
     line-height: 20px;
-    width: 88%;
+    width: 85%;
     height: 100%;
     color: #141414;
     padding-left: 10px;

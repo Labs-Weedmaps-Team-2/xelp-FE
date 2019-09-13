@@ -5,6 +5,8 @@ import { searchReducer as search } from './searchReducer'
 import { singleBusinessReducer as singleBusiness } from './singleBusinessReducer'
 import { mapReducer as map } from './mapReducer'
 import { updateReducer as update } from './updateReducer'
+import { filterReducer as filter } from './filterReducer'
+
 export default combineReducers({
   user,
   business,
@@ -12,4 +14,5 @@ export default combineReducers({
   singleBusiness,
   map,
   update,
+  filter,
 })
