@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusiness, setYelpUpdate } from 'actions'
 import * as types from 'actions/types'
 
 const categories = [
