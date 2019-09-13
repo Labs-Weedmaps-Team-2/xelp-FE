@@ -25,6 +25,9 @@ export const AvatarPopup = ({ user }) => {
           <p className='location'>Los Angeles, CA</p>
         </div>
       </div>
+      <Link className='add-business' to='/addbusiness'>
+        Add Business
+      </Link>
       <Link className='settings' to='/profile'>
         Account Settings
       </Link>
@@ -39,7 +42,7 @@ const StyledAvatarPopup = styled.div`
   position: absolute;
   cursor: default;
   width: 220px;
-  height: 180px;
+  height: 220px;
   top: 0;
   right: 0;
   z-index: 50;
@@ -91,7 +94,8 @@ const StyledAvatarPopup = styled.div`
     font-weight: bold;
   }
   .logout,
-  .settings {
+  .settings,
+  .add-business {
     color: #0073bb;
     display: block;
     cursor: pointer;
@@ -99,6 +103,10 @@ const StyledAvatarPopup = styled.div`
     &:hover {
       text-decoration: underline;
     }
+  }
+  .add-business {
+    margin-top: 12px;
+    font-weight: bold;
   }
   .settings {
     margin-top: 12px;
