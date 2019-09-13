@@ -22,6 +22,7 @@ const List = styled.ul`
   top: 38px;
   width: 350px;
   left: 0px;
+  border-top: 1px solid gray;
   li {
     font-size: 1.4rem;
     font-weight: thin;

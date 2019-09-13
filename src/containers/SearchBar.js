@@ -32,7 +32,6 @@ export const SearchBar = () => {
     const res = await api.get(
       `/search/autocomplete?text=${term}&latitude=${center.latitude}&longitude=${center.longitude}`
     )
-    console.log(res.data)
     if (res.data.terms && res.data.terms.length) {
       setAuto([...res.data.categories, ...res.data.terms])
     }
@@ -63,6 +62,11 @@ export const SearchBar = () => {
           placeholder='bars, clubs, breweries, venues...'
           value={term}
           onChange={handleChange}
+          onKeyDown={e => {
+            if (e.keyCode === 27) {
+              setAuto([])
+            }
+          }}
           onClick={() => inputTerm.current.select()}
         />
         {!!term.length && (
