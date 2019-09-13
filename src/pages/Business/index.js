@@ -15,10 +15,10 @@ const Business = () => {
   const { location } = useRouter()
   const dispatch = useDispatch()
   const [hoverIndex, setHover] = useState(1)
+  const yelp_id = location.pathname.split('/')
 
   const business = useSelector(({ singleBusiness }) => singleBusiness)
   useEffect(() => {
-    const yelp_id = location.pathname.split('/')
     dispatch(fetchBusinessDetails(yelp_id[2]))
     return () => {
       dispatch(resetSingleBusiness())
@@ -120,7 +120,7 @@ const Business = () => {
             {business.reviews && <Reviews reviews={business.reviews} />}
           </div>
           <div className='more-details'>
-            MORE BUSINESS DETAILS/SERVICES GOES HERE
+            <Link to={`/biz_gallery/${yelp_id[2]}`}>See all photos</Link>
           </div>
         </div>
       </Container>
