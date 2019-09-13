@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { uploadUserImage } from 'actions'
 import { RingLoader } from 'react-spinners'
 
@@ -10,9 +10,7 @@ const override = {
 }
 
 const ProfileAvatar = props => {
-  const user = useSelector(({ user }) => user)
   const dispatch = useDispatch()
-  // const [avatarSrc, setSrc] = useState(null)
 
   const handleFile = e => {
     const file = e.target.files[0]
@@ -36,7 +34,7 @@ const ProfileAvatar = props => {
           css={override}
           size={40}
           color='white'
-          loading={user.uploadingPhoto}
+          loading={props.uploadingPhoto}
         />
         <img
           className='profile-image'

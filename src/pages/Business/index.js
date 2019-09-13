@@ -18,10 +18,8 @@ const Business = () => {
   const business = useSelector(({ singleBusiness }) => singleBusiness)
   useEffect(() => {
     const yelp_id = location.pathname.split('/')
+    dispatch(resetSingleBusiness())
     dispatch(fetchBusinessDetails(yelp_id[2]))
-    return () => {
-      dispatch(resetSingleBusiness())
-    }
   }, [])
   console.log('single', business)
   return (
