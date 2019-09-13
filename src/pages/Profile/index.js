@@ -1,17 +1,20 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-
+import { Navbar } from 'components'
 import { ProfileAvatar, ProfileForm } from './components'
 
 const Profile = () => {
   const user = useSelector(state => state.user)
 
   return (
-    <Container>
-      <ProfileAvatar {...user} />
-      <ProfileForm {...user} />
-    </Container>
+    <>
+      <Navbar />
+      <Container>
+        <ProfileAvatar {...user} />
+        <ProfileForm {...user} />
+      </Container>
+    </>
   )
 }
 

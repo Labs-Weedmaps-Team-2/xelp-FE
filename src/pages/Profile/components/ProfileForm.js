@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { editUser } from 'actions'
 import styled from 'styled-components'
 import { btnBg } from 'styles'
+import PulseLoader from 'react-spinners/PulseLoader'
 
 const ProfileForm = props => {
   const { id, username, email, photo } = props
   const dispatch = useDispatch()
+  const user = useSelector(({ user }) => user)
   const [profile, setProfile] = useState({ username, email, photo })
 
   useEffect(() => {
@@ -21,6 +23,15 @@ const ProfileForm = props => {
   const handleSubmit = e => {
     e.preventDefault()
     dispatch(editUser(id, profile))
+  }
+
+  const styles = {
+    position: 'absolute',
+    top: 9,
+    right: 15,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 
   return (
@@ -45,7 +56,15 @@ const ProfileForm = props => {
           onChange={handleChange}
         />
       </div>
-      <button type='submit'>Submit</button>
+      <button type='submit' disable={user.updatingDetails}>
+        <PulseLoader
+          css={styles}
+          color={'white'}
+          size={10}
+          loading={user.updatingDetails}
+        />
+        {!user.updatingDetails && <span>Submit</span>}
+      </button>
     </StyledProfileForm>
   )
 }
@@ -85,7 +104,10 @@ const StyledProfileForm = styled.form`
     font-size: 1.4rem;
     line-height: 1.8rem;
     width: 70px;
+    height: 30px;
+    outline: none;
     align-self: center;
     margin: 10px 0px;
+    position: relative;
   }
 `
