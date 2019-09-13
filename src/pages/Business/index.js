@@ -14,7 +14,7 @@ const Business = () => {
   const { location } = useRouter()
   const dispatch = useDispatch()
   const [hoverIndex, setHover] = useState(1)
-  const yelp_id = location.pathname.split('/')[2]
+  const yelp_id = location.pathname.split('/business/')[1]
 
   const business = useSelector(({ singleBusiness }) => singleBusiness)
   useEffect(() => {
@@ -113,7 +113,7 @@ const Business = () => {
             {business.reviews && <Reviews reviews={business.reviews} />}
           </div>
           <div className='more-details'>
-            <Link to={`/biz_gallery/${yelp_id[2]}`}>
+            <Link to={`/biz_gallery/${yelp_id}`}>
               See all {business.photo_count} photos
             </Link>
           </div>
