@@ -5,6 +5,7 @@ import { setSearch, fetchBusiness, setYelpUpdate } from 'actions'
 import { GridLoader } from 'react-spinners'
 import styled from 'styled-components'
 import SearchSvg from 'assets/svg/SearchSvg'
+import { Dropdown } from 'components'
 import { api } from 'apis'
 
 export const SearchBar = () => {
@@ -31,21 +32,23 @@ export const SearchBar = () => {
     const res = await api.get(
       `/search/autocomplete?text=${term}&latitude=${center.latitude}&longitude=${center.longitude}`
     )
-    console.log(res)
+    if (res.data.terms && res.data.terms.length) {
+      setAuto(res.data.terms)
+    }
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    dispatch(setYelpUpdate())
+    dispatch(fetchBusiness(term, location, 0))
+    //* push to business-list if we use the search bar
+    //* and not already on business-list
+    if (!window.location.pathname.includes('business-list')) {
+      history.push('/business-list')
+    }
   }
   return (
-    <Form
-      onSubmit={e => {
-        e.preventDefault()
-        dispatch(setYelpUpdate())
-        dispatch(fetchBusiness(term, location, 0))
-        //* push to business-list if we use the search bar
-        //* and not already on business-list
-        if (!window.location.pathname.includes('business-list')) {
-          history.push('/business-list')
-        }
-      }}
-    >
+    <Form onSubmit={handleSubmit}>
       <div className='input-wrapper'>
         <label className='label-find' htmlFor='find'>
           Find
@@ -59,6 +62,14 @@ export const SearchBar = () => {
           value={term}
           onChange={handleChange}
           onClick={() => inputTerm.current.select()}
+        />
+        <Dropdown
+          items={auto}
+          handleClick={e => {
+            dispatch(setSearch(e.target.innerText, location))
+            setAuto([])
+            handleSubmit(e)
+          }}
         />
       </div>
       <div className='input-wrapper'>
