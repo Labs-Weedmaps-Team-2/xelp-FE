@@ -5,8 +5,8 @@ import styled from 'styled-components'
 export const Dropdown = ({ items, handleClick }) => {
   const renderItems = items => {
     return items.map((item, index) => (
-      <li key={index} value={item.text}>
-        {item.text}
+      <li key={index} value={item.title || item.text}>
+        {item.title || item.text}
       </li>
     ))
   }

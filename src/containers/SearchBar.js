@@ -32,13 +32,15 @@ export const SearchBar = () => {
     const res = await api.get(
       `/search/autocomplete?text=${term}&latitude=${center.latitude}&longitude=${center.longitude}`
     )
+    console.log(res.data)
     if (res.data.terms && res.data.terms.length) {
-      setAuto(res.data.terms)
+      setAuto([...res.data.categories, ...res.data.terms])
     }
   }
 
   const handleSubmit = e => {
     e.preventDefault()
+    setAuto([])
     dispatch(setYelpUpdate())
     dispatch(fetchBusiness(term, location, 0))
     //* push to business-list if we use the search bar
@@ -63,14 +65,16 @@ export const SearchBar = () => {
           onChange={handleChange}
           onClick={() => inputTerm.current.select()}
         />
-        <Dropdown
-          items={auto}
-          handleClick={e => {
-            dispatch(setSearch(e.target.innerText, location))
-            setAuto([])
-            handleSubmit(e)
-          }}
-        />
+        {!!term.length && (
+          <Dropdown
+            items={auto}
+            handleClick={e => {
+              dispatch(setSearch(e.target.innerText, location))
+              setAuto([])
+              handleSubmit(e)
+            }}
+          />
+        )}
       </div>
       <div className='input-wrapper'>
         <label className='label-near' htmlFor='near'>
