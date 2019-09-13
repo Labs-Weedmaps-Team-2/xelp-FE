@@ -20,6 +20,7 @@ const categories = [
 export const SearchFilter = () => {
   const dispatch = useDispatch()
   const [isOpenActive, setOpen] = useState(false)
+  const [isSubmit, setSubmit] = useState(false)
   const [isPriceActive, setPrice] = useState(Array(4).fill(false))
   const [isCatActive, setCat] = useState(Array(10).fill(false))
 
@@ -28,6 +29,7 @@ export const SearchFilter = () => {
   )
 
   const submitSearch = e => {
+    setSubmit(false)
     dispatch(
       fetchBusinessFilter(
         search.term,
@@ -41,6 +43,7 @@ export const SearchFilter = () => {
   }
 
   const handlePriceClick = async e => {
+    setSubmit(true)
     const { value } = e.target
     let priceArray = isPriceActive
       .map((price, index) => (price ? index + 1 : ''))
@@ -60,20 +63,16 @@ export const SearchFilter = () => {
         }
       })
     )
-    setTimeout(() => {
-      submitSearch()
-    }, 0)
   }
 
   const handleOpenClick = async () => {
+    setSubmit(true)
     await dispatch({ type: types.SET_OPEN, payload: !isOpenActive })
     setOpen(prev => !prev)
-    setTimeout(() => {
-      submitSearch()
-    }, 0)
   }
 
   const handleCatClick = async e => {
+    setSubmit(true)
     e.persist()
     let catArray = isCatActive
       .map((main, index) => (main ? categories[index] : ''))
@@ -93,9 +92,6 @@ export const SearchFilter = () => {
         }
       })
     )
-    setTimeout(() => {
-      submitSearch()
-    }, 0)
   }
 
   return (
@@ -159,6 +155,15 @@ export const SearchFilter = () => {
               Arts and Entertainment
             </li>
           </ul>
+          {isSubmit && (
+            <button
+              className='open'
+              style={{ marginLeft: 10 }}
+              onClick={submitSearch}
+            >
+              Submit Filter Search
+            </button>
+          )}
         </div>
         <ul className='sub-categories' onClick={handleCatClick}>
           <li
