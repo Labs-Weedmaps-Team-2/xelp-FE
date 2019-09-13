@@ -14,7 +14,8 @@ const Business = () => {
   const { location } = useRouter()
   const dispatch = useDispatch()
   const [hoverIndex, setHover] = useState(1)
-  const yelp_id = location.pathname.split('/')[2]
+  const yelp_id = location.pathname.split('/business/')[1]
+  const yelp_id = window.location
 
   const business = useSelector(({ singleBusiness }) => singleBusiness)
   useEffect(() => {
