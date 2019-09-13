@@ -27,7 +27,13 @@ const SearchBar = () => {
             state_code,
             postcode,
           } = json.results[0].components
-          const location = `${town || city}, ${state_code} ${postcode}`
+          let local = town || city
+          if (local) {
+            local.concat(', ')
+          } else {
+            local = ''
+          }
+          const location = `${local}${state_code} ${postcode}`
           dispatch(setSearch(search.term, location))
         })
     }
