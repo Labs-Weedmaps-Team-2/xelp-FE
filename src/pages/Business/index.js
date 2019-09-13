@@ -113,7 +113,7 @@ const Business = () => {
             {business.reviews && <Reviews reviews={business.reviews} />}
           </div>
           <div className='more-details'>
-            <Link to={`/biz_gallery/${yelp_id[2]}`}>
+            <Link to={`/biz_gallery/${yelp_id}`}>
               See all {business.photo_count} photos
             </Link>
           </div>
