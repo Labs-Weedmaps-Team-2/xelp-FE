@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
+import { fetchBusinessFilter } from 'actions'
 import * as types from 'actions/types'
 
 const categories = [
@@ -26,7 +27,20 @@ export const SearchFilter = () => {
     ({ search, filter, business }) => [search, filter, business]
   )
 
-  const handlePriceClick = e => {
+  const submitSearch = e => {
+    dispatch(
+      fetchBusinessFilter(
+        search.term,
+        search.location,
+        search.offset,
+        search.categories,
+        search.open_now,
+        search.price
+      )
+    )
+  }
+
+  const handlePriceClick = async e => {
     const { value } = e.target
     let priceArray = isPriceActive
       .map((price, index) => (price ? index + 1 : ''))
@@ -36,7 +50,7 @@ export const SearchFilter = () => {
     } else {
       priceArray = priceArray.filter(ele => ele !== value)
     }
-    dispatch({ type: types.SET_PRICE, payload: priceArray.join(',') })
+    await dispatch({ type: types.SET_PRICE, payload: priceArray.join(',') })
     setPrice(prevPrices =>
       prevPrices.map((price, index) => {
         if (index === parseInt(value) - 1) {
@@ -46,14 +60,20 @@ export const SearchFilter = () => {
         }
       })
     )
+    setTimeout(() => {
+      submitSearch()
+    }, 0)
   }
 
-  const handleOpenClick = () => {
-    dispatch({ type: types.SET_OPEN, payload: !isOpenActive })
+  const handleOpenClick = async () => {
+    await dispatch({ type: types.SET_OPEN, payload: !isOpenActive })
     setOpen(prev => !prev)
+    setTimeout(() => {
+      submitSearch()
+    }, 0)
   }
 
-  const handleCatClick = e => {
+  const handleCatClick = async e => {
     e.persist()
     let catArray = isCatActive
       .map((main, index) => (main ? categories[index] : ''))
@@ -63,7 +83,7 @@ export const SearchFilter = () => {
     } else {
       catArray.push(e.target.dataset.value)
     }
-    dispatch({ type: types.SET_CATEGORIES, payload: catArray.join(', ') })
+    await dispatch({ type: types.SET_CATEGORIES, payload: catArray.join(', ') })
     setCat(prevCats =>
       prevCats.map((main, index) => {
         if (index === parseInt(e.target.dataset.number)) {
@@ -73,6 +93,9 @@ export const SearchFilter = () => {
         }
       })
     )
+    setTimeout(() => {
+      submitSearch()
+    }, 0)
   }
 
   return (
