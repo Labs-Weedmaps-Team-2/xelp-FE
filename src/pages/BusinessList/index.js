@@ -13,7 +13,7 @@ import { SearchFilter, Map } from 'containers'
 import { Navbar } from 'components'
 import { POPULATE_SINGLE } from 'actions/types'
 import ReactPaginate from 'react-paginate'
-import useRouter from 'hooks/useRouter'
+import { useRouter } from 'hooks'
 
 const itemsPerPage = 20
 

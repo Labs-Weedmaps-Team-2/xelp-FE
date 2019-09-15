@@ -2,7 +2,7 @@
 
 import { useLayoutEffect } from 'react'
 
-const useLockBodyScroll = () => {
+export const useLockBodyScroll = () => {
   useLayoutEffect(() => {
     // Get original value of body overflow
     const originalStyle = window.getComputedStyle(document.body).overflow
@@ -12,5 +12,3 @@ const useLockBodyScroll = () => {
     return () => (document.body.style.overflow = originalStyle)
   }, []) // Empty array ensures effect is only run on mount and unmount
 }
-
-export default useLockBodyScroll

@@ -2,7 +2,7 @@ import React from 'react'
 import { DirectUploadProvider } from 'react-activestorage-provider'
 import { api } from 'apis'
 import { serverUrl } from 'config'
-import useRouter from 'hooks/useRouter'
+import { useRouter } from 'hooks'
 
 const AddPhotos = ({ text, rating, yelp_id }) => {
   const { history } = useRouter()
