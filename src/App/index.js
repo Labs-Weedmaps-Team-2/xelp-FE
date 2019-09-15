@@ -6,6 +6,7 @@ import { fetchUser } from 'actions'
 import CSSReset from 'styles/cssReset'
 import { black, bg } from 'styles'
 import { Footer } from 'components'
+import { useRouter } from 'hooks'
 import ReviewForm from 'pages/Business/components/ReviewForm'
 const Home = lazy(() => import('pages/Home'))
 const Profile = lazy(() => import('pages/Profile'))
@@ -21,6 +22,7 @@ const NotFound = lazy(() => import('pages/NotFound'))
 
 const App = () => {
   const dispatch = useDispatch()
+  const { location } = useRouter()
   const fetchUserCB = useCallback(() => {
     dispatch(fetchUser())
   }, [dispatch])
@@ -46,7 +48,6 @@ const App = () => {
           <Route path='*' component={NotFound} />
         </Switch>
       </Suspense>
-      <Footer />
     </Container>
   )
 }
