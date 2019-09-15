@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import useRouter from 'hooks/useRouter'
+import { useRouter } from 'hooks'
 import { Link } from 'react-router-dom'
 import { fetchBusinessDetails, resetSingleBusiness } from 'actions/index'
 import styled from 'styled-components'
