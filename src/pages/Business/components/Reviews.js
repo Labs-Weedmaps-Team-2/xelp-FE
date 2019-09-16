@@ -6,73 +6,75 @@ import { renderRating } from 'utils'
 const Reviews = ({ reviews }) => {
   return (
     <Container>
-      {reviews.map(review => {
-        return (
-          <div className='review-item' key={review.id}>
-            <div className='review-author'>
-              <div className='author-wrapper'>
-                <img
-                  className='author-image'
-                  src={
-                    review.user.image_url ||
-                    review.user.avatar ||
-                    review.user.photo
-                  }
-                  alt='user'
-                />
-              </div>
-              <a
-                className='author-name'
-                href={`https://www.yelp.com/user_details?userid=${review.user.id}`}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                {review.user.name || review.user.username}
-              </a>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div className='review-content'>
-                <div className='review-meta'>
-                  {console.log(review.rating)}
-                  <div className='rating-wrapper'>
-                    {renderRating(review.rating)}
-                  </div>
-                  <span className='review-created'>
-                    {moment(review.time_created).format('M/D/YYYY')}
-                  </span>
+      {reviews &&
+        reviews.map(review => {
+          return (
+            <div className='review-item' key={review.id}>
+              <div className='review-author'>
+                <div className='author-wrapper'>
+                  <img
+                    className='author-image'
+                    src={
+                      review.user.image_url ||
+                      review.user.avatar ||
+                      review.avatar ||
+                      review.user.photo
+                    }
+                    alt='user'
+                  />
                 </div>
-                <p className='review-text'>{review.text}</p>
+                <a
+                  className='author-name'
+                  href={`https://www.yelp.com/user_details?userid=${review.user.id}`}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  {review.user.name || review.user.username}
+                </a>
               </div>
-              <div style={{ display: 'flex' }}>
-                {review.photos &&
-                  review.photos.map((photo, i) => {
-                    return (
-                      <div
-                        key={i}
-                        style={{
-                          width: '200px',
-                          height: '200px',
-                          marginRight: '20px',
-                          marginBottom: '20px',
-                        }}
-                      >
-                        <img
-                          src={photo}
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className='review-content'>
+                  <div className='review-meta'>
+                    {console.log(review.rating)}
+                    <div className='rating-wrapper'>
+                      {renderRating(review.rating)}
+                    </div>
+                    <span className='review-created'>
+                      {moment(review.time_created).format('M/D/YYYY')}
+                    </span>
+                  </div>
+                  <p className='review-text'>{review.text}</p>
+                </div>
+                <div style={{ display: 'flex' }}>
+                  {review.photos &&
+                    review.photos.map((photo, i) => {
+                      return (
+                        <div
+                          key={i}
                           style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            objectPosition: 'center',
+                            width: '200px',
+                            height: '200px',
+                            marginRight: '20px',
+                            marginBottom: '20px',
                           }}
-                        />
-                      </div>
-                    )
-                  })}
+                        >
+                          <img
+                            src={photo}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              objectPosition: 'center',
+                            }}
+                          />
+                        </div>
+                      )
+                    })}
+                </div>
               </div>
             </div>
-          </div>
-        )
-      })}
+          )
+        })}
     </Container>
   )
 }

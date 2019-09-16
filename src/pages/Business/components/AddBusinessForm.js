@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { createBusiness } from 'actions'
+import { useRouter } from 'hooks/useRouter'
 const BusinessForm = () => {
+  const { history } = useRouter()
   const dispatch = useDispatch()
   const [form, setValues] = useState({
     name: '',
@@ -22,9 +24,10 @@ const BusinessForm = () => {
     })
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    dispatch(createBusiness(form))
+    const yelp_id = await dispatch(createBusiness(form))
+    history.push(`/business/${yelp_id}`)
   }
 
   return (
