@@ -32,7 +32,7 @@ const StyledFooter = styled.footer`
   display: flex;
   align-items: end;
   justify-content: flex-end;
-  height: 250px;
+  height: 275px;
   border-top: 1px solid #e6e6e6;
   background: lightgray;
   .container {
@@ -41,7 +41,7 @@ const StyledFooter = styled.footer`
     display: flex;
     align-items: center;
     justify-content: space-around;
-    flex-flow: column;
+    flex-flow: row-reverse;
     .links {
       display: flex;
       flex-flow: column;
@@ -58,6 +58,7 @@ const StyledFooter = styled.footer`
     }
     p {
       font-size: 1.5rem;
+      margin-top: 5px;
     }
   }
 `
