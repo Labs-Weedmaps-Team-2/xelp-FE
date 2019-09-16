@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useRouter, usePosition } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearch } from 'actions'
+import whiteLogo from '../../../assets/img/whitelogo.png'
 
 const SearchBar = () => {
   // Custom hook to get users location
@@ -54,7 +55,9 @@ const SearchBar = () => {
 
   return (
     <StyledHero>
+      <img src={whiteLogo} alt="white logo"/>
       <form onSubmit={handleSubmit} className='inputs-container'>
+        
         <div className='search-container type'>
           <label htmlFor='term'>What?</label>
           <input
@@ -99,8 +102,9 @@ const StyledHero = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-flow: column;
   .inputs-container {
-    width: 65%;
+    width: 900px;
     height: 50px;
     background-color: white;
     border-radius: 5px;

@@ -1,13 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
+import blackLogo from '../assets/img/blacklogo.png'
 
 export const Footer = () => {
   return (
     <StyledFooter>
       <div className="container center">
-        <a href="https://github.com/Labs-Weedmaps-Team-2/xelp-FE/blob/master/README.md#Team">meet the team</a>
-        <a href="https://github.com/Labs-Weedmaps-Team-2"><i class="fab fa-github-square"></i></a>
-        <p>©2019 <span>Xelp</span></p>
+        <a href=""><p>Meet the Team</p></a>
+        <img src={blackLogo} />
+        {/* <a href="https://github.com/Labs-Weedmaps-Team-2">
+          <i class="fab fa-github-square"></i>
+        </a> */}
+        <p>©2019 <span>Nightlyfe</span></p>
       </div>
     </StyledFooter>
   )
@@ -15,17 +19,30 @@ export const Footer = () => {
 
 const StyledFooter = styled.footer`
   display: flex;
-  align-items: center;
+  align-items: bottom;
   justify-content: center;
-  flex-flow: row;
-  height: 200px;
+  height: 300px;
   border-top: 1px solid #e6e6e6;
   background: lightgray;
   .container {
-    width: 33%;
+    width: 100%;
+    height: 80%;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-flow: column;
+    img {
+      width: 150px;
+      height: auto;
+      margin-top: 20px;
+    }
+    a {
+      margin-top: 20px;
+      i {
+      font-size: 3rem;
+      }
+    }
+    p{
+      margin-top: 20px;
+    } 
   }
 `
