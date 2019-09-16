@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { useRouter, usePosition } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearch } from 'actions'
-import whiteLogo from '../../../assets/img/whitelogo.png'
 
 const SearchBar = () => {
   // Custom hook to get users location
