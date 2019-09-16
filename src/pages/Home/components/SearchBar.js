@@ -55,9 +55,8 @@ const SearchBar = () => {
 
   return (
     <StyledHero>
-      <img src={whiteLogo} alt="white logo"/>
+      <p>nitelyfe</p>
       <form onSubmit={handleSubmit} className='inputs-container'>
-        
         <div className='search-container type'>
           <label htmlFor='term'>What?</label>
           <input
@@ -102,7 +101,13 @@ const StyledHero = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-flow: column;
+  flex-flow: column;  
+  p {
+    font-size: 14rem;
+    color: white;
+    font-family: 'Londrina Outline', cursive;
+    margin-bottom: 20px;
+  }
   .inputs-container {
     width: 900px;
     height: 50px;
