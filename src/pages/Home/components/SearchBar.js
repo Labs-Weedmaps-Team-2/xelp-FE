@@ -21,6 +21,7 @@ const SearchBar = () => {
       )
         .then(res => res.json())
         .then(json => {
+          console.log('JSON', json.results[0].components)
           const {
             town,
             city,
@@ -28,12 +29,13 @@ const SearchBar = () => {
             postcode,
           } = json.results[0].components
           let local = town || city
+          const zipcode = postcode || ''
           if (local) {
-            local.concat(', ')
+            local = local.concat(', ')
           } else {
             local = ''
           }
-          const location = `${local}${state_code} ${postcode}`
+          const location = `${local}${state_code} ${zipcode}`
           dispatch(setSearch(search.term, location))
         })
     }
