@@ -13,3 +13,15 @@ export const serverUrl =
 export const apiUrl = `${serverUrl}/api/v1`
 
 export const authUrl = `${serverUrl}/auth`
+
+export const initialBusiness = {
+  name: '',
+  address: '',
+  city: '',
+  state: '',
+  zipcode: '',
+  category: '',
+  hours: '',
+  phone: '',
+  website: '',
+}

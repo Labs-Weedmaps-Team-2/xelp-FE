@@ -127,6 +127,7 @@ export const createBusiness = formData => async dispatch => {
     if (res.status === 201) {
       dispatch({ type: types.CREATE_BUSINESS_SUCCESS })
     }
+    return res.data.yelp_id
   } catch (err) {
     console.log(err)
     dispatch({ type: types.CREATE_BUSINESS_FAILURE, payload: err })
