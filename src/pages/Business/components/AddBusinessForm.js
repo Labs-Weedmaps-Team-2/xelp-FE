@@ -1,133 +1,57 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { createBusiness } from 'actions'
-import { useRouter } from 'hooks/useRouter'
+import { Formik, Form, Field } from 'formik'
+import { initialBusiness } from 'config'
+import * as Yup from 'yup'
+import { useRouter } from 'hooks'
+
 const BusinessForm = () => {
   const { history } = useRouter()
   const dispatch = useDispatch()
-  const [form, setValues] = useState({
-    name: '',
-    address: '',
-    state: '',
-    city: '',
-    zipcode: '',
-    hours: '',
-    phone: '',
-    website: '',
-    category: '',
-  })
-  const updateField = e => {
-    setValues({
-      ...form,
-      [e.target.name]: e.target.value,
-    })
-  }
 
-  const handleSubmit = async e => {
-    e.preventDefault()
-    const yelp_id = await dispatch(createBusiness(form))
+  const handleSubmit = async values => {
+    const yelp_id = await dispatch(createBusiness(values))
     history.push(`/business/${yelp_id}`)
   }
 
   return (
-    <FormWrapper
-      style={{
-        border: '2px solid pink',
-        marginTop: '60px',
-        display: 'flex',
-        flexDirection: 'column',
+    <Formik
+      initialValues={initialBusiness}
+      onSubmit={values => {
+        console.log(values)
+        handleSubmit(values)
       }}
-      onSubmit={handleSubmit}
     >
-      <label>Add Business</label>
-      <div>
-        <label>Required Information</label>
-        <input
-          placeholder='business name'
-          value={form.name}
-          onChange={updateField}
-          name='name'
-        />
-        <input
-          placeholder='address: 123 Main St'
-          value={form.address}
-          onChange={updateField}
-          name='address'
-        />
-        <input
-          placeholder='state: CA'
-          value={form.state}
-          onChange={updateField}
-          name='state'
-        />
-        <input
-          placeholder='zipcode: 91081'
-          value={form.zipcode}
-          onChange={updateField}
-          name='zipcode'
-        />
-        <input
-          placeholder='city: San Francisco'
-          value={form.city}
-          onChange={updateField}
-          name='city'
-        />
-        <input
-          placeholder='category: Bar, Club, Lounge'
-          value={form.category}
-          onChange={updateField}
-          name='category'
-        />
-      </div>
-      <div>
-        <label>Optional Details</label>
-        <textarea
-          placeholder='hours'
-          value={form.hours}
-          onChange={updateField}
-          name='hours'
-        />
-        <input
-          placeholder='phone #'
-          value={form.phone}
-          onChange={updateField}
-          name='phone'
-        />
-        <input
-          placeholder='Website'
-          value={form.website}
-          onChange={updateField}
-          name='website'
-        />
-      </div>
-      <button type='submit'>submit</button>
-    </FormWrapper>
+      {({ values }) => (
+        <StyledForm>
+          <label>Add Business</label>
+          <div>
+            <label>Required TEST Information</label>
+            <Field placeholder='business name' name='name' />
+            <Field placeholder='address: 123 Main St' name='address' />
+            <Field placeholder='city: San Francisco' name='city' />
+            <Field placeholder='state: CA' name='state' />
+            <Field placeholder='zipcode: 91081' name='zipcode' />
+            <Field placeholder='category: Bar, Club, Lounge' name='category' />
+          </div>
+          <div>
+            <label>Optional Details</label>
+            <Field component='textarea' placeholder='hours' name='hours' />
+            <Field placeholder='phone #' name='phone' />
+            <Field placeholder='Website' name='website' />
+          </div>
+          <button>submit</button>
+        </StyledForm>
+      )}
+    </Formik>
   )
 }
 
 export default BusinessForm
 
-const FormWrapper = styled.form`
-  max-width: 400px;
-  input {
-    border: 2px solid blue;
-    margin-bottom: 0.5rem;
-  }
-  div {
-    display: flex;
-    flex-direction: column;
-  }
-  label {
-    text-align: center;
-  }
-  textarea {
-    resize: none;
-    height: 60px;
-    border: 2px solid goldenrod;
-    margin-bottom: 0.5rem;
-  }
-  button {
-    padding: 0.5rem;
-  }
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
 `
