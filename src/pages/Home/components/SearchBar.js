@@ -91,7 +91,7 @@ export default SearchBar
 
 const StyledHero = styled.div`
   position: relative;
-  background-image: url('https://i1.wp.com/www.horseshoegrille.com/wp-content/uploads/2017/10/harmony-bar-crawl-royal-caribbean.jpg?ssl=1');
+  background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
   background-color: #333;
   background-size: cover;
   background-position: center;
