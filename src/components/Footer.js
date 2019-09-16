@@ -4,21 +4,28 @@ import styled from 'styled-components'
 export const Footer = () => {
   return (
     <StyledFooter>
-      <h2>Footer</h2>
-      <p>2019 Xelp</p>
+      <div className="container center">
+        <a href="https://github.com/Labs-Weedmaps-Team-2/xelp-FE/blob/master/README.md#Team">meet the team</a>
+        <a href="https://github.com/Labs-Weedmaps-Team-2"><i class="fab fa-github-square"></i></a>
+        <p>©2019 <span>Xelp</span></p>
+      </div>
     </StyledFooter>
   )
 }
 
 const StyledFooter = styled.footer`
-  border: 1px solid red;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 300px;
+  flex-flow: row;
+  height: 200px;
   border-top: 1px solid #e6e6e6;
   background: lightgray;
-  h2 {
-    font-size: 3.2rem;
+  .container {
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
   }
 `
