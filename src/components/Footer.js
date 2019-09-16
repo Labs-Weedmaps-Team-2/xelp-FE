@@ -6,7 +6,16 @@ export const Footer = () => {
   return (
     <StyledFooter>
       <div className="container center">
-        <a href=""><p>Meet the Team</p></a>
+        <div className="links">
+          <a
+            href="https://github.com/Labs-Weedmaps-Team-2/xelp-FE/blob/master/README.md#team"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Meet the Team
+          </a>
+          <a href="mailto:weedmaps.t2@gmail.com?subject=nightlyfe">Contact</a>
+        </div>
         <img src={blackLogo} />
         {/* <a href="https://github.com/Labs-Weedmaps-Team-2">
           <i class="fab fa-github-square"></i>
@@ -19,9 +28,9 @@ export const Footer = () => {
 
 const StyledFooter = styled.footer`
   display: flex;
-  align-items: bottom;
-  justify-content: center;
-  height: 300px;
+  align-items: end;
+  justify-content: flex-end;
+  height: 250px;
   border-top: 1px solid #e6e6e6;
   background: lightgray;
   .container {
@@ -29,20 +38,23 @@ const StyledFooter = styled.footer`
     height: 80%;
     display: flex;
     align-items: center;
+    justify-content: space-around;
     flex-flow: column;
+    .links {
+      display: flex;
+      flex-flow: column;
+      align-items: center;    
+      a {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+    }
     img {
       width: 150px;
       height: auto;
-      margin-top: 20px;
     }
-    a {
-      margin-top: 20px;
-      i {
-      font-size: 3rem;
-      }
+    p {
+      font-size: 1.5rem;
     }
-    p{
-      margin-top: 20px;
-    } 
   }
 `
