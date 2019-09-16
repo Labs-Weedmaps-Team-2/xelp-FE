@@ -48,6 +48,7 @@ const App = () => {
           <Route path='*' component={NotFound} />
         </Switch>
       </Suspense>
+      <Footer />
     </Container>
   )
 }
