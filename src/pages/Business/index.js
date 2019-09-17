@@ -60,7 +60,7 @@ const Business = () => {
             </div>
             <div className='business-actionbar'>
               <Link
-                to={`/writeareview/${location.pathname.split('/business/')[1]}`}
+                to={`/review/${location.pathname.split('/business/')[1]}`}
               >
                 <button className='btn-review'>Write a Review</button>
               </Link>

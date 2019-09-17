@@ -41,7 +41,7 @@ const App = () => {
           <Route path='/sign-in' component={SignIn} />
           <Route path='/business/:id/' component={Business} />
           <Route path='/business-list' component={BusinessList} />
-          <Route path='/writeareview/:id' component={ReviewForm} />
+          <Route path='/review/:id' component={ReviewForm} />
           <Route path='/biz_gallery/:id' component={BusinessGallery} />
           <Route path='/addphotos/:id' component={AddPhotos} />
           <Route path='/addbusiness' component={AddBusinessForm} />

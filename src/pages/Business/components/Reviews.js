@@ -11,7 +11,7 @@ const Reviews = ({ reviews }) => {
 
   const setReview = review => {
     // dispatch(setReview(review))
-    console.log(`Review:${review}`)
+    console.log(`Review:${JSON.stringify(review)}`)
   }
   return (
     <Container>

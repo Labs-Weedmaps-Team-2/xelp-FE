@@ -25,7 +25,7 @@ const ReviewForm = () => {
   const [reviewText, setReviewText] = useState('')
   const [rateValue, setRateValue] = useState(1)
   const [rateText, setRateText] = useState('Select your rating')
-  const yelp_id = window.location.pathname.split('/writeareview/')[1]
+  const yelp_id = window.location.pathname.split('/review/')[1]
   useEffect(() => {
     dispatch(fetchBusinessDetails(yelp_id))
     return () => {
