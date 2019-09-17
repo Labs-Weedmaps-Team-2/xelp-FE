@@ -164,11 +164,5 @@ const Container = styled.div`
       padding: 2px;
       cursor: pointer;
     }
-    .edit {
-      background: lightblue;
-    }
-    .delete {
-      background: lightpink;
-    }
   }
 `

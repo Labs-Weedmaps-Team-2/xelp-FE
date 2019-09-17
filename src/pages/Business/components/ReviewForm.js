@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { api } from 'apis'
 import { useRouter } from 'hooks'
-import { fetchBusinessDetails, resetSingleBusiness } from 'actions'
+import { fetchBusinessDetails, resetSingleBusiness, resetReview } from 'actions'
 import { renderRating } from 'utils'
 import { Navbar } from 'components'
 import styled from 'styled-components'
@@ -21,15 +21,17 @@ const ReviewForm = () => {
   const dispatch = useDispatch()
   const business = useSelector(({ singleBusiness }) => singleBusiness)
   const { location, history } = useRouter()
-
+  const review = useSelector(({ review }) => review)
   const [reviewText, setReviewText] = useState('')
   const [rateValue, setRateValue] = useState(1)
   const [rateText, setRateText] = useState('Select your rating')
   const yelp_id = window.location.pathname.split('/review/')[1]
   useEffect(() => {
     dispatch(fetchBusinessDetails(yelp_id))
+    console.log(review)
     return () => {
       dispatch(resetSingleBusiness())
+      dispatch(resetReview())
     }
   }, [])
 
