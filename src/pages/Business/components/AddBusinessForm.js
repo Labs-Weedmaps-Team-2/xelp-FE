@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { createBusiness } from 'actions'
 import { Formik, Form, Field } from 'formik'
-import { initialBusiness } from 'config'
+import { initialBusiness, states } from 'config'
 import * as Yup from 'yup'
 import { useRouter } from 'hooks'
 
@@ -32,7 +32,13 @@ const BusinessForm = () => {
             <Field placeholder='Business Name' name='name' />
             <Field placeholder='Address: 123 Main St' name='address' />
             <Field placeholder='City: San Francisco' name='city' />
-            <Field placeholder='State: CA' name='state' />
+            <Field component='select' placeholder='State: CA' name='state'>
+              {states.map(state => (
+                <option key={state.name} value={state.abbreviation}>
+                  {state.name}
+                </option>
+              ))}
+            </Field>
             <Field placeholder='Zip Code: 91081' name='zipcode' />
             <Field placeholder='Category: Bar, Club, Lounge' name='category' />
           </div>

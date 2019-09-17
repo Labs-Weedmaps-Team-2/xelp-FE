@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { uploadUserImage } from 'actions'
 import { RingLoader } from 'react-spinners'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
 
 const override = {
   position: 'absolute',
