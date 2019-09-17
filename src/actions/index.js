@@ -158,3 +158,7 @@ export const fetchBusinessGallery = yelp_id => async dispatch => {
     dispatch({ type: types.FETCH_BUSINESS_GALLERY_FAILURE })
   }
 }
+
+export const setReview = review => async dispatch => {
+  return { type: types.SET_REVIEW, payload: review }
+}

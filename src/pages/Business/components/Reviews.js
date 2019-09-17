@@ -1,17 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
-import { useSelector } from 'react-redux'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { setReview } from 'actions'
 
 import { renderRating } from 'utils'
 const Reviews = ({ reviews }) => {
+  const dispatch = useDispatch()
   const user = useSelector(({ user }) => user)
+
+  const setReview = () => {
+    dispatch(setReview(null))
+  }
   return (
     <Container>
       {reviews &&
         reviews.map(review => {
-          console.log(`UserID: ${review.user.id}`)
           return (
             <div className='review-item' key={review.id}>
               <div className='review-author'>
@@ -48,10 +52,10 @@ const Reviews = ({ reviews }) => {
                     </span>
                   </div>
                   <p className='review-text'>{review.text}</p>
-                  {user.id === review.user.id && 
+                  {user.id === review.user.id &&
                     <div className="button-container">
-                      <p className="edit">Edit</p>
-                      <p className="edit">Delete</p>
+                      <i class="fas fa-pen" onClick={setReview}></i>
+                      <i class="fas fa-trash"></i>
                     </div>
                   }
                 </div>
@@ -149,12 +153,17 @@ const Container = styled.div`
   .button-container {
     display: flex;
     justify-content: flex-end;
-    p {
-      border: 1px solid black;
-      border-radius: 2px;
+    i {
       margin-right: 20px;
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       padding: 2px;
+      cursor: pointer;
+    }
+    .edit {
+      background: lightblue;
+    }
+    .delete {
+      background: lightpink;
     }
   }
 `
