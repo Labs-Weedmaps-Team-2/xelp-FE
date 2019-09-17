@@ -29,17 +29,17 @@ const BusinessForm = () => {
           <label>Add Business</label>
           <div>
             <label>Required TEST Information</label>
-            <Field placeholder='business name' name='name' />
-            <Field placeholder='address: 123 Main St' name='address' />
-            <Field placeholder='city: San Francisco' name='city' />
-            <Field placeholder='state: CA' name='state' />
-            <Field placeholder='zipcode: 91081' name='zipcode' />
-            <Field placeholder='category: Bar, Club, Lounge' name='category' />
+            <Field placeholder='Business Name' name='name' />
+            <Field placeholder='Address: 123 Main St' name='address' />
+            <Field placeholder='City: San Francisco' name='city' />
+            <Field placeholder='State: CA' name='state' />
+            <Field placeholder='Zip Code: 91081' name='zipcode' />
+            <Field placeholder='Category: Bar, Club, Lounge' name='category' />
           </div>
           <div>
             <label>Optional Details</label>
             <Field component='textarea' placeholder='hours' name='hours' />
-            <Field placeholder='phone #' name='phone' />
+            <Field placeholder='Phone Number: 800-555-555' name='phone' />
             <Field placeholder='Website' name='website' />
           </div>
           <button>submit</button>

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { api } from 'apis'
-import { useRouter } from 'hooks'
 import { fetchBusinessDetails, resetSingleBusiness } from 'actions'
 import { renderRating } from 'utils'
 import { Navbar } from 'components'
@@ -20,7 +18,6 @@ const textHash = {
 const ReviewForm = () => {
   const dispatch = useDispatch()
   const business = useSelector(({ singleBusiness }) => singleBusiness)
-  const { location, history } = useRouter()
 
   const [reviewText, setReviewText] = useState('')
   const [rateValue, setRateValue] = useState(1)
