@@ -1,13 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
+import { useSelector } from 'react-redux'
+
 
 import { renderRating } from 'utils'
 const Reviews = ({ reviews }) => {
+  const user = useSelector(({ user }) => user)
   return (
     <Container>
       {reviews &&
         reviews.map(review => {
+          console.log(`UserID: ${review.user.id}`)
           return (
             <div className='review-item' key={review.id}>
               <div className='review-author'>
@@ -44,6 +48,12 @@ const Reviews = ({ reviews }) => {
                     </span>
                   </div>
                   <p className='review-text'>{review.text}</p>
+                  {user.id === review.user.id && 
+                    <div className="button-container">
+                      <p className="edit">Edit</p>
+                      <p className="edit">Delete</p>
+                    </div>
+                  }
                 </div>
                 <div style={{ display: 'flex' }}>
                   {review.photos &&
@@ -135,5 +145,16 @@ const Container = styled.div`
   .review-text {
     line-height: 20px;
     letter-spacing: 0.8px;
+  }
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    p {
+      border: 1px solid black;
+      border-radius: 2px;
+      margin-right: 20px;
+      font-size: 1.4rem;
+      padding: 2px;
+    }
   }
 `
