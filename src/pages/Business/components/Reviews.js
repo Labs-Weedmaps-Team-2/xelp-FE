@@ -9,8 +9,9 @@ const Reviews = ({ reviews }) => {
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user)
 
-  const setReview = () => {
-    dispatch(setReview(null))
+  const setReview = review => {
+    // dispatch(setReview(review))
+    console.log(`Review:${review}`)
   }
   return (
     <Container>
@@ -54,8 +55,8 @@ const Reviews = ({ reviews }) => {
                   <p className='review-text'>{review.text}</p>
                   {user.id === review.user.id &&
                     <div className="button-container">
-                      <i class="fas fa-pen" onClick={setReview}></i>
-                      <i class="fas fa-trash"></i>
+                      <i className="fas fa-pen" onClick={() => setReview(review)}></i>
+                      <i className="fas fa-trash"></i>
                     </div>
                   }
                 </div>
