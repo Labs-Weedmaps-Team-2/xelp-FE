@@ -61,7 +61,7 @@ const SearchBar = () => {
   return (
     <StyledHero>
       <p>nitelyfe</p>
-    
+
       <Formik
         initialValues={{ term: search.term, location: search.location }}
         onSubmit={handleSubmit}
@@ -97,7 +97,6 @@ const SearchBar = () => {
           </Form>
         )}
       </Formik>
->>>>>>> 22278bde7967f40d710dcd083f2a60ec3578dac0
     </StyledHero>
   )
 }
@@ -114,7 +113,7 @@ const StyledHero = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-flow: column;  
+  flex-flow: column;
   p {
     font-size: 14rem;
     color: white;
