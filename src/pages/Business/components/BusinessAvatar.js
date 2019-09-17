@@ -1,17 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
-import { uploadUserImage } from 'actions'
+// import { uploadUserImage } from 'actions'
 import { RingLoader } from 'react-spinners'
-import { Formik, Form, Field } from 'formik'
-import * as Yup from 'yup'
 
 const override = {
   position: 'absolute',
   opacity: '50%',
 }
 
-const ProfileAvatar = props => {
+const BusinessAvatar = props => {
   const dispatch = useDispatch()
 
   const handleFile = e => {
@@ -21,7 +19,7 @@ const ProfileAvatar = props => {
     reader.onloadend = () => {
       const formData = new FormData()
       formData.append('user[avatar]', file)
-      dispatch(uploadUserImage(props.id, formData))
+      // dispatch(uploadUserImage(props.id, formData))
     }
 
     if (file) {
@@ -30,13 +28,13 @@ const ProfileAvatar = props => {
   }
 
   return (
-    <StyledProfileAvatar>
+    <StyledBusinessAvatar>
       <div className='panel-left'>
         <RingLoader
           css={override}
           size={40}
           color='white'
-          loading={props.uploadingPhoto}
+          loading={props.uploadingPhoto || false}
         />
         <img
           className='profile-image'
@@ -58,13 +56,13 @@ const ProfileAvatar = props => {
           />
         </form>
       </div>
-    </StyledProfileAvatar>
+    </StyledBusinessAvatar>
   )
 }
 
-export default ProfileAvatar
+export default BusinessAvatar
 
-const StyledProfileAvatar = styled.div`
+const StyledBusinessAvatar = styled.div`
   /* border: 1px solid blue; */
   display: flex;
   margin: 0px 0px 20px;
