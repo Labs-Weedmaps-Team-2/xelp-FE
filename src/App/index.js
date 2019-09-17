@@ -48,6 +48,7 @@ const App = () => {
           <Route path='*' component={NotFound} />
         </Switch>
       </Suspense>
+      <Footer />
     </Container>
   )
 }
@@ -63,5 +64,5 @@ const Container = styled.div`
   margin: 0 auto;
   color: ${black};
   background-color: ${bg};
-  min-height: 100vh;
+  height: 100%;
 `
