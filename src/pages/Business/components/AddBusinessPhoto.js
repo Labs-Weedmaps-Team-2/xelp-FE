@@ -4,24 +4,24 @@ import { api } from 'apis'
 import { serverUrl } from 'config'
 import { useRouter } from 'hooks'
 
-const AddPhotos = ({ text, rating, yelp_id }) => {
+const AddBusinessPhotoInput = ({ values }) => {
   const { history } = useRouter()
   const handleAttachment = signedIds => {
     const body = {
-      review: { text, rating, photos: signedIds },
+      business: { ...values, image_url: signedIds[0] },
     }
-    api.post(`/business/${yelp_id}/review`, body).then(res => {
+    api.post(`/business`, body).then(res => {
       console.log(res)
-      history.push(`/business/${yelp_id}`)
+      history.push(`/business/${res.data.yelp_id}`)
     })
+    console.log('handling these attachments after directUploading')
   }
 
-  console.log(text, rating, yelp_id)
+  console.log('log values obj', values)
   return (
     <DirectUploadProvider
       onSuccess={handleAttachment}
       directUploadsPath={`${serverUrl}/rails/active_storage/direct_uploads`}
-      multiple
       render={({
         handleUpload,
         uploads,
@@ -34,13 +34,12 @@ const AddPhotos = ({ text, rating, yelp_id }) => {
             type='file'
             id='review'
             name='photos'
-            multiple
             disabled={!ready}
             onChange={e => handleChooseFiles(e.currentTarget.files)}
             style={{ border: '2px solid red' }}
           />
           <button
-            className='btn-submit'
+            className='business-btn'
             onClick={e => {
               e.preventDefault()
               handleBeginUpload()
@@ -80,4 +79,4 @@ const AddPhotos = ({ text, rating, yelp_id }) => {
   )
 }
 
-export default AddPhotos
+export default AddBusinessPhotoInput

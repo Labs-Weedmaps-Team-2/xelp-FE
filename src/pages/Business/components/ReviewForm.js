@@ -6,6 +6,8 @@ import { useRouter } from 'hooks'
 import { fetchBusinessDetails, resetSingleBusiness, resetReview } from 'actions'
 import { renderRating } from 'utils'
 import { Navbar } from 'components'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
 import styled from 'styled-components'
 import AddPhotos from './ReviewPhotosInput'
 
@@ -47,7 +49,7 @@ const ReviewForm = () => {
     <>
       <div>
         <Navbar />
-        <Form>
+        <StyledForm>
           <Link to={`/business/${business.id}`}>
             <h2>{business.name}</h2>
           </Link>
@@ -105,7 +107,7 @@ const ReviewForm = () => {
             />
           </div>
           <AddPhotos text={reviewText} rating={rateValue} yelp_id={yelp_id} />
-        </Form>
+        </StyledForm>
       </div>
     </>
   )
@@ -113,7 +115,7 @@ const ReviewForm = () => {
 
 export default ReviewForm
 
-const Form = styled.div`
+const StyledForm = styled.div`
   margin-top: 90px;
   display: flex;
   flex-direction: column;

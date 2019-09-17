@@ -56,7 +56,7 @@ const ProfileForm = props => {
           onChange={handleChange}
         />
       </div>
-      <button type='submit' disable={user.updatingDetails}>
+      <button type='submit' disabled={user.updatingDetails}>
         <PulseLoader
           css={styles}
           color={'white'}
