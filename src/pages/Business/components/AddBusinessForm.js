@@ -7,6 +7,7 @@ import { initialBusiness, states } from 'config'
 import * as Yup from 'yup'
 import { useRouter } from 'hooks'
 import businessSvg from 'assets/svg/business.svg'
+import AddBusinessPhotoInput from './AddBusinessPhoto'
 const BusinessForm = () => {
   const { history } = useRouter()
   const dispatch = useDispatch()
@@ -26,7 +27,9 @@ const BusinessForm = () => {
     >
       {({ values }) => (
         <StyledForm>
-          <div className='hero-img'><img src={businessSvg} alt=''/></div>
+          <div className='hero-img'>
+            <img src={businessSvg} alt='' />
+          </div>
           <h1>Add Your Business Details</h1>
           <div className='input-wrap'>
             <label className='input-label' htmlFor='name'>
@@ -58,7 +61,7 @@ const BusinessForm = () => {
               className='input-field'
               id='city'
               name='city'
-              placeholder='California'
+              placeholder='San Francisco'
             />
           </div>
 
@@ -70,7 +73,7 @@ const BusinessForm = () => {
               className='input-field'
               id='state'
               name='state'
-              placeholder='Irvine'
+              placeholder='California'
             />
           </div>
           <div className='input-wrap'>
@@ -108,7 +111,9 @@ const BusinessForm = () => {
             />
           </div>
           <div className='input-wrap'>
-            <label className='input-label' htmlFor='website'>Web Address</label>
+            <label className='input-label' htmlFor='website'>
+              Web Address
+            </label>
             <Field
               id='website'
               className='input-field'
@@ -116,9 +121,7 @@ const BusinessForm = () => {
               name='website'
             />
           </div>
-          <button type='submit' className='business-btn'>
-            Submit
-          </button>
+          <AddBusinessPhotoInput values={values} />
         </StyledForm>
       )}
     </Formik>
@@ -171,11 +174,11 @@ const StyledForm = styled(Form)`
   .business-btn {
     height: 40px;
     width: 140px;
-    background: #3B78DC;
+    background: #3b78dc;
     border: none;
     font-weight: bold;
     font-size: 16px;
-    color:white;
+    color: white;
     margin: 25px 0;
     align-self: flex-end;
     cursor: pointer;
