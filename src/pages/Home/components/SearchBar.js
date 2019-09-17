@@ -54,6 +54,7 @@ const SearchBar = () => {
 
   return (
     <StyledHero>
+      <p>nitelyfe</p>
       <form onSubmit={handleSubmit} className='inputs-container'>
         <div className='search-container type'>
           <label htmlFor='term'>What?</label>
@@ -91,7 +92,7 @@ export default SearchBar
 
 const StyledHero = styled.div`
   position: relative;
-  background-image: url('https://i1.wp.com/www.horseshoegrille.com/wp-content/uploads/2017/10/harmony-bar-crawl-royal-caribbean.jpg?ssl=1');
+  background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80');
   background-color: #333;
   background-size: cover;
   background-position: center;
@@ -99,8 +100,15 @@ const StyledHero = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-flow: column;  
+  p {
+    font-size: 14rem;
+    color: white;
+    font-family: 'Londrina Outline', cursive;
+    margin-bottom: 20px;
+  }
   .inputs-container {
-    width: 65%;
+    width: 900px;
     height: 50px;
     background-color: white;
     border-radius: 5px;
