@@ -1,17 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
+import { useRouter } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { setReview } from 'actions'
 
 import { renderRating } from 'utils'
 const Reviews = ({ reviews }) => {
+  const { history, location } = useRouter()
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user)
 
-  const setReview = review => {
-    // dispatch(setReview(review))
-    console.log(`Review:${JSON.stringify(review)}`)
+  const setCurrentReview = review => {    
+    if (user) {
+      dispatch(setReview(review))
+      history.push(`/review/${location.pathname.split('/business/')[1]}`)
+    }
   }
   return (
     <Container>
@@ -55,7 +59,7 @@ const Reviews = ({ reviews }) => {
                   <p className='review-text'>{review.text}</p>
                   {user.id === review.user.id &&
                     <div className="button-container">
-                      <i className="fas fa-pen" onClick={() => setReview(review)}></i>
+                      <i className="fas fa-pen" onClick={() => setCurrentReview(review)}></i>
                       <i className="fas fa-trash"></i>
                     </div>
                   }

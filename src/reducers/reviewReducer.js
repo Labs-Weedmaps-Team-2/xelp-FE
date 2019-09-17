@@ -11,7 +11,7 @@ export const reviewReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SET_REVIEW:
       return { ...state, ...action.payload }
-    case types.CLEAR_REVIEW:
+    case types.RESET_REVIEW:
       return initialState
     default:
       return state

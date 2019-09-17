@@ -159,7 +159,7 @@ export const fetchBusinessGallery = yelp_id => async dispatch => {
   }
 }
 
-export const setReview = review => async dispatch => {
+export const setReview = review => {
   return { type: types.SET_REVIEW, payload: review }
 }
 export const resetReview = () => ({ type: types.RESET_REVIEW })
