@@ -1,23 +1,37 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
 import { useRouter, usePosition } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearch } from 'actions'
+const openCageUrl = 'https://api.opencagedata.com/geocode/v1/json'
 
+// if local is defined, return 'town || city, '
+// undefined => empty string
+const formatLocal = local => {
+  if (local) {
+    local = local.concat(', ')
+  } else {
+    local = ''
+  }
+  return local
+}
 const SearchBar = () => {
   // Custom hook to get users location
   const { latitude, longitude } = usePosition()
   const dispatch = useDispatch()
   const { history } = useRouter()
-  const inputTerm = useRef()
-  const inputLocation = useRef()
+  const termRef = useRef()
+  const locationRef = useRef()
   const search = useSelector(({ search }) => search)
 
+  // Focus term input on mount
   useEffect(() => {
-    inputTerm.current.focus()
+    termRef.current.focus()
     if (latitude) {
       fetch(
-        `https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=${process.env.REACT_APP_OPENCAGE_API_KEY}`
+        `${openCageUrl}?q=${latitude},${longitude}&key=${process.env.REACT_APP_OPENCAGE_API_KEY}`
       )
         .then(res => res.json())
         .then(json => {
@@ -27,63 +41,63 @@ const SearchBar = () => {
             state_code,
             postcode,
           } = json.results[0].components
+          // local town or city
           let local = town || city
-          if (local) {
-            local.concat(', ')
-          } else {
-            local = ''
-          }
-          const location = `${local}${state_code} ${postcode}`
+          local = formatLocal(local)
+          const zipcode = postcode || ''
+          const location = `${local}${state_code} ${zipcode}`
           dispatch(setSearch(search.term, location))
         })
     }
   }, [latitude, longitude])
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    if (search.location) {
+  const handleSubmit = values => {
+    if (values.location) {
+      dispatch(setSearch(values.term, values.location))
       history.push('/business-list')
     }
-  }
-
-  const handleChange = e => {
-    const { name, value } = e.target
-    const searchCopy = { ...search, [name]: value }
-    dispatch(setSearch(searchCopy.term, searchCopy.location))
   }
 
   return (
     <StyledHero>
       <p>nitelyfe</p>
-      <form onSubmit={handleSubmit} className='inputs-container'>
-        <div className='search-container type'>
-          <label htmlFor='term'>What?</label>
-          <input
-            id='term'
-            type='text'
-            ref={inputTerm}
-            placeholder='bars, clubs, breweries, venues...'
-            value={search.term}
-            name='term'
-            onChange={handleChange}
-            onClick={() => inputTerm.current.select()}
-          />
-        </div>
-        <div className='search-container locale'>
-          <label htmlFor='location'>Where?</label>
-          <input
-            id='location'
-            type='text'
-            ref={inputLocation}
-            placeholder='Los Angeles'
-            value={search.location}
-            name='location'
-            onChange={handleChange}
-            onClick={() => inputLocation.current.select()}
-          />
-        </div>
-        <button className='search-button'>go</button>
-      </form>
+    
+      <Formik
+        initialValues={{ term: search.term, location: search.location }}
+        onSubmit={handleSubmit}
+        enableReinitialize={true}
+      >
+        {() => (
+          <Form className='inputs-container'>
+            <div className='search-container type'>
+              <label htmlFor='term'>What?</label>
+              <Field
+                id='term'
+                type='text'
+                innerRef={termRef}
+                placeholder='bars, clubs, breweries, venues...'
+                name='term'
+                onClick={() => termRef.current.select()}
+              />
+            </div>
+            <div className='search-container locale'>
+              <label htmlFor='location'>Where?</label>
+              <Field
+                id='location'
+                type='text'
+                innerRef={locationRef}
+                placeholder='Los Angeles'
+                name='location'
+                onClick={() => locationRef.current.select()}
+              />
+            </div>
+            <button type='submit' className='search-button'>
+              go
+            </button>
+          </Form>
+        )}
+      </Formik>
+>>>>>>> 22278bde7967f40d710dcd083f2a60ec3578dac0
     </StyledHero>
   )
 }
