@@ -66,6 +66,7 @@ const Reviews = ({ reviews }) => {
                               objectFit: 'cover',
                               objectPosition: 'center',
                             }}
+                            alt='review'
                           />
                         </div>
                       )
