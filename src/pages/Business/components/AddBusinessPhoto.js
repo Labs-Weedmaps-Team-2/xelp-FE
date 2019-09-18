@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DirectUploadProvider } from 'react-activestorage-provider'
 import { api } from 'apis'
 import { serverUrl } from 'config'
@@ -6,6 +6,7 @@ import { useRouter } from 'hooks'
 
 const AddBusinessPhotoInput = ({ values }) => {
   const { history } = useRouter()
+  const [fileSrc, setFileSrc] = useState(null)
   const handleAttachment = signedIds => {
     const body = {
       business: { ...values, image_url: signedIds[0] },
@@ -17,6 +18,25 @@ const AddBusinessPhotoInput = ({ values }) => {
     console.log('handling these attachments after directUploading')
   }
 
+  const handleChange = e => {
+    const file = e.target.files[0]
+    const reader = new FileReader()
+
+    reader.onloadend = e => {
+      setFileSrc(e.target.result)
+    }
+    if (file) {
+      reader.readAsDataURL(file)
+    }
+  }
+  // const renderImage = e => {
+  //   const reader = new FileReader()
+
+  //   reader.onloadend = e => {
+  //     setFile(e.target.result)
+  //   }
+  //   return file
+  // }
   console.log('log values obj', values)
   return (
     <DirectUploadProvider
@@ -30,14 +50,35 @@ const AddBusinessPhotoInput = ({ values }) => {
         handleBeginUpload,
       }) => (
         <div>
-          <input
-            type='file'
-            id='review'
-            name='photos'
-            disabled={!ready}
-            onChange={e => handleChooseFiles(e.currentTarget.files)}
-            style={{ border: '2px solid red' }}
-          />
+          <div
+            className='preview-wrap'
+            style={{
+              height: 200,
+              display: 'flex',
+              justifyContent: 'space-between',
+              border: '1px solid green',
+            }}
+          >
+            <input
+              type='file'
+              id='review'
+              name='photos'
+              disabled={!ready}
+              onChange={e => {
+                handleChooseFiles(e.currentTarget.files)
+                handleChange(e)
+              }}
+            />
+            {fileSrc && (
+              <div className='image-wrap' style={{ height: 200, width: 200 }}>
+                <img
+                  src={fileSrc}
+                  style={{ width: '100%', height: '100%' }}
+                  alt=''
+                />
+              </div>
+            )}
+          </div>
           <button
             className='business-btn'
             onClick={e => {

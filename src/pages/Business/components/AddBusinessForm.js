@@ -31,6 +31,8 @@ const BusinessForm = () => {
             <img src={businessSvg} alt='' />
           </div>
           <h1>Add Your Business Details</h1>
+          <AddBusinessPhotoInput values={values} />
+
           <div className='input-wrap'>
             <label className='input-label' htmlFor='name'>
               Business Name
@@ -121,7 +123,6 @@ const BusinessForm = () => {
               name='website'
             />
           </div>
-          <AddBusinessPhotoInput values={values} />
         </StyledForm>
       )}
     </Formik>
@@ -172,9 +173,12 @@ const StyledForm = styled(Form)`
     }
   }
   .business-btn {
+    position: absolute;
     height: 40px;
     width: 140px;
     background: #3b78dc;
+    top: 970px;
+    left: 800px;
     border: none;
     font-weight: bold;
     font-size: 16px;
