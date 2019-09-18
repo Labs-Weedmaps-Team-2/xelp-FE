@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { fetchUser } from 'actions'
 import CSSReset from 'styles/cssReset'
+import { Footer } from 'components'
 import { black, bg } from 'styles'
 import ReviewForm from 'pages/Business/components/ReviewForm'
 const Home = lazy(() => import('pages/Home'))
@@ -45,6 +46,7 @@ const App = () => {
           <Route path='*' component={NotFound} />
         </Switch>
       </Suspense>
+      <Footer />
     </Container>
   )
 }
