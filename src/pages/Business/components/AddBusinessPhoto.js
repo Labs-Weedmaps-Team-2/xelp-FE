@@ -23,6 +23,7 @@ const AddBusinessPhotoInput = ({ values }) => {
     const reader = new FileReader()
 
     reader.onloadend = e => {
+      console.log(e.target.result, 'result')
       setFileSrc(e.target.result)
     }
     if (file) {
