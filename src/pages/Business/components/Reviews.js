@@ -1,12 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
+import { api } from 'apis'
 import { useRouter } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
-import { setReview } from 'actions'
+import { setReview, fetchBusinessDetails } from 'actions'
 
 import { renderRating } from 'utils'
-const Reviews = ({ reviews }) => {
+const Reviews = ({ reviews, yelp_id }) => {
   const { history, location } = useRouter()
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user)
@@ -16,6 +17,13 @@ const Reviews = ({ reviews }) => {
       dispatch(setReview(review))
       history.push(`/review/${location.pathname.split('/business/')[1]}`)
     }
+  }
+
+  const handleDelete = id => {
+    api.delete(`/reviews/${id}`).then(res => {
+      dispatch(fetchBusinessDetails(yelp_id))
+      console.log(res)
+    })
   }
   return (
     <Container>
@@ -60,7 +68,7 @@ const Reviews = ({ reviews }) => {
                   {user.id === review.user.id &&
                     <div className="button-container">
                       <i className="fas fa-pen" onClick={() => setCurrentReview(review)}></i>
-                      <i className="fas fa-trash"></i>
+                      <i className="fas fa-trash" onClick={()=>handleDelete(review.id)}></i>
                     </div>
                   }
                 </div>

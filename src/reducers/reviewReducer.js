@@ -3,7 +3,7 @@ const initialState = {
   id:null, 
   text:"",
   user: {},
-  rating: null,
+  rating: 1,
   business: {}
 }
 

@@ -110,7 +110,7 @@ const Business = () => {
       <Container>
         <div className='reviews-more-details'>
           <div className='review-list'>
-            {business.reviews && <Reviews reviews={business.reviews} />}
+            {business.reviews && <Reviews reviews={business.reviews} yelp_id={business.id}/>}
           </div>
           <div className='more-details'>
             <Link to={`/biz_gallery/${yelp_id}`}>
