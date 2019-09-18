@@ -10,13 +10,15 @@ const AddPhotos = ({ text, rating, yelp_id, id, editing }) => {
     const body = {
       review: { text, rating, photos: signedIds },
     }
-    editing ? api.patch(`/reviews/${id}`, body).then(res => {
-      console.log(res)
-      history.push(`/business/${yelp_id}`)
-    }) : api.patch(`business/${yelp_id}/review`, body).then(res => {
-      console.log(res)
-      history.push(`/business/${yelp_id}`)
-    })
+    editing
+      ? api.patch(`/reviews/${id}`, body).then(res => {
+          console.log(res)
+          history.push(`/business/${yelp_id}`)
+        })
+      : api.post(`business/${yelp_id}/review`, body).then(res => {
+          console.log(res)
+          history.push(`/business/${yelp_id}`)
+        })
   }
 
   console.log(text, rating, yelp_id)
@@ -32,53 +34,53 @@ const AddPhotos = ({ text, rating, yelp_id, id, editing }) => {
         handleChooseFiles,
         handleBeginUpload,
       }) => (
-          <div>
-            <input
-              type='file'
-              id='review'
-              name='photos'
-              multiple
-              disabled={!ready}
-              onChange={e => handleChooseFiles(e.currentTarget.files)}
-              style={{ border: '2px solid red' }}
-            />
-            <button
-              className='btn-submit'
-              onClick={e => {
-                e.preventDefault()
-                handleBeginUpload()
-              }}
-            >
-              {editing ? "Submit Edit": "Submit Review"}
+        <div>
+          <input
+            type='file'
+            id='review'
+            name='photos'
+            multiple
+            disabled={!ready}
+            onChange={e => handleChooseFiles(e.currentTarget.files)}
+            style={{ border: '2px solid red' }}
+          />
+          <button
+            className='btn-submit'
+            onClick={e => {
+              e.preventDefault()
+              handleBeginUpload()
+            }}
+          >
+            {editing ? 'Submit Edit' : 'Submit Review'}
           </button>
 
-            {uploads.map(upload => {
-              switch (upload.state) {
-                case 'waiting':
-                  return (
-                    <p key={upload.id}>Waiting to upload {upload.file.name}</p>
-                  )
-                case 'uploading':
-                  return (
-                    <p key={upload.id}>
-                      Uploading {upload.file.name}: {upload.progress}%
+          {uploads.map(upload => {
+            switch (upload.state) {
+              case 'waiting':
+                return (
+                  <p key={upload.id}>Waiting to upload {upload.file.name}</p>
+                )
+              case 'uploading':
+                return (
+                  <p key={upload.id}>
+                    Uploading {upload.file.name}: {upload.progress}%
                   </p>
-                  )
-                case 'error':
-                  return (
-                    <p key={upload.id}>
-                      Error uploading {upload.file.name}: {upload.error}
-                    </p>
-                  )
-                case 'finished':
-                  return (
-                    <p key={upload.id}>Finished uploading {upload.file.name}</p>
-                  )
-                default:
-              }
-            })}
-          </div>
-        )}
+                )
+              case 'error':
+                return (
+                  <p key={upload.id}>
+                    Error uploading {upload.file.name}: {upload.error}
+                  </p>
+                )
+              case 'finished':
+                return (
+                  <p key={upload.id}>Finished uploading {upload.file.name}</p>
+                )
+              default:
+            }
+          })}
+        </div>
+      )}
     />
   )
 }
