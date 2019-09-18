@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+
 import { api } from 'apis'
 
-import ReviewCard from './ReviewCard'
+import ReviewCard from '../../EditProfile/components/ReviewCard'
 
 const UserProfile = ({ username, email, photo }) => {
   const [reviews, setReviews] = useState([])
@@ -13,13 +15,17 @@ const UserProfile = ({ username, email, photo }) => {
   }, [])
   return (
     <StyledProfile>
+      <p className="user-details-header">User Profile</p>
       <div className="user-details-container">
         <div className="img-container">
           <img src={photo} alt={username} />
         </div>
         <div className="details-container">
-          <p className="username"><span>Username: </span>{username}</p>
-          <p className="email"><span>Email: </span>{email}</p>
+          <p className="username"><i className="fa fa-user" /> {username}</p>
+          <p className="email"><i className="fas fa-envelope" /> {email}</p>
+          <Link to="somewhere">
+            <div className="edit-button">Edit Profile</div>
+          </Link>
         </div>
       </div>
       <div className="reviews-container">
@@ -37,8 +43,14 @@ const StyledProfile = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 0;
+  padding: 40px 0 30px 0;
   background: whitesmoke;
+  .user-details-header {
+    width: 80%;
+    padding-left: 30px;
+    font-size: 3rem;
+    margin-bottom: 30px;
+  }
   .user-details-container {
     width: 80%;
     display: flex;
@@ -53,6 +65,16 @@ const StyledProfile = styled.div`
     }
     .details-container {
       width: 65%;
+      display: flex;
+      flex-flow: column;
+      justify-content: space-around;
+      padding: 30px;
+      p {
+        font-size: 2rem;
+        i {
+          font-size: 3rem;
+        }
+      }
     }
   }
   .reviews-container {
@@ -65,8 +87,9 @@ const StyledProfile = styled.div`
     background: whitesmoke;
     .review-header {
       width: 100%;
-      font-size: 3rem;
+      font-size: 2.5rem;
       padding-left: 30px;
+      margin-bottom: 20px;
     }
   }
 `

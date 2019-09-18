@@ -26,11 +26,16 @@ const StyledReviewCard = styled.div`
   background: white;
   .business-name {
     font-size: 2rem;
+    text-align: center;
   }
   .img-container {
-    width:30%;
+    width:38%;
     img{
       width: 100%;
     }
+  }
+  .text {
+    text-align: center;
+    overflow: hidden;
   }
 `
