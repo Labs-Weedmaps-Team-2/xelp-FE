@@ -19,11 +19,14 @@ const UserProfile = ({ username, email, photo }) => {
       <div className="user-details-container">
         <div className="img-container">
           <img src={photo} alt={username} />
+          <Link to="/edit-profile">
+            <p className="edit-photo">Change Profile Photo</p>
+          </Link>
         </div>
         <div className="details-container">
           <p className="username"><i className="fa fa-user" /> {username}</p>
           <p className="email"><i className="fas fa-envelope" /> {email}</p>
-          <Link to="somewhere">
+          <Link to="/edit-profile">
             <div className="edit-button">Edit Profile</div>
           </Link>
         </div>
@@ -58,9 +61,16 @@ const StyledProfile = styled.div`
     background: white;
     .img-container {
       width: 35%;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
       img {
         width: 70%;
-        margin: 50px 15%;
+        margin: 50px 15% 20px 15%;
+      }
+      .edit-photo {
+        text-align: center;
+        margin-bottom: 10px;
       }
     }
     .details-container {
