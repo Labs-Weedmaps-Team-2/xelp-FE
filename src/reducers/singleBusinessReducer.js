@@ -19,6 +19,11 @@ export const singleBusinessReducer = (state = initialState, action) => {
       return { ...state, photos: action.payload }
     case types.RESET_SINGLE_BUSINESS:
       return initialState
+    case types.DELETE_REVIEW:
+      return {
+        ...state,
+        reviews: state.reviews.filter(review => review.id !== action.payload),
+      }
     default:
       return state
   }

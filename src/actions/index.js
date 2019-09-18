@@ -117,6 +117,10 @@ export const fetchBusinessDetails = yelp_id => async dispatch => {
   }
 }
 
+export const deleteReview = id => {
+  return { type: types.DELETE_REVIEW, payload: id }
+}
+
 export const resetSingleBusiness = () => ({ type: types.RESET_SINGLE_BUSINESS })
 
 export const createBusiness = formData => async dispatch => {
