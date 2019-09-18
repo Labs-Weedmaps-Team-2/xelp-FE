@@ -11,10 +11,16 @@ const AddPhotos = ({ text, rating, yelp_id, id, editing }) => {
       review: { text, rating, photos: signedIds },
     }
     editing
-      ? api.patch(`/reviews/${id}`, body).then(res => {
-          console.log(res)
-          history.push(`/business/${yelp_id}`)
-        })
+      ? api
+          .patch(`/reviews/${id}`, body)
+          .then(res => {
+            console.log(res, 'is YELPid defined', yelp_id)
+            history.push(`/business/${yelp_id}`)
+          })
+          .catch(err => {
+            console.log(err)
+            history.push(`/business/${yelp_id}`)
+          })
       : api.post(`business/${yelp_id}/review`, body).then(res => {
           console.log(res)
           history.push(`/business/${yelp_id}`)
