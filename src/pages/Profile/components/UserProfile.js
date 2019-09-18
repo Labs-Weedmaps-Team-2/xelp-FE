@@ -23,7 +23,8 @@ const UserProfile = ({ username, email, photo }) => {
         </div>
       </div>
       <div className="reviews-container">
-        {reviews ? reviews.map(review=> console.log(JSON.stringify(review))) : <p>No Reviews!</p>}
+        <p className="review-header">My Reviews</p>
+        {reviews ? reviews.map(review => <ReviewCard key={review.id} {...review} />) : <p>No Reviews!</p>}
       </div>
     </StyledProfile>
   )
@@ -32,17 +33,19 @@ const UserProfile = ({ username, email, photo }) => {
 export default UserProfile
 
 const StyledProfile = styled.div`
-  height: 600px;
+  height: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 30px 0;
+  background: whitesmoke;
   .user-details-container {
-    width: 100%;
-    border: 1px solid blue;
+    width: 80%;
     display: flex;
     flex-flow: row;
+    background: white;
     .img-container {
       width: 35%;
-      border: 1px solid orange;
       img {
         width: 70%;
         margin: 50px 15%;
@@ -50,15 +53,20 @@ const StyledProfile = styled.div`
     }
     .details-container {
       width: 65%;
-      border: 1px solid purple;
     }
   }
   .reviews-container {
-    border: 1px solid red;
-    width: 100%;
-    height: 100px;
+    padding: 30px 0;
+    width: 80%;
+    height: auto;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
+    background: whitesmoke;
+    .review-header {
+      width: 100%;
+      font-size: 3rem;
+      padding-left: 30px;
+    }
   }
 `
