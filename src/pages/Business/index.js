@@ -60,7 +60,7 @@ const Business = () => {
             </div>
             <div className='business-actionbar'>
               <Link
-                to={`/writeareview/${location.pathname.split('/business/')[1]}`}
+                to={`/review/${location.pathname.split('/business/')[1]}`}
               >
                 <button className='btn-review'>Write a Review</button>
               </Link>
@@ -110,7 +110,7 @@ const Business = () => {
       <Container>
         <div className='reviews-more-details'>
           <div className='review-list'>
-            {business.reviews && <Reviews reviews={business.reviews} />}
+            {business.reviews && <Reviews reviews={business.reviews} yelp_id={business.id}/>}
           </div>
           <div className='more-details'>
             <Link to={`/biz_gallery/${yelp_id}`}>

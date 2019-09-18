@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusinessDetails, resetSingleBusiness } from 'actions'
+import { api } from 'apis'
+import { useRouter } from 'hooks'
+import { fetchBusinessDetails, resetSingleBusiness, setReview, resetReview } from 'actions'
 import { renderRating } from 'utils'
 import { Navbar } from 'components'
 import { Formik, Form, Field } from 'formik'
@@ -20,16 +22,18 @@ const textHash = {
 const ReviewForm = () => {
   const dispatch = useDispatch()
   const business = useSelector(({ singleBusiness }) => singleBusiness)
-
-  const [reviewText, setReviewText] = useState('')
-  const [rateValue, setRateValue] = useState(1)
+  const review = useSelector(({ review }) => review)
+  const editing = review.id ? true : false
+  const { location, history } = useRouter()
+  const [reviewText, setReviewText] = useState(review.text)
+  const [rateValue, setRateValue] = useState(review.rating)
   const [rateText, setRateText] = useState('Select your rating')
-  const yelp_id = window.location.pathname.split('/writeareview/')[1]
-
+  const yelp_id = window.location.pathname.split('/review/')[1]
   useEffect(() => {
     dispatch(fetchBusinessDetails(yelp_id))
     return () => {
       dispatch(resetSingleBusiness())
+      dispatch(resetReview())
     }
   }, [])
 
@@ -102,7 +106,7 @@ const ReviewForm = () => {
               placeholder='Your review helps others learn about great local businesses.'
             />
           </div>
-          <AddPhotos text={reviewText} rating={rateValue} yelp_id={yelp_id} />
+          <AddPhotos text={reviewText} rating={rateValue} yelp_id={yelp_id} id={review.id} editing={editing}/>
         </StyledForm>
       </div>
     </>
