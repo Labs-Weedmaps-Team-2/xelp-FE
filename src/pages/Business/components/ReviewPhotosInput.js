@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DirectUploadProvider } from 'react-activestorage-provider'
 import { api } from 'apis'
 import { serverUrl } from 'config'
@@ -6,6 +6,7 @@ import { useRouter } from 'hooks'
 
 const AddPhotos = ({ text, rating, yelp_id, id, editing }) => {
   const { history } = useRouter()
+  const [srcArray, setSrcArray] = useState([])
   const handleAttachment = signedIds => {
     const body = {
       review: { text, rating, photos: signedIds },
@@ -14,25 +15,41 @@ const AddPhotos = ({ text, rating, yelp_id, id, editing }) => {
       ? api
           .patch(`/reviews/${id}`, body)
           .then(res => {
-            console.log(res, 'is YELPid defined', yelp_id)
             history.push(`/business/${yelp_id}`)
           })
           .catch(err => {
-            console.log(err)
             history.push(`/business/${yelp_id}`)
           })
       : api.post(`business/${yelp_id}/review`, body).then(res => {
-          console.log(res)
           history.push(`/business/${yelp_id}`)
         })
   }
 
-  console.log(text, rating, yelp_id)
+  const handleChange = e => {
+    const files = Array.from(e.target.files)
+    Promise.all(
+      files.map(file => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader()
+
+          reader.onload = e => {
+            resolve(e.target.result)
+          }
+          if (file) {
+            reader.readAsDataURL(file)
+          }
+        })
+      })
+    ).then(images => {
+      setSrcArray(images)
+    })
+  }
   return (
     <DirectUploadProvider
       onSuccess={handleAttachment}
       directUploadsPath={`${serverUrl}/rails/active_storage/direct_uploads`}
       multiple
+      srcArray={srcArray}
       render={({
         handleUpload,
         uploads,
@@ -47,8 +64,10 @@ const AddPhotos = ({ text, rating, yelp_id, id, editing }) => {
             name='photos'
             multiple
             disabled={!ready}
-            onChange={e => handleChooseFiles(e.currentTarget.files)}
-            style={{ border: '2px solid red' }}
+            onChange={e => {
+              handleChooseFiles(e.currentTarget.files)
+              handleChange(e)
+            }}
           />
           <button
             className='btn-submit'
@@ -59,7 +78,13 @@ const AddPhotos = ({ text, rating, yelp_id, id, editing }) => {
           >
             {editing ? 'Submit Edit' : 'Submit Review'}
           </button>
-
+          <div className='preview-container'>
+            {srcArray.map((src, index) => (
+              <div key={index} className='preview-wrap'>
+                <img className='preview-img' src={src} alt='' />
+              </div>
+            ))}
+          </div>
           {uploads.map(upload => {
             switch (upload.state) {
               case 'waiting':

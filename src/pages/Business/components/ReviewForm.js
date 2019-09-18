@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { api } from 'apis'
 import { useRouter } from 'hooks'
-import { fetchBusinessDetails, resetSingleBusiness, setReview, resetReview } from 'actions'
+import {
+  fetchBusinessDetails,
+  resetSingleBusiness,
+  setReview,
+  resetReview,
+} from 'actions'
 import { renderRating } from 'utils'
 import { Navbar } from 'components'
 import { Formik, Form, Field } from 'formik'
@@ -106,7 +111,13 @@ const ReviewForm = () => {
               placeholder='Your review helps others learn about great local businesses.'
             />
           </div>
-          <AddPhotos text={reviewText} rating={rateValue} yelp_id={yelp_id} id={review.id} editing={editing}/>
+          <AddPhotos
+            text={reviewText}
+            rating={rateValue}
+            yelp_id={yelp_id}
+            id={review.id}
+            editing={editing}
+          />
         </StyledForm>
       </div>
     </>
@@ -178,5 +189,20 @@ const StyledForm = styled.div`
     font-weight: bold;
     border-radius: 3px;
     margin-bottom: 20px;
+  }
+  .preview-container {
+    display: flex;
+  }
+
+  .preview-wrap {
+    width: 200px;
+    height: 200px;
+  }
+
+  .preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: center;
+    object-position: center;
   }
 `
