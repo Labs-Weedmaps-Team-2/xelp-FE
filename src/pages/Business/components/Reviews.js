@@ -4,7 +4,7 @@ import moment from 'moment'
 import { api } from 'apis'
 import { useRouter } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
-import { setReview, fetchBusinessDetails } from 'actions'
+import { setReview, deleteReview } from 'actions'
 
 import { renderRating } from 'utils'
 const Reviews = ({ reviews, yelp_id }) => {
@@ -21,7 +21,7 @@ const Reviews = ({ reviews, yelp_id }) => {
 
   const handleDelete = id => {
     api.delete(`/reviews/${id}`).then(res => {
-      dispatch(fetchBusinessDetails(yelp_id))
+      dispatch(deleteReview(id))
       // history.push(`/business/${yelp_id}`)
       console.log(res)
     })
