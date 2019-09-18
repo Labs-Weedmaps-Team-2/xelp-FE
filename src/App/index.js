@@ -10,6 +10,7 @@ import { Footer } from 'components'
 
 const Home = lazy(() => import('pages/Home'))
 const Profile = lazy(() => import('pages/Profile'))
+const EditProfile = lazy(() => import('pages/EditProfile'))
 const SignIn = lazy(() => import('pages/SignIn'))
 const Business = lazy(() => import('pages/Business'))
 const BusinessList = lazy(() => import('pages/BusinessList'))
@@ -37,6 +38,7 @@ const App = () => {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/profile' component={Profile} />
+          <Route path='/edit-profile' component={EditProfile} />
           <Route path='/sign-in' component={SignIn} />
           <Route path='/business/:id/' component={Business} />
           <Route path='/business-list' component={BusinessList} />
@@ -47,7 +49,7 @@ const App = () => {
           <Route path='*' component={NotFound} />
         </Switch>
       </Suspense>
-      <Footer/>
+      <Footer />
     </Container>
   )
 }
