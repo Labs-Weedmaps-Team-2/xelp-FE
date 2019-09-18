@@ -12,7 +12,7 @@ const Reviews = ({ reviews, yelp_id }) => {
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user)
 
-  const setCurrentReview = review => {    
+  const setCurrentReview = review => {
     if (user) {
       dispatch(setReview(review))
       history.push(`/review/${location.pathname.split('/business/')[1]}`)
@@ -22,6 +22,7 @@ const Reviews = ({ reviews, yelp_id }) => {
   const handleDelete = id => {
     api.delete(`/reviews/${id}`).then(res => {
       dispatch(fetchBusinessDetails(yelp_id))
+      // history.push(`/business/${yelp_id}`)
       console.log(res)
     })
   }
@@ -65,12 +66,18 @@ const Reviews = ({ reviews, yelp_id }) => {
                     </span>
                   </div>
                   <p className='review-text'>{review.text}</p>
-                  {user.id === review.user.id &&
-                    <div className="button-container">
-                      <i className="fas fa-pen" onClick={() => setCurrentReview(review)}></i>
-                      <i className="fas fa-trash" onClick={()=>handleDelete(review.id)}></i>
+                  {user.id === review.user.id && (
+                    <div className='button-container'>
+                      <i
+                        className='fas fa-pen'
+                        onClick={() => setCurrentReview(review)}
+                      ></i>
+                      <i
+                        className='fas fa-trash'
+                        onClick={() => handleDelete(review.id)}
+                      ></i>
                     </div>
-                  }
+                  )}
                 </div>
                 <div style={{ display: 'flex' }}>
                   {review.photos &&
