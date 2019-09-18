@@ -2,18 +2,19 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Navbar } from 'components'
-import { ProfileAvatar, ProfileForm } from './components'
+import { ProfileAvatar, ProfileForm, UserProfile } from './components'
 
 const Profile = () => {
   const user = useSelector(state => state.user)
-
+  console.log(user)
   return (
     <>
       <Navbar />
-      <Container>
+      <UserProfile {...user}/>
+      {/* <Container>
         <ProfileAvatar {...user} />
         <ProfileForm {...user} />
-      </Container>
+      </Container> */}
     </>
   )
 }
