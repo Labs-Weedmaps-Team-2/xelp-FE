@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusinessFilter } from 'actions'
+import { fetchBusiness } from 'actions'
 import * as types from 'actions/types'
-
+import { convertZoomToMeters } from 'utils'
 const categories = [
   'nightlife',
   'arts',
@@ -24,20 +24,21 @@ export const SearchFilter = () => {
   const [isPriceActive, setPrice] = useState(Array(4).fill(false))
   const [isCatActive, setCat] = useState(Array(10).fill(false))
 
-  const [search, filter, business] = useSelector(
-    ({ search, filter, business }) => [search, filter, business]
+  const [search, filter, business, map] = useSelector(
+    ({ search, filter, business, map }) => [search, filter, business, map]
   )
 
   const submitSearch = e => {
     setSubmit(false)
     dispatch(
-      fetchBusinessFilter(
+      fetchBusiness(
         search.term,
         search.location,
         search.offset,
         search.categories,
         search.open_now,
-        search.price
+        search.price,
+        convertZoomToMeters(map.zoom)
       )
     )
   }
@@ -101,10 +102,10 @@ export const SearchFilter = () => {
           <h2 className='filter-heading'>
             {filter.term ? (
               <span>
-                Best {filter.term} in {filter.location}
+                Best {filter.term} in {map.location}
               </span>
             ) : (
-              <span>Browsing {filter.location}</span>
+              <>{!!map.location && <span>Browsing {map.location}</span>}</>
             )}
           </h2>
           {business.businesses.length ? (

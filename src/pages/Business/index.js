@@ -20,7 +20,7 @@ const Business = () => {
   useEffect(() => {
     dispatch(resetSingleBusiness())
     dispatch(fetchBusinessDetails(yelp_id))
-  }, [dispatch, yelp_id])
+  }, [])
 
   return (
     <Wrapper>
@@ -36,9 +36,11 @@ const Business = () => {
                     {renderRating(business.rating)}
                   </div>
                 ) : null}
-                <span className='review-count'>
-                  {business.review_count} reviews
-                </span>
+                {business.reviews && (
+                  <span className='review-count'>
+                    {business.reviews.length} reviews
+                  </span>
+                )}
               </div>
               <div className='price-categories-wrap'>
                 {business.price && [
@@ -58,9 +60,7 @@ const Business = () => {
               </div>
             </div>
             <div className='business-actionbar'>
-              <Link
-                to={`/review/${location.pathname.split('/business/')[1]}`}
-              >
+              <Link to={`/review/${location.pathname.split('/business/')[1]}`}>
                 <button className='btn-review'>Write a Review</button>
               </Link>
               <Link
@@ -90,18 +90,25 @@ const Business = () => {
               <div className='phone'>{business.display_phone}</div>
             </div>
             <div className='showcase-container'>
-              {business.photos.map((photo, index) => (
-                <div
-                  key={index}
-                  className={`showcase-image-wrapper ${
-                    hoverIndex === index ? 'hover' : null
-                  }`}
-                  onMouseEnter={() => setHover(index)}
-                  onMouseLeave={() => setHover(1)}
-                >
-                  <img className='showcase-image' src={photo} alt='business' />
-                </div>
-              ))}
+              {[business.image_url, ...business.photos]
+                .slice(0, 3)
+                .map((photo, index) => (
+                  <Link key={index} to={`/biz_gallery/${yelp_id}`}>
+                    <div
+                      className={`showcase-image-wrapper ${
+                        hoverIndex === index ? 'hover' : null
+                      }`}
+                      onMouseEnter={() => setHover(index)}
+                      onMouseLeave={() => setHover(1)}
+                    >
+                      <img
+                        className='showcase-image'
+                        src={photo}
+                        alt='business'
+                      />
+                    </div>
+                  </Link>
+                ))}
             </div>
           </div>
         </Container>
@@ -109,11 +116,13 @@ const Business = () => {
       <Container>
         <div className='reviews-more-details'>
           <div className='review-list'>
-            {business.reviews && <Reviews reviews={business.reviews} yelp_id={business.id}/>}
+            {business.reviews && (
+              <Reviews reviews={business.reviews} yelp_id={business.id} />
+            )}
           </div>
           <div className='more-details'>
             <Link to={`/biz_gallery/${yelp_id}`}>
-              See all {business.photo_count} photos
+              See all {[business.image_url, ...business.photos].length} photos
             </Link>
           </div>
         </div>
@@ -272,6 +281,7 @@ const BusinessHero = styled.section`
     bottom: -20px;
     z-index: 5;
     background: #ffffff;
+    margin-right: 15px;
   }
   .showcase-container {
     /* border: 1px solid blue; */

@@ -48,7 +48,7 @@ const SearchBar = () => {
           dispatch(setSearch(search.term, location))
         })
     }
-  }, [latitude, longitude, dispatch, search.term])
+  }, [latitude, longitude])
 
   const handleSubmit = values => {
     if (values.location) {
@@ -59,7 +59,7 @@ const SearchBar = () => {
 
   return (
     <StyledHero>
-      <p>nitelyfe</p>
+      <p>nightlyfe</p>
 
       <Formik
         initialValues={{ term: search.term, location: search.location }}

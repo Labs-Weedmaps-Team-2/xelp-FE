@@ -3,15 +3,26 @@ import GoogleMapReact from 'google-map-react'
 import { fitBounds } from 'google-map-react/utils'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBusiness, setMap, setMapUpdate, setSearch } from 'actions'
-import { getBounds } from 'utils'
+import axios from 'axios'
+import { getBounds, convertZoomToMeters } from 'utils'
 import { Marker } from 'components'
 import styled from 'styled-components'
+const openCageUrl = 'https://api.opencagedata.com/geocode/v1/json'
 
 const losAngelesCoords = [34.0522, 118.2437]
 const cityLevel = 10 // 20 world, 15 continent, 10 city, 5 street-level, 1 building-level
 const mapSize = {
   height: 500, // Map height in pixels
   width: 670, // Map width in pixels
+}
+
+const formatLocal = local => {
+  if (local) {
+    local = local.concat(', ')
+  } else {
+    local = ''
+  }
+  return local
 }
 
 export const Map = props => {
@@ -27,14 +38,28 @@ export const Map = props => {
   }
 
   const handleMapChange = async props => {
-    dispatch(setMap(props.center, props.zoom))
+    const { lat, lng } = props.center
+    let location
+    if (lat && lng) {
+      const res = await axios.get(
+        `${openCageUrl}?q=${lat},${lng}&key=${process.env.REACT_APP_OPENCAGE_API_KEY}`
+      )
+      const { town, city, state_code } = res.data.results[0].components
+      let local = town || city
+      local = formatLocal(local)
+      location = `${local}${state_code}`
+    }
+    dispatch(setMap(props.center, props.zoom, location))
     if (!update) {
       await dispatch(
         fetchBusiness(
           search.term,
           `${props.center.lat}, ${props.center.lng}`,
           0,
-          false
+          search.categories,
+          search.open_now,
+          search.price,
+          convertZoomToMeters(map.zoom)
         )
       )
       dispatch(setSearch(search.term, search.location, 0))

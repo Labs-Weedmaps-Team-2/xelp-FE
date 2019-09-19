@@ -7,6 +7,7 @@ import { initialBusiness } from 'config'
 import { useRouter } from 'hooks'
 import businessSvg from 'assets/svg/business.svg'
 import AddBusinessPhotoInput from './AddBusinessPhoto'
+import { Navbar } from 'components'
 const BusinessForm = () => {
   const { history } = useRouter()
   const dispatch = useDispatch()
@@ -17,114 +18,116 @@ const BusinessForm = () => {
   }
 
   return (
-    <Formik
-      initialValues={initialBusiness}
-      onSubmit={values => {
-        console.log(values)
-        handleSubmit(values)
-      }}
-    >
-      {({ values }) => (
-        <StyledForm>
-          <div className='hero-img'>
-            <img src={businessSvg} alt='' />
-          </div>
-          <h1>Add Your Business Details</h1>
-          <AddBusinessPhotoInput values={values} />
+    <>
+      <Navbar />
+      <Formik
+        initialValues={initialBusiness}
+        onSubmit={values => {
+          handleSubmit(values)
+        }}
+      >
+        {({ values }) => (
+          <StyledForm>
+            <div className='hero-img'>
+              <img src={businessSvg} alt='' />
+            </div>
+            <h1>Add Your Business Details</h1>
+            <AddBusinessPhotoInput values={values} />
 
-          <div className='input-wrap'>
-            <label className='input-label' htmlFor='name'>
-              Business Name
-            </label>
-            <Field
-              className='input-field'
-              id='name'
-              name='name'
-              placeholder="Cesar's shop"
-            />
-          </div>
-          <div className='input-wrap'>
-            <label className='input-label' htmlFor='address'>
-              Street Address
-            </label>
-            <Field
-              className='input-field'
-              id='address'
-              name='address'
-              placeholder='123 Main St'
-            />
-          </div>
-          <div className='input-wrap'>
-            <label className='input-label' htmlFor='city'>
-              City
-            </label>
-            <Field
-              className='input-field'
-              id='city'
-              name='city'
-              placeholder='San Francisco'
-            />
-          </div>
+            <div className='input-wrap'>
+              <label className='input-label' htmlFor='name'>
+                Business Name
+              </label>
+              <Field
+                className='input-field'
+                id='name'
+                name='name'
+                placeholder="Cesar's shop"
+              />
+            </div>
+            <div className='input-wrap'>
+              <label className='input-label' htmlFor='address'>
+                Street Address
+              </label>
+              <Field
+                className='input-field'
+                id='address'
+                name='address'
+                placeholder='123 Main St'
+              />
+            </div>
+            <div className='input-wrap'>
+              <label className='input-label' htmlFor='city'>
+                City
+              </label>
+              <Field
+                className='input-field'
+                id='city'
+                name='city'
+                placeholder='San Francisco'
+              />
+            </div>
 
-          <div className='input-wrap'>
-            <label className='input-label' htmlFor='state'>
-              State
-            </label>
-            <Field
-              className='input-field'
-              id='state'
-              name='state'
-              placeholder='California'
-            />
-          </div>
-          <div className='input-wrap'>
-            <label className='input-label' htmlFor='zipcode'>
-              ZIP
-            </label>
-            <Field
-              className='input-field'
-              id='zipcode'
-              name='zipcode'
-              placeholder='94103'
-            />
-          </div>
+            <div className='input-wrap'>
+              <label className='input-label' htmlFor='state'>
+                State
+              </label>
+              <Field
+                className='input-field'
+                id='state'
+                name='state'
+                placeholder='California'
+              />
+            </div>
+            <div className='input-wrap'>
+              <label className='input-label' htmlFor='zipcode'>
+                ZIP
+              </label>
+              <Field
+                className='input-field'
+                id='zipcode'
+                name='zipcode'
+                placeholder='94103'
+              />
+            </div>
 
-          <div className='input-wrap'>
-            <label className='input-label' htmlFor='category'>
-              Categories
-            </label>
-            <Field
-              className='input-field'
-              id='category'
-              name='category'
-              placeholder='Bar, Club, Lounge (max 3 categories)'
-            />
-          </div>
-          <div className='input-wrap'>
-            <label className='input-label' htmlFor='phone'>
-              Business Phone
-            </label>
-            <Field
-              id='phone'
-              className='input-field'
-              placeholder='555-555-555'
-              name='phone'
-            />
-          </div>
-          <div className='input-wrap'>
-            <label className='input-label' htmlFor='website'>
-              Web Address
-            </label>
-            <Field
-              id='website'
-              className='input-field'
-              placeholder='http://example.com'
-              name='website'
-            />
-          </div>
-        </StyledForm>
-      )}
-    </Formik>
+            <div className='input-wrap'>
+              <label className='input-label' htmlFor='category'>
+                Categories
+              </label>
+              <Field
+                className='input-field'
+                id='category'
+                name='category'
+                placeholder='Bar, Club, Lounge (max 3 categories)'
+              />
+            </div>
+            <div className='input-wrap'>
+              <label className='input-label' htmlFor='phone'>
+                Business Phone
+              </label>
+              <Field
+                id='phone'
+                className='input-field'
+                placeholder='555-555-555'
+                name='phone'
+              />
+            </div>
+            <div className='input-wrap'>
+              <label className='input-label' htmlFor='website'>
+                Web Address
+              </label>
+              <Field
+                id='website'
+                className='input-field'
+                placeholder='http://example.com'
+                name='website'
+              />
+            </div>
+          </StyledForm>
+        )}
+      </Formik>
+    </>
   )
 }
 
@@ -135,11 +138,12 @@ const StyledForm = styled(Form)`
   flex-direction: column;
   width: 100%;
   max-width: 470px;
-  margin: 0 auto;
+  margin: 0 auto 100px;
   .hero-img {
     width: 220px;
     height: 180px;
     align-self: center;
+    margin-top: 40px;
     img {
       width: 100%;
     }
@@ -170,20 +174,5 @@ const StyledForm = styled(Form)`
     &:focus {
       border: 1px solid dodgerblue;
     }
-  }
-  .business-btn {
-    position: absolute;
-    height: 40px;
-    width: 140px;
-    background: #3b78dc;
-    top: 970px;
-    left: 800px;
-    border: none;
-    font-weight: bold;
-    font-size: 16px;
-    color: white;
-    margin: 25px 0;
-    align-self: flex-end;
-    cursor: pointer;
   }
 `

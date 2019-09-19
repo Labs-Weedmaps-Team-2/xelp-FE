@@ -3,6 +3,7 @@ import { DirectUploadProvider } from 'react-activestorage-provider'
 import { api } from 'apis'
 import { serverUrl } from 'config'
 import { useRouter } from 'hooks'
+import styled from 'styled-components'
 
 const AddBusinessPhotoInput = ({ values }) => {
   const { history } = useRouter()
@@ -12,7 +13,6 @@ const AddBusinessPhotoInput = ({ values }) => {
       business: { ...values, image_url: signedIds[0] },
     }
     api.post(`/business`, body).then(res => {
-      console.log(res)
       history.push(`/business/${res.data.yelp_id}`)
     })
   }
@@ -22,22 +22,13 @@ const AddBusinessPhotoInput = ({ values }) => {
     const reader = new FileReader()
 
     reader.onloadend = e => {
-      console.log(e.target.result, 'result')
       setFileSrc(e.target.result)
     }
     if (file) {
       reader.readAsDataURL(file)
     }
   }
-  // const renderImage = e => {
-  //   const reader = new FileReader()
 
-  //   reader.onloadend = e => {
-  //     setFile(e.target.result)
-  //   }
-  //   return file
-  // }
-  // console.log('log values obj', values)
   return (
     <DirectUploadProvider
       onSuccess={handleAttachment}
@@ -49,19 +40,23 @@ const AddBusinessPhotoInput = ({ values }) => {
         handleChooseFiles,
         handleBeginUpload,
       }) => (
-        <div>
-          <div
-            className='preview-wrap'
-            style={{
-              height: 200,
-              display: 'flex',
-              justifyContent: 'space-between',
-              border: '1px solid green',
-            }}
-          >
+        <StyledImagePreview>
+          <div className='preview-wrap'>
+            <label className='preview-label' htmlFor='review'>
+              {fileSrc && (
+                <div className='image-wrap'>
+                  <img src={fileSrc} className='preview-image' alt='' />
+                </div>
+              )}
+              Upload Business Photo
+            </label>
+
             <input
               type='file'
               id='review'
+              accept='image/*'
+              className='preview-input'
+              required
               name='photos'
               disabled={!ready}
               onChange={e => {
@@ -69,15 +64,6 @@ const AddBusinessPhotoInput = ({ values }) => {
                 handleChange(e)
               }}
             />
-            {fileSrc && (
-              <div className='image-wrap' style={{ height: 200, width: 200 }}>
-                <img
-                  src={fileSrc}
-                  style={{ width: '100%', height: '100%' }}
-                  alt=''
-                />
-              </div>
-            )}
           </div>
           <button
             className='business-btn'
@@ -86,39 +72,58 @@ const AddBusinessPhotoInput = ({ values }) => {
               handleBeginUpload()
             }}
           >
-            SUBMIT!!
+            Submit
           </button>
-
-          {uploads.map(upload => {
-            switch (upload.state) {
-              case 'waiting':
-                return (
-                  <p key={upload.id}>Waiting to upload {upload.file.name}</p>
-                )
-              case 'uploading':
-                return (
-                  <p key={upload.id}>
-                    Uploading {upload.file.name}: {upload.progress}%
-                  </p>
-                )
-              case 'error':
-                return (
-                  <p key={upload.id}>
-                    Error uploading {upload.file.name}: {upload.error}
-                  </p>
-                )
-              case 'finished':
-                return (
-                  <p key={upload.id}>Finished uploading {upload.file.name}</p>
-                )
-              default:
-                return null
-            }
-          })}
-        </div>
+        </StyledImagePreview>
       )}
     />
   )
 }
 
 export default AddBusinessPhotoInput
+
+const StyledImagePreview = styled.div`
+  height: 210px;
+  .preview-wrap {
+    height: 190px;
+    display: flex;
+    justify-content: center;
+    border: 1px dotted #666;
+  }
+  .preview-label {
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    cursor: pointer;
+  }
+  .preview-input {
+    display: none;
+  }
+  .image-wrap {
+    height: 150px;
+    width: 150px;
+    margin-bottom: 10px;
+  }
+  .preview-image {
+    width: 100%;
+    height: 100%;
+  }
+  .business-btn {
+    position: relative;
+    height: 40px;
+    width: 140px;
+    background: #3b78dc;
+    top: 530px;
+    left: 325px;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    margin: 25px 0;
+    align-self: flex-end;
+    cursor: pointer;
+  }
+`
