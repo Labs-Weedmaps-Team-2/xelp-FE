@@ -35,7 +35,7 @@ const BusinessList = () => {
       dispatch(resetBusiness())
       dispatch(resetPrevSearch())
     }
-  }, [])
+  }, [dispatch, search.location, search.offset, search.term])
 
   const handleClick = business => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
