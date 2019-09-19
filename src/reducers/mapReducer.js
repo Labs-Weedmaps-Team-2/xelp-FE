@@ -3,6 +3,7 @@ import * as types from 'actions/types'
 const initialState = {
   center: { lat: '', lng: '' },
   zoom: 12,
+  location: '',
 }
 
 export const mapReducer = (state = initialState, action) => {

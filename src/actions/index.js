@@ -137,9 +137,9 @@ export const createBusiness = formData => async dispatch => {
     dispatch({ type: types.CREATE_BUSINESS_FAILURE, payload: err })
   }
 }
-export const setMap = (center, zoom, hasMoved) => ({
+export const setMap = (center, zoom, location, hasMoved) => ({
   type: types.SET_MAP,
-  payload: { center, zoom, hasMoved },
+  payload: { center, zoom, location, hasMoved },
 })
 
 export const setYelpUpdate = () => ({
