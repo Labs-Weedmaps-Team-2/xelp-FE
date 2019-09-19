@@ -25,7 +25,6 @@ const ReviewForm = () => {
   const business = useSelector(({ singleBusiness }) => singleBusiness)
   const review = useSelector(({ review }) => review)
   const editing = review.id ? true : false
-  const { location, history } = useRouter()
   const [reviewText, setReviewText] = useState(review.text)
   const [rateValue, setRateValue] = useState(review.rating)
   const [rateText, setRateText] = useState('Select your rating')
@@ -36,7 +35,7 @@ const ReviewForm = () => {
       dispatch(resetSingleBusiness())
       dispatch(resetReview())
     }
-  }, [])
+  }, [dispatch, yelp_id])
 
   const handleInput = e => {
     setReviewText(e.target.value)
