@@ -4,8 +4,9 @@ import { useRouter } from 'hooks'
 import { Navbar } from 'components'
 import { apiUrl, serverUrl } from 'config'
 import styled from 'styled-components'
+import { Redirect } from 'react-router-dom'
 const AddPhotos = () => {
-  const { history, match } = useRouter()
+  const { match } = useRouter()
   const [srcArray, setSrcArray] = useState([])
 
   const handleChange = e => {
@@ -83,7 +84,7 @@ const AddPhotos = () => {
                 return [
                   <p key={upload.id}>Finished uploading {upload.file.name}</p>,
                   <div key='test'>
-                    {history.push(`/business/${match.params.id}`)}
+                    <Redirect to={`/business/${match.params.id}`} />
                   </div>,
                 ]
               default:

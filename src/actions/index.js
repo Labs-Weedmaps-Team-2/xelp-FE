@@ -139,3 +139,16 @@ export const setReview = review => {
   return { type: types.SET_REVIEW, payload: review }
 }
 export const resetReview = () => ({ type: types.RESET_REVIEW })
+
+export const deleteAccount = id => async dispatch => {
+  dispatch({ type: types.DELETE_ACCOUNT_REQUEST })
+  try {
+    const res = await api.delete(`/users/${id}`)
+    if (res.data.status === 'success') {
+      dispatch({ type: types.DELETE_ACCOUNT_SUCCESS })
+    }
+  } catch (err) {
+    console.log(err)
+    dispatch({ type: types.DELETE_ACCOUNT_FAILURE })
+  }
+}
