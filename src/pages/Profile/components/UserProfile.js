@@ -1,39 +1,58 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-
+import { deleteAccount } from 'actions'
 import { api } from 'apis'
-
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'hooks'
 import ReviewCard from './ReviewCard'
 
-const UserProfile = ({ username, email, photo }) => {
+const UserProfile = ({ username, email, photo, id }) => {
   const [reviews, setReviews] = useState([])
+  const dispatch = useDispatch()
+  const { history } = useRouter()
   useEffect(() => {
-    api.get('/reviews')
+    api
+      .get('/reviews')
       .then(res => setReviews(res.data))
       .catch(err => console.log(err))
   }, [])
+  const handleDelete = async () => {
+    await dispatch(deleteAccount(id))
+    history.push('/')
+  }
   return (
     <StyledProfile>
-      <p className="user-details-header">User Profile</p>
-      <div className="user-details-container">
-        <div className="img-container">
+      <p className='user-details-header'>User Profile</p>
+      <div className='user-details-container'>
+        <div className='img-container'>
           <img src={photo} alt={username} />
-          <Link to="/edit-profile">
-            <p className="edit-photo">Change Profile Photo</p>
+          <Link to='/edit-profile'>
+            <p className='edit-photo'>Change Profile Photo</p>
           </Link>
         </div>
-        <div className="details-container">
-          <p className="username"><i className="fa fa-user" /> {username}</p>
-          <p className="email"><i className="fas fa-envelope" /> {email}</p>
-          <Link to="/edit-profile">
-            <div className="edit-button">Edit Profile</div>
+        <div className='details-container'>
+          <p className='username'>
+            <i className='fa fa-user' /> {username}
+          </p>
+          <p className='email'>
+            <i className='fas fa-envelope' /> {email}
+          </p>
+          <Link to='/edit-profile'>
+            <div className='edit-button'>Edit Profile</div>
           </Link>
+          <div className='delete-button' onClick={handleDelete}>
+            Delete Account
+          </div>
         </div>
       </div>
-      <div className="reviews-container">
-        <p className="review-header">My Reviews</p>
-        {reviews ? reviews.map(review => <ReviewCard key={review.id} {...review} />) : <p>No Reviews!</p>}
+      <div className='reviews-container'>
+        <p className='review-header'>My Reviews</p>
+        {reviews ? (
+          reviews.map(review => <ReviewCard key={review.id} {...review} />)
+        ) : (
+          <p>No Reviews!</p>
+        )}
       </div>
     </StyledProfile>
   )
@@ -84,6 +103,9 @@ const StyledProfile = styled.div`
         i {
           font-size: 3rem;
         }
+      }
+      .delete-button:hover {
+        cursor: pointer;
       }
     }
   }

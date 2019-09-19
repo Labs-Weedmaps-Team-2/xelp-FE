@@ -24,6 +24,8 @@ export const userReducer = (state = initialState, action) => {
       return { ...state, uploadingPhoto: true }
     case types.UPLOAD_USER_IMAGE_SUCCESS:
       return { ...state, ...action.payload, uploadingPhoto: false }
+    case types.DELETE_ACCOUNT_SUCCESS:
+      return initialState
     default:
       return state
   }
