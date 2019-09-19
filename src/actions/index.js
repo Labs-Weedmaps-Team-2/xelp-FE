@@ -35,42 +35,14 @@ export const uploadUserImage = (id, imageFile) => async dispatch => {
   }
 }
 
-export const fetchBusinessFilter = (
-  term,
-  location,
-  offset = 0,
-  categories = 'nightlife, arts',
-  open_now = false,
-  price = '1, 2, 3 ,4'
-) => async dispatch => {
-  dispatch({ type: types.FETCH_BUSINESS_REQUEST })
-  try {
-    dispatch({
-      type: types.SAVE_PREV_SEARCH,
-      payload: { term, location },
-    })
-
-    const res = await api.get(
-      `/search?location=${location}&term=${term}&offset=${offset}&categories=${categories}&open_now=${open_now}&price=${price}`
-    )
-
-    dispatch({
-      type: types.FETCH_BUSINESS_SUCCESS,
-      payload: res.data,
-    })
-  } catch (err) {
-    console.error(err)
-    dispatch({ type: types.FETCH_BUSINESS_FAILURE })
-  }
-}
-
 export const fetchBusiness = (
   term,
   location,
   offset = 0,
   categories = 'nightlife, arts',
   open_now = false,
-  price = '1, 2, 3 ,4'
+  price = '1, 2, 3 ,4',
+  radius = ''
 ) => async dispatch => {
   dispatch({ type: types.FETCH_BUSINESS_REQUEST })
   try {
@@ -80,7 +52,7 @@ export const fetchBusiness = (
     })
 
     const res = await api.get(
-      `/search?location=${location}&term=${term}&offset=${offset}&categories=${categories}&open_now=${open_now}&price=${price}`
+      `/search?location=${location}&term=${term}&offset=${offset}&categories=${categories}&open_now=${open_now}&price=${price}&radius=${radius}`
     )
 
     dispatch({

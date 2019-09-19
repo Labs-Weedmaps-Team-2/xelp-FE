@@ -4,7 +4,7 @@ import { fitBounds } from 'google-map-react/utils'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBusiness, setMap, setMapUpdate, setSearch } from 'actions'
 import axios from 'axios'
-import { getBounds } from 'utils'
+import { getBounds, convertZoomToMeters } from 'utils'
 import { Marker } from 'components'
 import styled from 'styled-components'
 const openCageUrl = 'https://api.opencagedata.com/geocode/v1/json'
@@ -56,7 +56,10 @@ export const Map = props => {
           search.term,
           `${props.center.lat}, ${props.center.lng}`,
           0,
-          false
+          search.categories,
+          search.open_now,
+          search.price,
+          convertZoomToMeters(map.zoom)
         )
       )
       dispatch(setSearch(search.term, search.location, 0))
