@@ -18,7 +18,7 @@ export const Footer = () => {
           <a href="www.third.com">Third</a>
           <a href="www.fourth.com">Fourth</a>
         </div>
-        <img src={blackLogo} />
+        <img src={blackLogo} alt="black logo"/>
         {/* <a href="https://github.com/Labs-Weedmaps-Team-2">
           <i class="fab fa-github-square"></i>
         </a> */}

@@ -20,9 +20,8 @@ const Business = () => {
   useEffect(() => {
     dispatch(resetSingleBusiness())
     dispatch(fetchBusinessDetails(yelp_id))
-  }, [])
+  }, [dispatch, yelp_id])
 
-  console.log('single', business)
   return (
     <Wrapper>
       <Navbar />
