@@ -23,7 +23,6 @@ const BusinessForm = () => {
       <Formik
         initialValues={initialBusiness}
         onSubmit={values => {
-          console.log(values)
           handleSubmit(values)
         }}
       >

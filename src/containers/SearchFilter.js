@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusinessFilter } from 'actions'
+import { fetchBusiness } from 'actions'
 import * as types from 'actions/types'
-
+import { convertZoomToMeters } from 'utils'
 const categories = [
   'nightlife',
   'arts',
@@ -31,13 +31,14 @@ export const SearchFilter = () => {
   const submitSearch = e => {
     setSubmit(false)
     dispatch(
-      fetchBusinessFilter(
+      fetchBusiness(
         search.term,
         search.location,
         search.offset,
         search.categories,
         search.open_now,
-        search.price
+        search.price,
+        convertZoomToMeters(map.zoom)
       )
     )
   }

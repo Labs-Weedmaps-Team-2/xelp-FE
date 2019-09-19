@@ -13,31 +13,27 @@ import rating_5 from 'assets/img/rating_5.png'
 import styled from 'styled-components'
 
 export const renderRating = rating => {
-  switch (Number(rating)) {
-    case 5:
-      return <Img src={rating_5} alt='' />
-    case 4.5:
-      return <Img src={rating_4_5} alt='' />
-    case 4:
-      return <Img src={rating_4} alt='' />
-    case 3.5:
-      return <Img src={rating_3_5} alt='' />
-    case 3.0:
-      return <Img src={rating_3} alt='' />
-    case 2.5:
-      return <Img src={rating_2_5} alt='' />
-    case 2:
-      return <Img src={rating_2} alt='' />
-    case 1.5:
-      return <Img src={rating_1_5} alt='' />
-    case 1.0:
-      return <Img src={rating_1} alt='' />
-    case 0:
-      return <Img src={rating_0} alt='' />
-    // TODO: throw an actual error
-    default:
-      console.log('RATING ERROR', rating)
-      return <Img src={rating_0} alt='' />
+  const num_rat = Number(rating)
+  if (num_rat >= 5) {
+    return <Img src={rating_5} alt='' />
+  } else if (num_rat >= 4.5 && num_rat < 5) {
+    return <Img src={rating_4_5} alt='' />
+  } else if (num_rat >= 4.0 && num_rat < 4.5) {
+    return <Img src={rating_4} alt='' />
+  } else if (num_rat >= 3.5 && num_rat < 4.0) {
+    return <Img src={rating_3_5} alt='' />
+  } else if (num_rat >= 3.0 && num_rat < 3.5) {
+    return <Img src={rating_3} alt='' />
+  } else if (num_rat >= 2.5 && num_rat < 3.0) {
+    return <Img src={rating_2_5} alt='' />
+  } else if (num_rat >= 2.0 && num_rat < 2.5) {
+    return <Img src={rating_2} alt='' />
+  } else if (num_rat >= 1.5 && num_rat < 2.0) {
+    return <Img src={rating_1_5} alt='' />
+  } else if (num_rat >= 1.0 && num_rat < 1.5) {
+    return <Img src={rating_1} alt='' />
+  } else {
+    return <Img src={rating_0} alt='' />
   }
 }
 

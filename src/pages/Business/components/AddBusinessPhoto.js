@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { DirectUploadProvider } from 'react-activestorage-provider'
 import { api } from 'apis'
 import { serverUrl } from 'config'
@@ -6,7 +6,6 @@ import { useRouter } from 'hooks'
 import styled from 'styled-components'
 
 const AddBusinessPhotoInput = ({ values }) => {
-  const labelRef = useRef()
   const { history } = useRouter()
   const [fileSrc, setFileSrc] = useState(null)
   const handleAttachment = signedIds => {
@@ -14,7 +13,6 @@ const AddBusinessPhotoInput = ({ values }) => {
       business: { ...values, image_url: signedIds[0] },
     }
     api.post(`/business`, body).then(res => {
-      console.log(res)
       history.push(`/business/${res.data.yelp_id}`)
     })
   }
@@ -24,7 +22,6 @@ const AddBusinessPhotoInput = ({ values }) => {
     const reader = new FileReader()
 
     reader.onloadend = e => {
-      console.log(e.target.result, 'result')
       setFileSrc(e.target.result)
     }
     if (file) {

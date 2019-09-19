@@ -37,7 +37,7 @@ const Business = () => {
                   </div>
                 ) : null}
                 <span className='review-count'>
-                  {business.review_count} reviews
+                  {business.reviews.length} reviews
                 </span>
               </div>
               <div className='price-categories-wrap'>
@@ -89,9 +89,8 @@ const Business = () => {
             </div>
             <div className='showcase-container'>
               {business.photos.slice(0, 3).map((photo, index) => (
-                <Link to={`/biz_gallery/${yelp_id}`}>
+                <Link key={index} to={`/biz_gallery/${yelp_id}`}>
                   <div
-                    key={index}
                     className={`showcase-image-wrapper ${
                       hoverIndex === index ? 'hover' : null
                     }`}
