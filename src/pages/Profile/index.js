@@ -5,7 +5,6 @@ import { UserProfile } from './components'
 
 const Profile = () => {
   const user = useSelector(state => state.user)
-  console.log(user)
   return (
     <>
       <Navbar />

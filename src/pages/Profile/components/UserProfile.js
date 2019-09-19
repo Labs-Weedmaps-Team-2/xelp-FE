@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { api } from 'apis'
 
-import ReviewCard from '../../EditProfile/components/ReviewCard'
+import ReviewCard from './ReviewCard'
 
 const UserProfile = ({ username, email, photo }) => {
   const [reviews, setReviews] = useState([])

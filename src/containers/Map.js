@@ -27,7 +27,6 @@ export const Map = props => {
   }
 
   const handleMapChange = async props => {
-    // console.log('mapProps', props)
     dispatch(setMap(props.center, props.zoom))
     if (!update) {
       await dispatch(
