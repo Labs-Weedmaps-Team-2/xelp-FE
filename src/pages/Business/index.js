@@ -88,23 +88,25 @@ const Business = () => {
               <div className='phone'>{business.display_phone}</div>
             </div>
             <div className='showcase-container'>
-              {business.photos.slice(0, 3).map((photo, index) => (
-                <Link key={index} to={`/biz_gallery/${yelp_id}`}>
-                  <div
-                    className={`showcase-image-wrapper ${
-                      hoverIndex === index ? 'hover' : null
-                    }`}
-                    onMouseEnter={() => setHover(index)}
-                    onMouseLeave={() => setHover(1)}
-                  >
-                    <img
-                      className='showcase-image'
-                      src={photo}
-                      alt='business'
-                    />
-                  </div>
-                </Link>
-              ))}
+              {[business.image_url, ...business.photos]
+                .slice(0, 3)
+                .map((photo, index) => (
+                  <Link key={index} to={`/biz_gallery/${yelp_id}`}>
+                    <div
+                      className={`showcase-image-wrapper ${
+                        hoverIndex === index ? 'hover' : null
+                      }`}
+                      onMouseEnter={() => setHover(index)}
+                      onMouseLeave={() => setHover(1)}
+                    >
+                      <img
+                        className='showcase-image'
+                        src={photo}
+                        alt='business'
+                      />
+                    </div>
+                  </Link>
+                ))}
             </div>
           </div>
         </Container>
@@ -118,7 +120,7 @@ const Business = () => {
           </div>
           <div className='more-details'>
             <Link to={`/biz_gallery/${yelp_id}`}>
-              See all {business.photo_count} photos
+              See all {[business.image_url, ...business.photos].length} photos
             </Link>
           </div>
         </div>
