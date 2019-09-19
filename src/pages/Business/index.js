@@ -20,7 +20,7 @@ const Business = () => {
   useEffect(() => {
     dispatch(resetSingleBusiness())
     dispatch(fetchBusinessDetails(yelp_id))
-  }, [dispatch, yelp_id])
+  }, [])
 
   return (
     <Wrapper>
