@@ -7,7 +7,7 @@ const BusinessGallery = () => {
   const yelp_id = window.location.pathname.split('/biz_gallery/')[1]
   useEffect(() => {
     dispatch(fetchBusinessGallery(yelp_id))
-  }, [dispatch, yelp_id])
+  }, [])
   return (
     <div style={{ marginTop: '60px' }}>
       <h1>BusinessGallery</h1>

@@ -34,7 +34,7 @@ const ReviewForm = () => {
       dispatch(resetSingleBusiness())
       dispatch(resetReview())
     }
-  }, [dispatch, yelp_id])
+  }, [])
 
   const handleInput = e => {
     setReviewText(e.target.value)
