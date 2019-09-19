@@ -28,7 +28,7 @@ export const AvatarPopup = ({ user }) => {
       <Link className='add-business' to='/addbusiness'>
         Add Business
       </Link>
-      <Link className='settings' to='/profile'>
+      <Link className='settings' to='/edit-profile'>
         Account Settings
       </Link>
       <a className='logout' href={`${authUrl}/logout`}>

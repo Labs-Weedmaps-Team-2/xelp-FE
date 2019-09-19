@@ -59,7 +59,7 @@ const SearchBar = () => {
 
   return (
     <StyledHero>
-      <p>nitelyfe</p>
+      <p>nightlyfe</p>
 
       <Formik
         initialValues={{ term: search.term, location: search.location }}
