@@ -58,9 +58,7 @@ const Business = () => {
               </div>
             </div>
             <div className='business-actionbar'>
-              <Link
-                to={`/review/${location.pathname.split('/business/')[1]}`}
-              >
+              <Link to={`/review/${location.pathname.split('/business/')[1]}`}>
                 <button className='btn-review'>Write a Review</button>
               </Link>
               <Link
@@ -90,17 +88,23 @@ const Business = () => {
               <div className='phone'>{business.display_phone}</div>
             </div>
             <div className='showcase-container'>
-              {business.photos.map((photo, index) => (
-                <div
-                  key={index}
-                  className={`showcase-image-wrapper ${
-                    hoverIndex === index ? 'hover' : null
-                  }`}
-                  onMouseEnter={() => setHover(index)}
-                  onMouseLeave={() => setHover(1)}
-                >
-                  <img className='showcase-image' src={photo} alt='business' />
-                </div>
+              {business.photos.slice(0, 3).map((photo, index) => (
+                <Link to={`/biz_gallery/${yelp_id}`}>
+                  <div
+                    key={index}
+                    className={`showcase-image-wrapper ${
+                      hoverIndex === index ? 'hover' : null
+                    }`}
+                    onMouseEnter={() => setHover(index)}
+                    onMouseLeave={() => setHover(1)}
+                  >
+                    <img
+                      className='showcase-image'
+                      src={photo}
+                      alt='business'
+                    />
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -109,7 +113,9 @@ const Business = () => {
       <Container>
         <div className='reviews-more-details'>
           <div className='review-list'>
-            {business.reviews && <Reviews reviews={business.reviews} yelp_id={business.id}/>}
+            {business.reviews && (
+              <Reviews reviews={business.reviews} yelp_id={business.id} />
+            )}
           </div>
           <div className='more-details'>
             <Link to={`/biz_gallery/${yelp_id}`}>
@@ -272,6 +278,7 @@ const BusinessHero = styled.section`
     bottom: -20px;
     z-index: 5;
     background: #ffffff;
+    margin-right: 15px;
   }
   .showcase-container {
     /* border: 1px solid blue; */
