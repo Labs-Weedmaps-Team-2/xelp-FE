@@ -15,12 +15,12 @@ export const apiUrl = `${serverUrl}/api/v1`
 export const authUrl = `${serverUrl}/auth`
 
 export const initialBusiness = {
-  name: "Cesar's Super Shop",
-  address: '5311 Everett Avenue',
-  city: 'Maywood',
-  state: 'CA',
-  zipcode: '90270',
-  category: 'Bars',
+  name: '',
+  address: '',
+  city: '',
+  state: '',
+  zipcode: '',
+  category: '',
   hours: '',
   phone: '',
   website: '',
