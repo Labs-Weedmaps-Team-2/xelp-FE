@@ -36,9 +36,11 @@ const Business = () => {
                     {renderRating(business.rating)}
                   </div>
                 ) : null}
-                <span className='review-count'>
-                  {business.reviews.length} reviews
-                </span>
+                {business.reviews && (
+                  <span className='review-count'>
+                    {business.reviews.length} reviews
+                  </span>
+                )}
               </div>
               <div className='price-categories-wrap'>
                 {business.price && [
