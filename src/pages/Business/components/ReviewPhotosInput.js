@@ -108,6 +108,7 @@ const AddPhotos = ({ text, rating, yelp_id, id, editing }) => {
                   <p key={upload.id}>Finished uploading {upload.file.name}</p>
                 )
               default:
+                return null
             }
           })}
         </div>

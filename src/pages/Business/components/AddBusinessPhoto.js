@@ -112,7 +112,7 @@ const AddBusinessPhotoInput = ({ values }) => {
                   <p key={upload.id}>Finished uploading {upload.file.name}</p>
                 )
               default:
-                return
+                return null
             }
           })}
         </div>
