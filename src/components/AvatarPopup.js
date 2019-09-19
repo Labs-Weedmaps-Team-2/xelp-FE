@@ -9,7 +9,7 @@ export const AvatarPopup = ({ user }) => {
       <div className='arrow-up'></div>
       <div className='user-details'>
         <div className='avatar-wrapper'>
-          <Link to='profile'>
+          <Link to='/profile'>
             <img
               className='avatar-image'
               src={user.avatar || user.photo}
