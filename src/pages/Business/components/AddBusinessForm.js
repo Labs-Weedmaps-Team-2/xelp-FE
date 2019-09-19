@@ -165,7 +165,7 @@ const StyledForm = styled(Form)`
     padding-left: 10px;
     font-size: 14px;
     outline: none;
-    letter-spacing: 0.8px
+    letter-spacing: 0.8px;
 
     &:focus {
       border: 1px solid dodgerblue;

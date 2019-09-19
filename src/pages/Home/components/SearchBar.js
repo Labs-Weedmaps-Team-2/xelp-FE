@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Formik, Form, Field } from 'formik'
-import * as Yup from 'yup'
 import { useRouter, usePosition } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearch } from 'actions'
@@ -49,7 +48,7 @@ const SearchBar = () => {
           dispatch(setSearch(search.term, location))
         })
     }
-  }, [latitude, longitude])
+  }, [latitude, longitude, dispatch])
 
   const handleSubmit = values => {
     if (values.location) {
