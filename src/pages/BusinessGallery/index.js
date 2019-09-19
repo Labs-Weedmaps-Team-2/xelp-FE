@@ -26,8 +26,8 @@ const BusinessGallery = () => {
         </Link>
       </div>
       <div className='gallery-container'>
-        {business.photos &&
-          business.photos.map((photo, i) => {
+        {[business.image_url, ...business.photos] &&
+          [business.image_url, ...business.photos].map((photo, i) => {
             return (
               <div key={i} className='gallery-wrap'>
                 <img
