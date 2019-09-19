@@ -23,7 +23,7 @@ const StyledNavbar = styled.nav`
   z-index: 100;
   top: 0;
   align-items: center;
-  background-color: #d32323;
+  background-color: #558c8c;
   width: 100%;
   height: 65px;
   .search-container {

@@ -56,7 +56,6 @@ const Reviews = ({ reviews, yelp_id }) => {
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div className='review-content'>
                   <div className='review-meta'>
-                    {console.log(review.rating)}
                     <div className='rating-wrapper'>
                       {renderRating(review.rating)}
                     </div>

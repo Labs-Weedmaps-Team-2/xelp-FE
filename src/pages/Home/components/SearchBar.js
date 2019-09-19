@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Formik, Form, Field } from 'formik'
-import * as Yup from 'yup'
 import { useRouter, usePosition } from 'hooks'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearch } from 'actions'
@@ -49,7 +48,7 @@ const SearchBar = () => {
           dispatch(setSearch(search.term, location))
         })
     }
-  }, [latitude, longitude])
+  }, [latitude, longitude, dispatch, search.term])
 
   const handleSubmit = values => {
     if (values.location) {
@@ -165,13 +164,13 @@ const StyledHero = styled.div`
       font-size: 1em;
       font-weight: bold;
       letter-spacing: 0.5px;
-      background-color: red;
+      background-color: #558c8c;
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 0px 5px 5px 0px;
-      border: 1px solid red;
+      border: 1px solid #558c8c;
       right: -1px;
       letter-spacing: 0.8px;
     }

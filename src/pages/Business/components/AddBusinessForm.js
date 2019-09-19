@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { createBusiness } from 'actions'
 import { Formik, Form, Field } from 'formik'
-import { initialBusiness, states } from 'config'
-import * as Yup from 'yup'
+import { initialBusiness } from 'config'
 import { useRouter } from 'hooks'
 import businessSvg from 'assets/svg/business.svg'
 import AddBusinessPhotoInput from './AddBusinessPhoto'
@@ -166,7 +165,7 @@ const StyledForm = styled(Form)`
     padding-left: 10px;
     font-size: 14px;
     outline: none;
-    letter-spacing: 0.8px
+    letter-spacing: 0.8px;
 
     &:focus {
       border: 1px solid dodgerblue;

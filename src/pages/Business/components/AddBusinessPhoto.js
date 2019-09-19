@@ -15,7 +15,6 @@ const AddBusinessPhotoInput = ({ values }) => {
       console.log(res)
       history.push(`/business/${res.data.yelp_id}`)
     })
-    console.log('handling these attachments after directUploading')
   }
 
   const handleChange = e => {
@@ -38,7 +37,7 @@ const AddBusinessPhotoInput = ({ values }) => {
   //   }
   //   return file
   // }
-  console.log('log values obj', values)
+  // console.log('log values obj', values)
   return (
     <DirectUploadProvider
       onSuccess={handleAttachment}
@@ -113,6 +112,7 @@ const AddBusinessPhotoInput = ({ values }) => {
                   <p key={upload.id}>Finished uploading {upload.file.name}</p>
                 )
               default:
+                return null
             }
           })}
         </div>
