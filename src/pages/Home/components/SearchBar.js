@@ -48,7 +48,7 @@ const SearchBar = () => {
           dispatch(setSearch(search.term, location))
         })
     }
-  }, [latitude, longitude, dispatch])
+  }, [latitude, longitude, dispatch, search.term])
 
   const handleSubmit = values => {
     if (values.location) {

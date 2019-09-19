@@ -15,8 +15,8 @@ export const Footer = () => {
             Meet the Team
           </a>
           <a href="mailto:weedmaps.t2@gmail.com?subject=nightlyfe">Contact</a>
-          <a href="#">Third</a>
-          <a href="#">Fourth</a>
+          <a href="www.third.com">Third</a>
+          <a href="www.fourth.com">Fourth</a>
         </div>
         <img src={blackLogo} />
         {/* <a href="https://github.com/Labs-Weedmaps-Team-2">
