@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { useRouter } from 'hooks'
 import ReviewCard from './ReviewCard'
 
-const UserProfile = ({ username, email, photo, id }) => {
+const UserProfile = ({ username, email, photo, id, image_url }) => {
   const [reviews, setReviews] = useState([])
   const dispatch = useDispatch()
   const { history } = useRouter()
@@ -21,6 +21,7 @@ const UserProfile = ({ username, email, photo, id }) => {
     await dispatch(deleteAccount(id))
     history.push('/')
   }
+  console.log(reviews)
   return (
     <StyledProfile>
       <p className='user-details-header'>User Profile</p>

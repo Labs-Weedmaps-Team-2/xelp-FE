@@ -103,7 +103,7 @@ const BusinessList = () => {
               >
                 <img
                   className='image'
-                  src={business.image_url}
+                  src={business.image_url || business.img_url}
                   alt={business.alias}
                 />
               </div>
