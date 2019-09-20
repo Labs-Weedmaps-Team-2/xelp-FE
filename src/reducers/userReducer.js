@@ -5,6 +5,8 @@ const initialState = {
   email: '',
   photo: '',
   avatar: '',
+  city: '',
+  state: '',
   loadingAuth: false,
   uploadingPhoto: false,
   updatingDetails: false,

@@ -56,6 +56,26 @@ const ProfileForm = props => {
           onChange={handleChange}
         />
       </div>
+      <div className='input-wrapper'>
+        <label htmlFor='city'>City</label>
+        <input
+          id='city'
+          type='text'
+          name='city'
+          value={profile.city}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='input-wrapper'>
+        <label htmlFor='state'>State</label>
+        <input
+          id='state'
+          type='text'
+          name='state'
+          value={profile.state}
+          onChange={handleChange}
+        />
+      </div>
       <button type='submit' disabled={user.updatingDetails}>
         <PulseLoader
           css={styles}
