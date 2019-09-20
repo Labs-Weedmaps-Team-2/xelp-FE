@@ -5,7 +5,15 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import App from 'App'
 import store from 'App/store'
 import * as serviceWorker from './serviceWorker'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import 'styles/index.css'
+
+toast.configure({
+  autoClose: 5000,
+  draggable: false,
+})
 
 ReactDOM.render(
   <Provider store={store}>

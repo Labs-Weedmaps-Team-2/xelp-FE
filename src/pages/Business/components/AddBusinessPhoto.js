@@ -4,19 +4,30 @@ import { api } from 'apis'
 import { serverUrl } from 'config'
 import { useRouter } from 'hooks'
 import styled from 'styled-components'
+import { toast } from 'react-toastify'
 
 const AddBusinessPhotoInput = ({ values }) => {
-  const { history } = useRouter()
+  const { history, match } = useRouter()
   const [fileSrc, setFileSrc] = useState(null)
   const handleAttachment = signedIds => {
     const body = {
-      business: { ...values, image_url: signedIds[0] },
+      business: { ...values, img_url: signedIds[0] },
     }
-    api.post(`/business`, body).then(res => {
-      history.push(`/business/${res.data.yelp_id}`)
-    })
+    api
+      .post(`/business`, body)
+      .then(res => {
+        toast('Photo uploaded!', { autoClose: 1000 })
+        setTimeout(() => {
+          toast.dismiss()
+          history.push(`/business/${res.data.yelp_id}`)
+        }, 1000)
+      })
+      .catch(err => {
+        toast('Photo failed to upload! Try again!', { autoClose: 3000 })
+      })
   }
 
+  const notify = () => toast('Uploading Business data')
   const handleChange = e => {
     const file = e.target.files[0]
     const reader = new FileReader()
@@ -70,6 +81,7 @@ const AddBusinessPhotoInput = ({ values }) => {
             onClick={e => {
               e.preventDefault()
               handleBeginUpload()
+              notify()
             }}
           >
             Submit
