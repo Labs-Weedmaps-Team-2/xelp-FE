@@ -55,7 +55,7 @@ export const Marker = ({ $hover, color, item, id, listHover }) => {
               objectPosition: 'center',
               borderRadius: '6px',
             }}
-            src={item.image_url}
+            src={item.image_url || item.img_url}
             alt='business'
           />
         </div>
