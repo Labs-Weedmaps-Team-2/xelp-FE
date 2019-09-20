@@ -45,6 +45,17 @@ const BusinessList = () => {
       })
     }
     dispatch(setYelpUpdate())
+    dispatch(
+      fetchBusiness(
+        search.term,
+        search.location,
+        search.offset,
+        search.categories,
+        (search.open_now = false),
+        (search.price = '1, 2, 3 ,4'),
+        (search.radius = '')
+      )
+    )
     return () => {
       dispatch(resetBusiness())
       dispatch(resetPrevSearch())
