@@ -6,14 +6,21 @@ import { btnBg } from 'styles'
 import PulseLoader from 'react-spinners/PulseLoader'
 
 const ProfileForm = props => {
-  const { id, username, email, photo } = props
+  const { id, username, email, photo, city, state } = props
+  console.log('PROPS', props)
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user)
-  const [profile, setProfile] = useState({ username, email, photo })
+  const [profile, setProfile] = useState({
+    username,
+    email,
+    photo,
+    city,
+    state,
+  })
 
   useEffect(() => {
-    setProfile({ username, email, photo })
-  }, [username, email, photo])
+    setProfile({ username, email, photo, city, state })
+  }, [username, email, photo, city, state])
 
   const handleChange = e => {
     const { name, value } = e.target
