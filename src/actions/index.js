@@ -99,7 +99,7 @@ export const createBusiness = formData => async dispatch => {
   dispatch({ type: types.CREATE_BUSINESS_REQUEST })
   try {
     const res = await api.post('/business', { business: formData })
-    console.log('response after creating a new business', res)
+    // console.log('response after creating a new business', res)
     if (res.status === 201) {
       dispatch({ type: types.CREATE_BUSINESS_SUCCESS })
     }

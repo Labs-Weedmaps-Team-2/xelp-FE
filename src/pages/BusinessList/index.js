@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -21,6 +21,7 @@ const BusinessList = () => {
   const listRef = useRef()
   const dispatch = useDispatch()
   const { history } = useRouter()
+  const [listIndex, setIndex] = useState(null)
   const [search, business] = useSelector(({ search, business }) => [
     search,
     business,
@@ -28,6 +29,13 @@ const BusinessList = () => {
 
   const { businesses } = business
 
+  const handleMouseEnter = index => {
+    setIndex(index)
+  }
+
+  const handleMouseLeave = () => {
+    setIndex(null)
+  }
   useEffect(() => {
     dispatch(setYelpUpdate())
     dispatch(fetchBusiness(search.term, search.location, search.offset))
@@ -60,7 +68,12 @@ const BusinessList = () => {
         <StyledBusinessList ref={listRef}>
           <h1>All Results</h1>
           {businesses.map((business, i) => (
-            <li className='list-item' key={business.id}>
+            <li
+              className='list-item'
+              key={business.id}
+              onMouseEnter={() => handleMouseEnter(i)}
+              onMouseLeave={handleMouseLeave}
+            >
               <div
                 className='image-wrapper'
                 onClick={() => handleClick(business)}
@@ -121,7 +134,7 @@ const BusinessList = () => {
             />
           ) : null}
         </StyledBusinessList>
-        <Map offset={search.offset} />
+        <Map offset={search.offset} listIndex={listIndex} />
       </Container>
     </Wrapper>
   )

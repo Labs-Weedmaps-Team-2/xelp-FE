@@ -26,6 +26,7 @@ const formatLocal = local => {
 }
 
 export const Map = props => {
+  const { listIndex } = props
   const dispatch = useDispatch()
   const [business, search, map, update] = useSelector(
     ({ business, search, map, update }) => [business, search, map, update]
@@ -88,7 +89,8 @@ export const Map = props => {
                 lat={position.latitude}
                 lng={position.longitude}
                 item={business.businesses[index]}
-                color='darkred'
+                color='#D32322'
+                listHover={index === listIndex}
               />
             )
           })}
