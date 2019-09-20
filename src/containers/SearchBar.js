@@ -18,19 +18,20 @@ export const SearchBar = () => {
     inputTerm.current.focus()
   }, [])
 
-  const { term, location, loading, center } = useSelector(
-    ({ search, business }) => ({
+  const { term, location, loading, map } = useSelector(
+    ({ search, business, map }) => ({
       term: search.term,
       location: search.location,
       loading: business.loading,
       center: business.region.center,
+      map,
     })
   )
 
   const handleChange = async e => {
-    dispatch(setSearch(e.target.value, location))
+    await dispatch(setSearch(e.target.value, location))
     const res = await api.get(
-      `/search/autocomplete?text=${term}&latitude=${center.latitude}&longitude=${center.longitude}`
+      `/search/autocomplete?text=${term}&latitude=${map.center.lat}&longitude=${map.center.lng}`
     )
     if (res.data.terms && res.data.terms.length) {
       setAuto([...res.data.categories, ...res.data.terms])
