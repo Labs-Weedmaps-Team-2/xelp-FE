@@ -22,7 +22,6 @@ const Reviews = ({ reviews, yelp_id }) => {
   const handleDelete = id => {
     api.delete(`/reviews/${id}`).then(res => {
       dispatch(deleteReview(id))
-      console.log(res)
     })
   }
   return (

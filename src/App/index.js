@@ -6,7 +6,7 @@ import { fetchUser } from 'actions'
 import CSSReset from 'styles/cssReset'
 import { black, bg } from 'styles'
 import ReviewForm from 'pages/Business/components/ReviewForm'
-import { Footer } from 'components'
+import { Footer, ErrorBoundary } from 'components'
 
 const Home = lazy(() => import('pages/Home'))
 const Profile = lazy(() => import('pages/Profile'))
@@ -35,19 +35,21 @@ const App = () => {
     <Container>
       <CSSReset />
       <Suspense fallback={null}>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/profile' component={Profile} />
-          <Route path='/edit-profile' component={EditProfile} />
-          <Route path='/sign-in' component={SignIn} />
-          <Route path='/business/:id/' component={Business} />
-          <Route path='/business-list' component={BusinessList} />
-          <Route path='/review/:id' component={ReviewForm} />
-          <Route path='/biz_gallery/:id' component={BusinessGallery} />
-          <Route path='/addphotos/:id' component={AddPhotos} />
-          <Route path='/addbusiness' component={AddBusinessForm} />
-          <Route path='*' component={NotFound} />
-        </Switch>
+        <ErrorBoundary>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/profile' component={Profile} />
+            <Route path='/edit-profile' component={EditProfile} />
+            <Route path='/sign-in' component={SignIn} />
+            <Route path='/business/:id/' component={Business} />
+            <Route path='/business-list' component={BusinessList} />
+            <Route path='/review/:id' component={ReviewForm} />
+            <Route path='/biz_gallery/:id' component={BusinessGallery} />
+            <Route path='/addphotos/:id' component={AddPhotos} />
+            <Route path='/addbusiness' component={AddBusinessForm} />
+            <Route path='*' component={NotFound} />
+          </Switch>
+        </ErrorBoundary>
       </Suspense>
       <Footer />
     </Container>

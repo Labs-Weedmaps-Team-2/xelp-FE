@@ -6,7 +6,7 @@ import { useRouter } from 'hooks'
 export const Marker = ({ $hover, color, item, id, listHover }) => {
   const { history } = useRouter()
   const hoverColor = $hover || listHover ? 'blue' : color
-  console.log(item, 'item')
+
   return (
     <StyledMarker
       hover={$hover || listHover}

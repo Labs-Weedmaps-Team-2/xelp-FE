@@ -7,7 +7,7 @@ const MarkerSvg = ({ color }) => {
       focusable='false'
       data-prefix='fas'
       data-icon='map-marker'
-      class='svg-inline--fa fa-map-marker fa-w-12'
+      className='svg-inline--fa fa-map-marker fa-w-12'
       role='img'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 384 512'
