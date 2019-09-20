@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchBusinessGallery } from 'actions'
+import { fetchBusinessGallery, fetchBusinessDetails } from 'actions'
 import { Navbar } from 'components'
 import { useRouter } from 'hooks'
 import { Link } from 'react-router-dom'
@@ -14,6 +14,7 @@ const BusinessGallery = () => {
 
   const fetchBusinessGalleryCB = useCallback(() => {
     dispatch(fetchBusinessGallery(yelp_id))
+    dispatch(fetchBusinessDetails(yelp_id))
   }, [yelp_id, dispatch])
 
   useEffect(() => {
@@ -24,10 +25,16 @@ const BusinessGallery = () => {
     <StyledBusinessGallery>
       <Navbar />
       <div className='gallery-header'>
-        {business.name && <h1>Photos for {business.name}</h1>}
-        <Link to={`/addphotos/${location.pathname.split('/biz_gallery/')[1]}`}>
-          <button className='btn-add-photo'>Add Photo</button>
-        </Link>
+        {business.name && (
+          <>
+            <h1>Photos for {business.name}</h1>
+            <Link
+              to={`/addphotos/${location.pathname.split('/biz_gallery/')[1]}`}
+            >
+              <button className='btn-add-photo'>Add Photo</button>
+            </Link>
+          </>
+        )}
       </div>
       <div className='gallery-container'>
         {[business.image_url, ...business.photos] &&
@@ -51,17 +58,22 @@ export default BusinessGallery
 
 const StyledBusinessGallery = styled.div`
   .gallery-header {
+    /* border: 1px solid red; */
     margin: 30px auto 20px;
     max-width: 1100px;
     display: flex;
     justify-content: space-between;
     h1 {
+      /* border: 1px solid red; */
       font-size: 24px;
       font-weight: bold;
       font-family: 'Helvetica Neue';
+      width: 600px;
+      display: inline-block;
     }
   }
   .btn-add-photo {
+    /* border: 1px solid red; */
     height: 40px;
     width: 140px;
     font-size: 14px;
@@ -69,7 +81,7 @@ const StyledBusinessGallery = styled.div`
     color: white;
     background: #558c8c;
     border-radius: 3px;
-    margin-right: 0px;
+    margin-right: 40px;
     cursor: pointer;
     opacity: 0.9;
     transition: 0.3 opacity ease;
