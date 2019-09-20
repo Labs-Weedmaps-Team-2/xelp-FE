@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -37,20 +37,22 @@ const BusinessList = () => {
   const handleMouseLeave = () => {
     setIndex(null)
   }
-  useEffect(() => {
- if(mapSearchRef.current) {
+
+  const handleEffect = useCallback(() => {
+    if (mapSearchRef.current) {
       window.scrollTo({
-  top: 0,
-});
- }
-    
+        top: 0,
+      })
+    }
     dispatch(setYelpUpdate())
-    dispatch(fetchBusiness(search.term, search.location, search.offset))
     return () => {
       dispatch(resetBusiness())
       dispatch(resetPrevSearch())
     }
-  }, [search.offset])
+  }, [dispatch])
+  useEffect(() => {
+    handleEffect()
+  }, [handleEffect])
 
   const handleClick = business => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
