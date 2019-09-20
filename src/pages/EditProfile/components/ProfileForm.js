@@ -7,7 +7,6 @@ import PulseLoader from 'react-spinners/PulseLoader'
 
 const ProfileForm = props => {
   const { id, username, email, photo, city, state } = props
-  console.log('PROPS', props)
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user)
   const [profile, setProfile] = useState({
