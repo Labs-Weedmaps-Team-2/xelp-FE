@@ -6,6 +6,7 @@ const ReviewCard = ({
   business,
   rating,
   image_url,
+  img_url,
   photos,
   user,
   avatar,
@@ -14,7 +15,7 @@ const ReviewCard = ({
     <StyledReviewCard>
       <p className='business-name'>{business.name}</p>
       <div className='img-container'>
-        <img src={image_url || business.photo} alt={business.name} />
+        <img src={image_url || img_url || business.photo} alt={business.name} />
       </div>
       <p className='text'>{text}</p>
       <div style={{ width: '150px' }}>
