@@ -9,7 +9,7 @@ export const Marker = ({ $hover, color, item, id, listHover }) => {
   console.log(item, 'item')
   return (
     <StyledMarker
-      hover={$hover}
+      hover={$hover || listHover}
       onClick={() => history.push(`/business/${item.id}`)}
     >
       <span>{id}</span>
