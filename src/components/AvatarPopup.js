@@ -22,7 +22,11 @@ export const AvatarPopup = ({ user }) => {
             {user.username}
           </Link>
           {/* // TODO: Add dynamic user location to user model */}
-          <p className='location'>{`${user.city}, ${user.state}`}</p>
+          {!!user.city && (
+            <p className='location'>
+              {user.city}, {user.state}
+            </p>
+          )}
         </div>
       </div>
       <Link className='add-business' to='/addbusiness'>
