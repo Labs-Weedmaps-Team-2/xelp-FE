@@ -8,7 +8,7 @@ import {
   setYelpUpdate,
   resetPrevSearch,
 } from 'actions'
-import { renderRating } from 'utils'
+import { renderRating, convertZoomToMeters } from 'utils'
 import { SearchFilter, Map } from 'containers'
 import { Navbar } from 'components'
 import { POPULATE_SINGLE } from 'actions/types'
@@ -21,11 +21,12 @@ const BusinessList = () => {
   const listRef = useRef()
   const mapSearchRef = useRef()
   const dispatch = useDispatch()
-  const { history } = useRouter()
+  const { history, location } = useRouter()
   const [listIndex, setIndex] = useState(null)
-  const [search, business] = useSelector(({ search, business }) => [
+  const [search, business, map] = useSelector(({ search, business, map }) => [
     search,
     business,
+    map,
   ])
 
   const { businesses } = business
@@ -45,14 +46,26 @@ const BusinessList = () => {
       })
     }
     dispatch(setYelpUpdate())
+    dispatch(
+      fetchBusiness(
+        search.term,
+        search.location,
+        search.offset,
+        search.categories,
+        search.open_now,
+        search.price,
+        convertZoomToMeters(map.zoom)
+      )
+    )
     return () => {
       dispatch(resetBusiness())
       dispatch(resetPrevSearch())
     }
   }, [dispatch])
+
   useEffect(() => {
     handleEffect()
-  }, [handleEffect])
+  }, [handleEffect, location.pathname])
 
   const handleClick = business => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
