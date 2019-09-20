@@ -26,7 +26,10 @@ const UserProfile = ({ username, email, photo, id }) => {
       <p className='user-details-header'>User Profile</p>
       <div className='user-details-container'>
         <div className='img-container'>
-          <img src={photo} alt={username} />
+          <img
+            src={reviews.image_url || reviews.img_url || photo}
+            alt={username}
+          />
           <Link to='/edit-profile'>
             <p className='edit-photo'>Change Profile Photo</p>
           </Link>
