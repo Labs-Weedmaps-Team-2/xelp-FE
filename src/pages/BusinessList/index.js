@@ -45,12 +45,11 @@ const BusinessList = () => {
       })
     }
     dispatch(setYelpUpdate())
-    dispatch(fetchBusiness(search.term, search.location, search.offset))
     return () => {
       dispatch(resetBusiness())
       dispatch(resetPrevSearch())
     }
-  }, [dispatch, search.term, search.location, search.offset])
+  }, [dispatch])
   useEffect(() => {
     handleEffect()
   }, [handleEffect])
