@@ -15,7 +15,7 @@ export const Marker = ({ $hover, color, item, id, listHover }) => {
       <span>{id}</span>
       <MarkerSvg className='marker-svg' color={hoverColor} />
       <div className='hover-popup'>
-        <div className='arrow-up'></div>
+        <div className='arrow-down'></div>
         <div
           style={{ width: 120, marginLeft: 8, marginTop: 5, paddingBottom: 10 }}
         >
@@ -99,7 +99,7 @@ const StyledMarker = styled.div`
     transition: all 0.3s ease;
     border-radius: 8px;
     border: 1px solid rgb(207, 207, 205);
-    .arrow-up {
+    .arrow-down {
       position: absolute;
       bottom: -8px;
       right: 12.5%;
