@@ -1,15 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const ReviewCard = ({ text, business, rating }) => {
+const ReviewCard = ({
+  text,
+  business,
+  rating,
+  image_url,
+  photos,
+  user,
+  avatar,
+}) => {
   return (
     <StyledReviewCard>
-      <p className="business-name">{business.name}</p>
-      <div className="img-container">
-        <img src={business.photo} alt={business.name} />
+      <p className='business-name'>{business.name}</p>
+      <div className='img-container'>
+        <img src={image_url || business.photo} alt={business.name} />
       </div>
-      <p className="text">{text}</p>
-      <p className="rating">Rating: {rating}</p>
+      <p className='text'>{text}</p>
+      <p className='rating'>Rating: {rating}</p>
     </StyledReviewCard>
   )
 }
@@ -29,8 +37,8 @@ const StyledReviewCard = styled.div`
     text-align: center;
   }
   .img-container {
-    width:38%;
-    img{
+    width: 38%;
+    img {
       width: 100%;
     }
   }
