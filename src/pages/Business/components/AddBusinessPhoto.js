@@ -11,7 +11,7 @@ const AddBusinessPhotoInput = ({ values }) => {
   const [fileSrc, setFileSrc] = useState(null)
   const handleAttachment = signedIds => {
     const body = {
-      business: { ...values, image_url: signedIds[0] },
+      business: { ...values, img_url: signedIds[0] },
     }
     api
       .post(`/business`, body)
