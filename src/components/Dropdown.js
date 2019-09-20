@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import useOnClickOutside from 'use-onclickoutside'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-export const Dropdown = ({ items, handleClick }) => {
+export const Dropdown = ({ items, close, handleClick }) => {
+  const autoRef = useRef()
+  useOnClickOutside(autoRef, () => close())
+
   const renderItems = items => {
     return items.map((item, index) => (
       <li key={index} value={item.title || item.text}>
@@ -10,7 +14,11 @@ export const Dropdown = ({ items, handleClick }) => {
       </li>
     ))
   }
-  return <List onClick={handleClick}>{renderItems(items)}</List>
+  return (
+    <List onClick={handleClick} ref={autoRef}>
+      {renderItems(items)}
+    </List>
+  )
 }
 
 Dropdown.propTypes = {

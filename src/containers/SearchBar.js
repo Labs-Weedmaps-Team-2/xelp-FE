@@ -37,11 +37,13 @@ export const SearchBar = () => {
     }
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
     setAuto([])
     dispatch(setYelpUpdate())
-    dispatch(fetchBusiness(term, location, 0))
+    await dispatch(fetchBusiness(term, location, 0))
+    setAuto([])
+
     //* push to business-list if we use the search bar
     //* and not already on business-list
     if (!window.location.pathname.includes('business-list')) {
@@ -72,6 +74,7 @@ export const SearchBar = () => {
         {!!term.length && (
           <Dropdown
             items={auto}
+            close={() => setAuto([])}
             handleClick={e => {
               dispatch(setSearch(e.target.innerText, location))
               setAuto([])
