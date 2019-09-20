@@ -14,6 +14,7 @@ export const SearchBar = () => {
   const dispatch = useDispatch()
   const { history } = useRouter()
   const [auto, setAuto] = useState([])
+
   useEffect(() => {
     inputTerm.current.focus()
   }, [])

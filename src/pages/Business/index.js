@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'hooks'
 import { Link } from 'react-router-dom'
@@ -16,11 +16,15 @@ const Business = () => {
   const [hoverIndex, setHover] = useState(1)
   const yelp_id = location.pathname.split('/business/')[1]
 
-  const business = useSelector(({ singleBusiness }) => singleBusiness)
-  useEffect(() => {
+  const handleEffect = useCallback(() => {
     dispatch(resetSingleBusiness())
     dispatch(fetchBusinessDetails(yelp_id))
-  }, [])
+  }, [dispatch, yelp_id])
+
+  const business = useSelector(({ singleBusiness }) => singleBusiness)
+  useEffect(() => {
+    handleEffect()
+  }, [handleEffect])
 
   return (
     <Wrapper>

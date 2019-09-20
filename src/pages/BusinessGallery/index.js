@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBusinessGallery } from 'actions'
 import { Navbar } from 'components'
@@ -12,9 +12,13 @@ const BusinessGallery = () => {
   const business = useSelector(({ singleBusiness }) => singleBusiness)
   const yelp_id = window.location.pathname.split('/biz_gallery/')[1]
 
-  useEffect(() => {
+  const fetchBusinessGalleryCB = useCallback(() => {
     dispatch(fetchBusinessGallery(yelp_id))
-  }, [])
+  }, [yelp_id, dispatch])
+
+  useEffect(() => {
+    fetchBusinessGalleryCB()
+  }, [fetchBusinessGalleryCB])
 
   return (
     <StyledBusinessGallery>
@@ -58,14 +62,14 @@ const StyledBusinessGallery = styled.div`
     }
   }
   .btn-add-photo {
-    height: 30px;
-    width: 100px;
+    height: 40px;
+    width: 140px;
     font-size: 14px;
     font-weight: bold;
     color: white;
     background: #558c8c;
     border-radius: 3px;
-    margin-right: 25px;
+    margin-right: 0px;
     cursor: pointer;
     opacity: 0.9;
     transition: 0.3 opacity ease;

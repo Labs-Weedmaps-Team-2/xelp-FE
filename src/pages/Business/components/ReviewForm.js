@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  fetchBusinessDetails,
-  resetSingleBusiness,
-  resetReview,
-} from 'actions'
+import { fetchBusinessDetails, resetSingleBusiness, resetReview } from 'actions'
 import { renderRating } from 'utils'
 import { Navbar } from 'components'
 import styled from 'styled-components'
@@ -28,13 +24,17 @@ const ReviewForm = () => {
   const [rateValue, setRateValue] = useState(review.rating)
   const [rateText, setRateText] = useState('Select your rating')
   const yelp_id = window.location.pathname.split('/review/')[1]
-  useEffect(() => {
+
+  const handleEffect = useCallback(() => {
     dispatch(fetchBusinessDetails(yelp_id))
     return () => {
       dispatch(resetSingleBusiness())
       dispatch(resetReview())
     }
-  }, [])
+  }, [dispatch, yelp_id])
+  useEffect(() => {
+    handleEffect()
+  }, [handleEffect])
 
   const handleInput = e => {
     setReviewText(e.target.value)

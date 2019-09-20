@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useCallback } from 'react'
 import styled from 'styled-components'
 import { Formik, Form, Field } from 'formik'
 import { useRouter, usePosition } from 'hooks'
@@ -26,7 +26,7 @@ const SearchBar = () => {
   const search = useSelector(({ search }) => search)
 
   // Focus term input on mount
-  useEffect(() => {
+  const handleEffect = useCallback(() => {
     termRef.current.focus()
     if (latitude) {
       fetch(
@@ -48,7 +48,11 @@ const SearchBar = () => {
           dispatch(setSearch(search.term, location))
         })
     }
-  }, [latitude, longitude])
+  }, [search.term, dispatch, latitude, longitude])
+
+  useEffect(() => {
+    handleEffect()
+  }, [handleEffect])
 
   const handleSubmit = values => {
     if (values.location) {
