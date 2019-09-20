@@ -6,7 +6,6 @@ import { useRouter } from 'hooks'
 export const Marker = ({ $hover, color, item, id, listHover }) => {
   const { history } = useRouter()
   const hoverColor = $hover || listHover ? 'blue' : color
-
   return (
     <StyledMarker
       hover={$hover || listHover}
@@ -45,6 +44,7 @@ export const Marker = ({ $hover, color, item, id, listHover }) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            position: 'relative',
           }}
         >
           <img
