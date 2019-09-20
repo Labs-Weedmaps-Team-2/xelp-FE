@@ -15,10 +15,11 @@ import { POPULATE_SINGLE } from 'actions/types'
 import ReactPaginate from 'react-paginate'
 import { useRouter } from 'hooks'
 
-const itemsPerPage = 20
+const itemsPerPage = 10
 
 const BusinessList = () => {
   const listRef = useRef()
+  const mapSearchRef = useRef()
   const dispatch = useDispatch()
   const { history } = useRouter()
   const [listIndex, setIndex] = useState(null)
@@ -37,13 +38,19 @@ const BusinessList = () => {
     setIndex(null)
   }
   useEffect(() => {
+ if(mapSearchRef.current) {
+      window.scrollTo({
+  top: 0,
+});
+ }
+    
     dispatch(setYelpUpdate())
     dispatch(fetchBusiness(search.term, search.location, search.offset))
     return () => {
       dispatch(resetBusiness())
       dispatch(resetPrevSearch())
     }
-  }, [])
+  }, [search.offset])
 
   const handleClick = business => {
     dispatch({ type: POPULATE_SINGLE, payload: business })
@@ -61,7 +68,7 @@ const BusinessList = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper ref={mapSearchRef}>
       <Navbar />
       <SearchFilter />
       <Container>
