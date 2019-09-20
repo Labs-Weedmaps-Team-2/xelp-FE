@@ -88,7 +88,7 @@ export const Map = props => {
                 lat={position.latitude}
                 lng={position.longitude}
                 item={business.businesses[index]}
-                color='darkred'
+                color='#D32322'
               />
             )
           })}

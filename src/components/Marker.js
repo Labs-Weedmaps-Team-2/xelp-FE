@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Marker2Svg from 'assets/svg/Marker2Svg'
+import MarkerSvg from 'assets/svg/MarkerSvg'
 import { useRouter } from 'hooks'
 
 export const Marker = ({ $hover, color, item, id }) => {
@@ -10,11 +10,10 @@ export const Marker = ({ $hover, color, item, id }) => {
   return (
     <StyledMarker
       hover={$hover}
-      color={hoverColor}
       onClick={() => history.push(`/business/${item.id}`)}
     >
       <span>{id}</span>
-      <Marker2Svg className='marker-svg' color={hoverColor} />
+      <MarkerSvg className='marker-svg' color={hoverColor} />
     </StyledMarker>
   )
 }
@@ -35,7 +34,10 @@ const StyledMarker = styled.div`
     position: absolute;
     font-weight: bold;
     font-size: 12px;
-    color: ${props => props.color};
-    top: 8px;
+    color: white;
+    top: 11px;
+  }
+  .marker-svg {
+    color: red;
   }
 `

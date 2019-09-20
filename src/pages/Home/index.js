@@ -1,6 +1,7 @@
 import React from 'react'
 import { Auth } from 'containers'
 import { SearchBar } from './components'
+import Marker from 'assets/svg/MarkerSvg'
 import styled from 'styled-components'
 
 const Home = () => {
