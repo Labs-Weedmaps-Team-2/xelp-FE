@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import { renderRating } from 'utils'
 const ReviewCard = ({
   text,
   business,
@@ -17,7 +17,9 @@ const ReviewCard = ({
         <img src={image_url || business.photo} alt={business.name} />
       </div>
       <p className='text'>{text}</p>
-      <p className='rating'>Rating: {rating}</p>
+      <div style={{ width: '150px' }}>
+        <p className='rating'>{renderRating(rating)}</p>
+      </div>
     </StyledReviewCard>
   )
 }
