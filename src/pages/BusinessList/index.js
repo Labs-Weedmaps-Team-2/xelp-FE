@@ -54,7 +54,7 @@ const BusinessList = () => {
         search.categories,
         (search.open_now = false),
         (search.price = '1, 2, 3 ,4'),
-        (search.radius = '')
+        (search.radius = ''),
         convertZoomToMeters(map.zoom)
       )
     )
